@@ -1,0 +1,1304 @@
+/*! =========================================================================== */
+/*!  R&T — rnt  |  Theme Foundation                                             */
+/*!  Target: OutSystems UI 2.33.0+ (ODC) · OutSystems UI standard token style   */
+/*!  Source: Figma "R&T Library" variables export (SDS)                         */
+/*!  Accessibility: WCAG 2.2 AA (token contrast verified at generation)         */
+/*!                                                                              */
+/*!  APPROACH: This Theme INHERITS OutSystems UI and overrides only via tokens. */
+/*!  No OS UI default classes/rules are restated (typography, headings, focus   */
+/*!  CSS, generic color utilities all re-theme automatically through :root).    */
+/*!                                                                              */
+/*!  STRUCTURE                                                                   */
+/*!   1. :root  — Tier 1 primitives · Tier 2 OS UI slots · scalars · Tier 3 aliases */
+/*!   2. Dark mode  ([data-theme="dark"] + prefers-color-scheme)                 */
+/*!   3. Net-new only — reduced-motion safeguard + semantic helper utilities     */
+/*!   4. Fonts (@font-face) — Manrope only                                       */
+/*!   --> Primitive component states (button, input, ...) come NEXT pass.        */
+/*! =========================================================================== */
+
+:root {
+  /* primary */
+  --rnt-primary-100: #f3f7fa;
+  --rnt-primary-200: #e6eef5;
+  --rnt-primary-300: #ccddea;
+  --rnt-primary-400: #aabfd2;
+  --rnt-primary-500: #7f9fb8;
+  --rnt-primary-600: #5a7f9e;
+  --rnt-primary-700: #3f5f7c;
+  --rnt-primary-800: #2a4a66;
+  --rnt-primary-900: #143656;
+  --rnt-primary-1000: #0b2238;
+  /* secondary */
+  --rnt-secondary-100: #f2f2fa;
+  --rnt-secondary-200: #e5e4f5;
+  --rnt-secondary-300: #cbc9eb;
+  --rnt-secondary-400: #a7a4d8;
+  --rnt-secondary-500: #7e7ac2;
+  --rnt-secondary-600: #5f5bae;
+  --rnt-secondary-700: #4e4ca6;
+  --rnt-secondary-800: #3b397f;
+  --rnt-secondary-900: #2a295c;
+  /* accent */
+  --rnt-accent-100: #fff4ec;
+  --rnt-accent-200: #fee6d6;
+  --rnt-accent-300: #fccaae;
+  --rnt-accent-400: #faa77d;
+  --rnt-accent-500: #f68b36;
+  --rnt-accent-600: #d96f1f;
+  --rnt-accent-700: #b85a17;
+  /* neutral */
+  --rnt-neutral-100: #f5f5f5;
+  --rnt-neutral-200: #e6e6e6;
+  --rnt-neutral-300: #d9d9d9;
+  --rnt-neutral-400: #b3b3b3;
+  --rnt-neutral-500: #757575;
+  --rnt-neutral-600: #444444;
+  --rnt-neutral-700: #383838;
+  --rnt-neutral-800: #2c2c2c;
+  --rnt-neutral-900: #1e1e1e;
+  --rnt-neutral-1000: #111111;
+  /* slate */
+  --rnt-slate-100: #f3f3f3;
+  --rnt-slate-200: #e3e3e3;
+  --rnt-slate-300: #cdcdcd;
+  --rnt-slate-400: #b2b2b2;
+  --rnt-slate-500: #949494;
+  --rnt-slate-600: #767676;
+  --rnt-slate-700: #5a5a5a;
+  --rnt-slate-800: #434343;
+  --rnt-slate-900: #303030;
+  --rnt-slate-1000: #242424;
+  /* blue */
+  --rnt-blue-100: #f1f6fd;
+  --rnt-blue-200: #e1ebfa;
+  --rnt-blue-300: #c0d4f5;
+  --rnt-blue-400: #9ebef1;
+  --rnt-blue-500: #3f81ea;
+  --rnt-blue-600: #3271d7;
+  --rnt-blue-700: #2a61ba;
+  --rnt-blue-800: #224a8a;
+  --rnt-blue-900: #183057;
+  --rnt-blue-1000: #15253f;
+  --rnt-blue-space: #355080;
+  --rnt-blue-sky: #53a1ea;
+  --rnt-blue-neon: #003cff;
+  --rnt-blue-separator: #395193;
+  /* green */
+  --rnt-green-100: #ebffee;
+  --rnt-green-200: #cff7d3;
+  --rnt-green-300: #aff4c6;
+  --rnt-green-400: #85e0a3;
+  --rnt-green-500: #14ae5c;
+  --rnt-green-600: #009951;
+  --rnt-green-700: #008043;
+  --rnt-green-800: #02542d;
+  --rnt-green-900: #024023;
+  --rnt-green-1000: #062d1b;
+  --rnt-green-neon: #71f0cc;
+  --rnt-green-pastel: #a3ffe5;
+  /* red */
+  --rnt-red-100: #fee9e7;
+  --rnt-red-200: #fdd3d0;
+  --rnt-red-300: #fcb3ad;
+  --rnt-red-400: #f4776a;
+  --rnt-red-500: #ec221f;
+  --rnt-red-600: #c00f0c;
+  --rnt-red-700: #900b09;
+  --rnt-red-800: #690807;
+  --rnt-red-900: #4d0b0a;
+  --rnt-red-1000: #300603;
+  /* yellow */
+  --rnt-yellow-100: #fffbeb;
+  --rnt-yellow-200: #fff1c2;
+  --rnt-yellow-300: #ffe8a3;
+  --rnt-yellow-400: #e8b931;
+  --rnt-yellow-500: #e5a000;
+  --rnt-yellow-600: #bf6a02;
+  --rnt-yellow-700: #975102;
+  --rnt-yellow-800: #682d03;
+  --rnt-yellow-900: #522504;
+  --rnt-yellow-1000: #401b01;
+  /* pink */
+  --rnt-pink-100: #fcf1fd;
+  --rnt-pink-200: #fae1fa;
+  --rnt-pink-300: #f5c0ef;
+  --rnt-pink-400: #f19edc;
+  --rnt-pink-500: #ea3fb8;
+  --rnt-pink-600: #d732a8;
+  --rnt-pink-700: #ba2a92;
+  --rnt-pink-800: #8a226f;
+  --rnt-pink-900: #57184a;
+  --rnt-pink-1000: #3f1536;
+  /* white */
+  --rnt-white-100: #ffffff0d;
+  --rnt-white-200: #ffffff1a;
+  --rnt-white-300: #ffffff33;
+  --rnt-white-400: #ffffff66;
+  --rnt-white-500: #ffffffb2;
+  --rnt-white-600: #ffffffcc;
+  --rnt-white-700: #ffffffd9;
+  --rnt-white-800: #ffffffe5;
+  --rnt-white-900: #fffffff2;
+  --rnt-white-1000: #ffffff;
+  /* black */
+  --rnt-black-100: #0c0c0d0d;
+  --rnt-black-200: #0c0c0d1a;
+  --rnt-black-300: #0c0c0d33;
+  --rnt-black-400: #0c0c0d66;
+  --rnt-black-500: #0c0c0db2;
+  --rnt-black-600: #0c0c0dcc;
+  --rnt-black-700: #0c0c0dd9;
+  --rnt-black-800: #0c0c0de5;
+  --rnt-black-900: #0c0c0df2;
+  --rnt-black-1000: #0c0c0d;
+  /* ddm */
+  --rnt-ddm-100: #f3f7fb;
+  --rnt-ddm-200: #e7eff7;
+  --rnt-ddm-300: #cbdcec;
+  --rnt-ddm-400: #99bad6;
+  --rnt-ddm-500: #6e98c1;
+  --rnt-ddm-600: #4177ab;
+  --rnt-ddm-700: #376592;
+  --rnt-ddm-800: #294c6d;
+  --rnt-ddm-900: #1d354c;
+  --rnt-ddm-primary: #143656;
+  --rnt-ddm-secondary: #4177ab;
+  /* cdmx */
+  --rnt-cdmx-100: #fef6f0;
+  --rnt-cdmx-200: #fdede1;
+  --rnt-cdmx-300: #fbd9be;
+  --rnt-cdmx-400: #f7b582;
+  --rnt-cdmx-500: #f28938;
+  --rnt-cdmx-600: #ef6b06;
+  --rnt-cdmx-700: #cb5b05;
+  --rnt-cdmx-800: #994404;
+  --rnt-cdmx-900: #6c3003;
+  --rnt-cdmx-primary: #ef6b06;
+  --rnt-cdmx-secondary: #c85700;
+  /* rtid */
+  --rnt-rtid-100: #f3fafc;
+  --rnt-rtid-200: #e6f4f8;
+  --rnt-rtid-300: #cbeaf2;
+  --rnt-rtid-400: #98d5e5;
+  --rnt-rtid-500: #66c2d8;
+  --rnt-rtid-600: #3dafcf;
+  --rnt-rtid-700: #3495b0;
+  --rnt-rtid-800: #277085;
+  --rnt-rtid-900: #1b4e5d;
+  --rnt-rtid-primary: #207b9d;
+  --rnt-rtid-secondary: #3dafcf;
+  /* funding */
+  --rnt-funding-100: #f0f5fa;
+  --rnt-funding-200: #e1eaf5;
+  --rnt-funding-300: #bfd2ea;
+  --rnt-funding-400: #84a9d7;
+  --rnt-funding-500: #3975bf;
+  --rnt-funding-600: #0853af;
+  --rnt-funding-700: #074795;
+  --rnt-funding-800: #053570;
+  --rnt-funding-900: #04254f;
+  --rnt-funding-primary: #0853af;
+  --rnt-funding-secondary: #143656;
+  /* purple */
+  --rnt-purple-eyeshadow: #ca6cea;
+  --rnt-purple-blush: #a42add;
+
+  /* ========================================================= */
+  /* TIER 2 — OUTSYSTEMS UI STANDARD SLOTS (framework consumes) */
+  /* ========================================================= */
+  /* Brand */
+  --color-primary:         var(--rnt-primary-800);   /* #2a4a66 · 9.25:1 on #fff  AA */
+  --color-primary-hover:   var(--rnt-primary-900);   /* #143656 · 12.41:1         AA */
+  --color-primary-active:  var(--rnt-primary-1000);  /* #0b2238                      */
+  --color-secondary:       var(--rnt-secondary-700); /* #4e4ca6 · 7.22:1 on #fff  AA */
+  --color-secondary-hover: var(--rnt-secondary-800); /* #3b397f                      */
+  --color-accent:          var(--rnt-accent-500);    /* #f68b36 · 2.42:1 decorative / dark text */
+  --color-accent-hover:    var(--rnt-accent-600);    /* #d96f1f · 3.36:1 UI/large only */
+
+  /* Neutral scale (0 = white -> 10 = near-black) */
+  --color-neutral-0:  var(--rnt-white-1000);   /* #ffffff */
+  --color-neutral-1:  var(--rnt-neutral-100);  /* #f5f5f5 */
+  --color-neutral-2:  var(--rnt-neutral-200);  /* #e6e6e6 */
+  --color-neutral-3:  var(--rnt-neutral-300);  /* #d9d9d9 */
+  --color-neutral-4:  var(--rnt-neutral-400);  /* #b3b3b3 */
+  --color-neutral-5:  var(--rnt-neutral-500);  /* #757575 · 4.61:1 on #fff AA text */
+  --color-neutral-6:  var(--rnt-neutral-600);  /* #444444 */
+  --color-neutral-7:  var(--rnt-neutral-700);  /* #383838 */
+  --color-neutral-8:  var(--rnt-neutral-800);  /* #2c2c2c */
+  --color-neutral-9:  var(--rnt-neutral-900);  /* #1e1e1e */
+  --color-neutral-10: var(--rnt-neutral-1000); /* #111111 */
+
+  /* Semantic / status */
+  --color-success:       var(--rnt-green-700);  /* #008043 · 5.04:1 on #fff AA */
+  --color-success-light: var(--rnt-green-100);  /* #ebffee */
+  --color-error:         var(--rnt-red-600);    /* #c00f0c · 6.33:1 on #fff AA */
+  --color-error-light:   var(--rnt-red-100);    /* #fee9e7 */
+  --color-warning:       var(--rnt-yellow-500); /* #e5a000 · 2.24:1 -> dark text on fills */
+  --color-warning-light: var(--rnt-yellow-100); /* #fffbeb */
+  --color-info:          var(--rnt-blue-600);   /* #3271d7 · 4.69:1 on #fff AA */
+  --color-info-light:    var(--rnt-blue-100);   /* #f1f6fd */
+
+  /* Focus — re-theme OS UI's own focus tokens (no custom focus CSS).
+     WCAG 2.2 SC 2.4.11/2.4.13: ring color >=3:1 on its background. */
+  --color-focus-outline: var(--rnt-primary-700); /* #3f5f7c · ~5:1 on #fff ring */
+  --color-focus-outer:   var(--rnt-primary-800); /* outer ring                  */
+  --color-focus-inner:   var(--color-neutral-0); /* inner gap (2-tone)          */
+
+  /* App background (OS UI standard slot) */
+  --color-background-body: var(--color-background-default);
+
+  /* ========================================================= */
+  /* TYPOGRAPHY (Manrope only)                                 */
+  /* ========================================================= */
+  --font-family-heading: 'Manrope', sans-serif;   /* R&T: family sans */
+  --font-family-body:    'Manrope', sans-serif;   /* R&T: family sans */
+  --font-family:         var(--font-family-body);
+  /* (mono/serif intentionally NOT declared -> OS UI defaults stand) */
+
+  /* Sizes — mapped from R&T semantic type styles */
+  --font-size-display: 40px;
+  --font-size-h1:      32px;
+  --font-size-h2:      28px;
+  --font-size-h3:      26px;
+  --font-size-h4:      22px;
+  --font-size-h5:      20px;
+  --font-size-h6:      18px;
+  --font-size-base:    16px;
+  --font-size-s:       14px;
+  --font-size-xs:      12px;
+  --rnt-font-scale-01: 12px; --rnt-font-scale-02: 14px; --rnt-font-scale-03: 16px;
+  --rnt-font-scale-04: 18px; --rnt-font-scale-05: 20px; --rnt-font-scale-06: 22px;
+  --rnt-font-scale-07: 26px; --rnt-font-scale-08: 28px; --rnt-font-scale-09: 32px;
+  --rnt-font-scale-10: 40px; --rnt-font-scale-11: 48px; --rnt-font-scale-12: 64px;
+  --rnt-font-scale-13: 72px;
+
+  /* Weights — OS UI standard names (semi-bold corrected to 600) */
+  --font-thin: 100; --font-extra-light: 200; --font-light: 300;
+  --font-regular: 400; --font-medium: 500; --font-semi-bold: 600;
+  --font-bold: 700; --font-extra-bold: 800; --font-black: 900;
+
+  /* ========================================================= */
+  /* SPACING (Figma 4pt grid · stored base 8pt)                */
+  /* ========================================================= */
+  --space-none: 0px;
+  --space-xs:   4px;
+  --space-s:    8px;
+  --space-m:    16px;
+  --space-base: 16px;
+  --space-l:    24px;
+  --space-xl:   32px;
+  --space-xxl:  48px;
+  --space-2xl:  48px;
+  --space-3xl:  64px;
+  --rnt-space-0: 0px; --rnt-space-050: 2px; --rnt-space-100: 4px; --rnt-space-150: 6px;
+  --rnt-space-200: 8px; --rnt-space-300: 12px; --rnt-space-400: 16px; --rnt-space-600: 24px;
+  --rnt-space-800: 32px; --rnt-space-1200: 48px; --rnt-space-1600: 64px; --rnt-space-2400: 96px;
+  --rnt-space-4000: 160px;
+  --rnt-space-neg-100: -4px; --rnt-space-neg-200: -8px; --rnt-space-neg-300: -12px;
+  --rnt-space-neg-400: -16px; --rnt-space-neg-600: -24px;
+
+  /* ========================================================= */
+  /* SHAPE — radius & border size                              */
+  /* ========================================================= */
+  --border-radius-none: 0px;
+  --border-radius-soft: 4px;
+  --border-radius-rounded: 8px;
+  --border-radius-large: 16px;
+  --border-radius-circle: 50%;
+  --border-radius-pill: 9999px;
+  --border-size-none: 0px;
+  --border-size-s: 1px;
+  --border-size-m: 2px;
+  --border-size-l: 4px;
+
+  /* ========================================================= */
+  /* ELEVATION (synthesized from depth scale)                  */
+  /* ========================================================= */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px var(--rnt-black-200);
+  --shadow-s:  0 1px 4px var(--rnt-black-200);
+  --shadow-m:  0 4px 8px var(--rnt-black-300);
+  --shadow-l:  0 8px 16px var(--rnt-black-300);
+  --shadow-xl: 0 16px 32px var(--rnt-black-400);
+
+  /* ========================================================= */
+  /* MOTION / ICON / LAYOUT scaffolding                        */
+  /* ========================================================= */
+  --animation-duration: 200ms;
+  --animation-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --rnt-icon-s: 24px; --rnt-icon-m: 32px; --rnt-icon-l: 40px;
+  --breakpoint-small: 375px; --breakpoint-medium: 768px; --breakpoint-large: 1200px;
+  --max-width: 1200px;
+
+
+  /* color */
+  --color-background-brand: var(--rnt-primary-800);
+  --color-background-brand-hover: var(--rnt-primary-900);
+  --color-background-brand-secondary: var(--rnt-primary-200);
+  --color-background-brand-secondary-hover: var(--rnt-primary-300);
+  --color-background-brand-tertiary: var(--rnt-primary-100);
+  --color-background-brand-tertiary-hover: var(--rnt-primary-200);
+  --color-background-cdmx: var(--rnt-white-1000);
+  --color-background-cdmx-default-hover: var(--rnt-cdmx-100);
+  --color-background-cdmx-secondary: var(--rnt-cdmx-100);
+  --color-background-cdmx-secondary-hover: var(--rnt-cdmx-200);
+  --color-background-cdmx-tertiary: var(--rnt-cdmx-300);
+  --color-background-cdmx-tertiary-hover: var(--rnt-cdmx-400);
+  --color-background-danger: var(--rnt-red-500);
+  --color-background-danger-hover: var(--rnt-red-600);
+  --color-background-danger-secondary: var(--rnt-red-200);
+  --color-background-danger-secondary-hover: var(--rnt-red-300);
+  --color-background-danger-tertiary: var(--rnt-red-100);
+  --color-background-danger-tertiary-hover: var(--rnt-red-200);
+  --color-background-ddm: var(--rnt-ddm-100);
+  --color-background-ddm-hover: var(--rnt-ddm-200);
+  --color-background-ddm-secondary: var(--rnt-ddm-200);
+  --color-background-ddm-secondary-hover: var(--rnt-ddm-300);
+  --color-background-ddm-tertiary: var(--rnt-ddm-300);
+  --color-background-ddm-tertiary-hover: var(--rnt-ddm-400);
+  --color-background-default: var(--rnt-white-1000);
+  --color-background-default-hover: var(--rnt-neutral-100);
+  --color-background-disabled: var(--rnt-neutral-300);
+  --color-background-funding: var(--rnt-white-1000);
+  --color-background-funding-default-hover: var(--rnt-funding-100);
+  --color-background-funding-secondary: var(--rnt-funding-100);
+  --color-background-funding-secondary-hover: var(--rnt-funding-200);
+  --color-background-funding-tertiary: var(--rnt-funding-300);
+  --color-background-funding-tertiary-hover: var(--rnt-funding-400);
+  --color-background-neutral: var(--rnt-slate-700);
+  --color-background-neutral-hover: var(--rnt-slate-800);
+  --color-background-neutral-secondary: var(--rnt-slate-300);
+  --color-background-neutral-secondary-hover: var(--rnt-slate-400);
+  --color-background-neutral-tertiary: var(--rnt-slate-200);
+  --color-background-neutral-tertiary-hover: var(--rnt-slate-300);
+  --color-background-positive: var(--rnt-green-500);
+  --color-background-positive-hover: var(--rnt-green-600);
+  --color-background-positive-secondary: var(--rnt-green-200);
+  --color-background-positive-secondary-hover: var(--rnt-green-300);
+  --color-background-positive-tertiary: var(--rnt-green-100);
+  --color-background-positive-tertiary-hover: var(--rnt-green-200);
+  --color-background-rtid: var(--rnt-white-1000);
+  --color-background-rtid-default-hover: var(--rnt-rtid-100);
+  --color-background-rtid-secondary: var(--rnt-rtid-100);
+  --color-background-rtid-secondary-hover: var(--rnt-rtid-200);
+  --color-background-rtid-tertiary: var(--rnt-rtid-300);
+  --color-background-rtid-tertiary-hover: var(--rnt-rtid-400);
+  --color-background-secondary: var(--rnt-neutral-100);
+  --color-background-secondary-hover: var(--rnt-neutral-200);
+  --color-background-tertiary: var(--rnt-neutral-300);
+  --color-background-tertiary-hover: var(--rnt-neutral-400);
+  --color-background-utilities-blanket: #000000b2;
+  --color-background-utilities-measurement: var(--rnt-pink-200);
+  --color-background-utilities-overlay: #00000080;
+  --color-background-utilities-scrim: #ffffffcc;
+  --color-background-warning: var(--rnt-yellow-400);
+  --color-background-warning-hover: var(--rnt-yellow-500);
+  --color-background-warning-secondary: var(--rnt-yellow-200);
+  --color-background-warning-secondary-hover: var(--rnt-yellow-300);
+  --color-background-warning-tertiary: var(--rnt-yellow-100);
+  --color-background-warning-tertiary-hover: var(--rnt-yellow-200);
+  --color-text-brand: var(--rnt-primary-800);
+  --color-text-brand-on-brand: var(--rnt-primary-100);
+  --color-text-brand-on-brand-secondary: var(--rnt-primary-900);
+  --color-text-brand-on-brand-tertiary: var(--rnt-primary-800);
+  --color-text-brand-secondary: var(--rnt-primary-600);
+  --color-text-brand-tertiary: var(--rnt-primary-500);
+  --color-text-cdmx: var(--rnt-cdmx-900);
+  --color-text-cdmx-secondary: var(--rnt-cdmx-500);
+  --color-text-cdmx-tertiary: var(--rnt-cdmx-400);
+  --color-text-danger: var(--rnt-red-700);
+  --color-text-danger-on-danger: var(--rnt-red-100);
+  --color-text-danger-on-danger-secondary: var(--rnt-red-700);
+  --color-text-danger-on-danger-tertiary: var(--rnt-red-700);
+  --color-text-danger-secondary: var(--rnt-red-600);
+  --color-text-danger-tertiary: var(--rnt-red-500);
+  --color-text-ddm: var(--rnt-ddm-900);
+  --color-text-ddm-secondary: var(--rnt-ddm-500);
+  --color-text-ddm-tertiary: var(--rnt-ddm-400);
+  --color-text-default: var(--rnt-neutral-900);
+  --color-text-disabled: var(--rnt-neutral-400);
+  --color-text-disabled-on-disabled: var(--rnt-neutral-400);
+  --color-text-funding: var(--rnt-funding-900);
+  --color-text-funding-secondary: var(--rnt-funding-500);
+  --color-text-funding-tertiary: var(--rnt-funding-400);
+  --color-text-neutral: var(--rnt-slate-900);
+  --color-text-neutral-on-neutral: var(--rnt-slate-100);
+  --color-text-neutral-on-neutral-secondary: var(--rnt-slate-900);
+  --color-text-neutral-on-neutral-tertiary: var(--rnt-slate-800);
+  --color-text-neutral-secondary: var(--rnt-slate-700);
+  --color-text-neutral-tertiary: var(--rnt-slate-600);
+  --color-text-positive: var(--rnt-green-800);
+  --color-text-positive-on-positive: var(--rnt-green-100);
+  --color-text-positive-on-positive-secondary: var(--rnt-green-800);
+  --color-text-positive-on-positive-tertiary: var(--rnt-green-800);
+  --color-text-positive-secondary: var(--rnt-green-600);
+  --color-text-positive-tertiary: var(--rnt-green-500);
+  --color-text-rtid: var(--rnt-rtid-900);
+  --color-text-rtid-secondary: var(--rnt-rtid-500);
+  --color-text-rtid-tertiary: var(--rnt-rtid-400);
+  --color-text-secondary: var(--rnt-neutral-500);
+  --color-text-tertiary: var(--rnt-neutral-400);
+  --color-text-utilities-text-on-measurement: var(--rnt-pink-800);
+  --color-text-utilities-text-on-overlay: var(--rnt-black-1000);
+  --color-text-warning: var(--rnt-yellow-900);
+  --color-text-warning-on-warning: var(--rnt-yellow-1000);
+  --color-text-warning-on-warning-secondary: var(--rnt-yellow-800);
+  --color-text-warning-on-warning-tertiary: var(--rnt-yellow-900);
+  --color-text-warning-secondary: var(--rnt-yellow-700);
+  --color-text-warning-tertiary: var(--rnt-yellow-600);
+  --color-border-brand: var(--rnt-primary-800);
+  --color-border-brand-secondary: var(--rnt-primary-600);
+  --color-border-brand-tertiary: var(--rnt-primary-500);
+  --color-border-cdmx: var(--rnt-cdmx-300);
+  --color-border-cdmx-secondary: var(--rnt-cdmx-500);
+  --color-border-cdmx-tertiary: var(--rnt-cdmx-700);
+  --color-border-danger: var(--rnt-red-700);
+  --color-border-danger-secondary: var(--rnt-red-600);
+  --color-border-danger-tertiary: var(--rnt-red-500);
+  --color-border-ddm: var(--rnt-ddm-300);
+  --color-border-ddm-secondary: var(--rnt-ddm-500);
+  --color-border-ddm-tertiary: var(--rnt-ddm-700);
+  --color-border-default: var(--rnt-neutral-300);
+  --color-border-disabled: var(--rnt-neutral-400);
+  --color-border-funding: var(--rnt-funding-300);
+  --color-border-funding-secondary: var(--rnt-funding-500);
+  --color-border-funding-tertiary: var(--rnt-funding-700);
+  --color-border-neutral: var(--rnt-slate-900);
+  --color-border-neutral-secondary: var(--rnt-slate-600);
+  --color-border-neutral-tertiary: var(--rnt-slate-400);
+  --color-border-positive: var(--rnt-green-800);
+  --color-border-positive-secondary: var(--rnt-green-600);
+  --color-border-positive-tertiary: var(--rnt-green-500);
+  --color-border-rtid: var(--rnt-rtid-300);
+  --color-border-rtid-secondary: var(--rnt-rtid-500);
+  --color-border-rtid-tertiary: var(--rnt-rtid-700);
+  --color-border-secondary: var(--rnt-neutral-500);
+  --color-border-tertiary: var(--rnt-neutral-700);
+  --color-border-utilities-measurement: var(--rnt-pink-400);
+  --color-border-utilities-swatch: #0000003d;
+  --color-border-warning: var(--rnt-yellow-900);
+  --color-border-warning-secondary: var(--rnt-yellow-700);
+  --color-border-warning-tertiary: var(--rnt-yellow-600);
+  --color-icon-brand: var(--rnt-primary-800);
+  --color-icon-brand-on-brand: var(--rnt-primary-100);
+  --color-icon-brand-on-brand-secondary: var(--rnt-primary-900);
+  --color-icon-brand-on-brand-tertiary: var(--rnt-primary-800);
+  --color-icon-brand-secondary: var(--rnt-primary-600);
+  --color-icon-brand-tertiary: var(--rnt-primary-500);
+  --color-icon-cdmx: var(--rnt-cdmx-900);
+  --color-icon-cdmx-secondary: var(--rnt-cdmx-500);
+  --color-icon-cdmx-tertiary: var(--rnt-cdmx-400);
+  --color-icon-danger: var(--rnt-red-700);
+  --color-icon-danger-on-danger: var(--rnt-red-100);
+  --color-icon-danger-on-danger-secondary: var(--rnt-red-700);
+  --color-icon-danger-on-danger-tertiary: var(--rnt-red-700);
+  --color-icon-danger-secondary: var(--rnt-red-600);
+  --color-icon-danger-tertiary: var(--rnt-red-500);
+  --color-icon-ddm: var(--rnt-ddm-900);
+  --color-icon-ddm-secondary: var(--rnt-ddm-500);
+  --color-icon-ddm-tertiary: var(--rnt-ddm-400);
+  --color-icon-default: var(--rnt-neutral-900);
+  --color-icon-disabled: var(--rnt-neutral-400);
+  --color-icon-disabled-on-disabled: var(--rnt-neutral-400);
+  --color-icon-funding: var(--rnt-funding-900);
+  --color-icon-funding-secondary: var(--rnt-funding-500);
+  --color-icon-funding-tertiary: var(--rnt-funding-400);
+  --color-icon-neutral: var(--rnt-slate-900);
+  --color-icon-neutral-on-neutral: var(--rnt-slate-100);
+  --color-icon-neutral-on-neutral-secondary: var(--rnt-slate-900);
+  --color-icon-neutral-on-neutral-tertiary: var(--rnt-slate-800);
+  --color-icon-neutral-secondary: var(--rnt-slate-700);
+  --color-icon-neutral-tertiary: var(--rnt-slate-600);
+  --color-icon-positive: var(--rnt-green-800);
+  --color-icon-positive-on-positive: var(--rnt-green-100);
+  --color-icon-positive-on-positive-secondary: var(--rnt-green-800);
+  --color-icon-positive-on-positive-tertiary: var(--rnt-green-900);
+  --color-icon-positive-secondary: var(--rnt-green-600);
+  --color-icon-positive-tertiary: var(--rnt-green-500);
+  --color-icon-rtid: var(--rnt-rtid-900);
+  --color-icon-rtid-secondary: var(--rnt-rtid-500);
+  --color-icon-rtid-tertiary: var(--rnt-rtid-400);
+  --color-icon-secondary: var(--rnt-neutral-500);
+  --color-icon-tertiary: var(--rnt-neutral-400);
+  --color-icon-utilities-icon: var(--rnt-pink-600);
+  --color-icon-utilities-icon-on-measurement: var(--rnt-pink-800);
+  --color-icon-warning: var(--rnt-yellow-900);
+  --color-icon-warning-on-warning: var(--rnt-yellow-1000);
+  --color-icon-warning-on-warning-secondary: var(--rnt-yellow-800);
+  --color-icon-warning-on-warning-tertiary: var(--rnt-yellow-900);
+  --color-icon-warning-secondary: var(--rnt-yellow-700);
+  --color-icon-warning-tertiary: var(--rnt-yellow-600);
+}
+
+/*! =========================================================================== */
+/*! 2. DARK MODE — semantic alias + focus token overrides                       */
+/*!    Apply via <body data-theme="dark"> (recommended for ODC theme switch)    */
+/*! =========================================================================== */
+[data-theme="dark"] {
+    /* color */
+    --color-background-brand: var(--rnt-primary-100);
+    --color-background-brand-hover: var(--rnt-primary-300);
+    --color-background-brand-secondary: var(--rnt-primary-600);
+    --color-background-brand-secondary-hover: var(--rnt-primary-500);
+    --color-background-brand-tertiary: var(--rnt-primary-900);
+    --color-background-brand-tertiary-hover: var(--rnt-primary-1000);
+    --color-background-cdmx: var(--rnt-cdmx-900);
+    --color-background-cdmx-default-hover: var(--rnt-cdmx-700);
+    --color-background-cdmx-secondary: var(--rnt-cdmx-800);
+    --color-background-cdmx-secondary-hover: var(--rnt-cdmx-900);
+    --color-background-cdmx-tertiary: var(--rnt-cdmx-600);
+    --color-background-cdmx-tertiary-hover: var(--rnt-cdmx-700);
+    --color-background-danger: var(--rnt-red-600);
+    --color-background-danger-hover: var(--rnt-red-700);
+    --color-background-danger-secondary: var(--rnt-red-800);
+    --color-background-danger-secondary-hover: var(--rnt-red-900);
+    --color-background-danger-tertiary: var(--rnt-red-900);
+    --color-background-danger-tertiary-hover: var(--rnt-red-1000);
+    --color-background-ddm: var(--rnt-ddm-900);
+    --color-background-ddm-hover: var(--rnt-ddm-700);
+    --color-background-ddm-secondary: var(--rnt-ddm-800);
+    --color-background-ddm-secondary-hover: var(--rnt-ddm-900);
+    --color-background-ddm-tertiary: var(--rnt-ddm-600);
+    --color-background-ddm-tertiary-hover: var(--rnt-ddm-700);
+    --color-background-default: var(--rnt-neutral-900);
+    --color-background-default-hover: var(--rnt-neutral-700);
+    --color-background-disabled: var(--rnt-neutral-700);
+    --color-background-funding: var(--rnt-funding-900);
+    --color-background-funding-default-hover: var(--rnt-funding-700);
+    --color-background-funding-secondary: var(--rnt-funding-800);
+    --color-background-funding-secondary-hover: var(--rnt-funding-900);
+    --color-background-funding-tertiary: var(--rnt-funding-600);
+    --color-background-funding-tertiary-hover: var(--rnt-funding-700);
+    --color-background-neutral: var(--rnt-slate-400);
+    --color-background-neutral-hover: var(--rnt-slate-500);
+    --color-background-neutral-secondary: var(--rnt-slate-900);
+    --color-background-neutral-secondary-hover: var(--rnt-slate-1000);
+    --color-background-neutral-tertiary: var(--rnt-slate-900);
+    --color-background-neutral-tertiary-hover: var(--rnt-slate-1000);
+    --color-background-positive: var(--rnt-green-700);
+    --color-background-positive-hover: var(--rnt-green-800);
+    --color-background-positive-secondary: var(--rnt-green-800);
+    --color-background-positive-secondary-hover: var(--rnt-green-900);
+    --color-background-positive-tertiary: var(--rnt-green-900);
+    --color-background-positive-tertiary-hover: var(--rnt-green-1000);
+    --color-background-rtid: var(--rnt-rtid-900);
+    --color-background-rtid-default-hover: var(--rnt-rtid-700);
+    --color-background-rtid-secondary: var(--rnt-rtid-800);
+    --color-background-rtid-secondary-hover: var(--rnt-rtid-900);
+    --color-background-rtid-tertiary: var(--rnt-rtid-600);
+    --color-background-rtid-tertiary-hover: var(--rnt-rtid-700);
+    --color-background-secondary: var(--rnt-neutral-800);
+    --color-background-secondary-hover: var(--rnt-neutral-900);
+    --color-background-tertiary: var(--rnt-neutral-600);
+    --color-background-tertiary-hover: var(--rnt-neutral-700);
+    --color-background-utilities-measurement: var(--rnt-pink-800);
+    --color-background-utilities-scrim: #000000cc;
+    --color-background-warning-secondary: var(--rnt-yellow-800);
+    --color-background-warning-secondary-hover: var(--rnt-yellow-900);
+    --color-background-warning-tertiary: var(--rnt-yellow-900);
+    --color-background-warning-tertiary-hover: var(--rnt-yellow-1000);
+    --color-text-brand: var(--rnt-primary-100);
+    --color-text-brand-on-brand: var(--rnt-primary-900);
+    --color-text-brand-on-brand-secondary: var(--rnt-primary-100);
+    --color-text-brand-on-brand-tertiary: var(--rnt-primary-100);
+    --color-text-brand-secondary: var(--rnt-primary-300);
+    --color-text-brand-tertiary: var(--rnt-primary-400);
+    --color-text-cdmx: var(--rnt-white-1000);
+    --color-text-cdmx-secondary: var(--rnt-white-500);
+    --color-text-cdmx-tertiary: var(--rnt-white-400);
+    --color-text-danger: var(--rnt-red-200);
+    --color-text-danger-on-danger-secondary: var(--rnt-red-100);
+    --color-text-danger-on-danger-tertiary: var(--rnt-red-100);
+    --color-text-danger-secondary: var(--rnt-red-400);
+    --color-text-ddm: var(--rnt-white-1000);
+    --color-text-ddm-secondary: var(--rnt-white-500);
+    --color-text-ddm-tertiary: var(--rnt-white-400);
+    --color-text-default: var(--rnt-white-1000);
+    --color-text-disabled: var(--rnt-neutral-500);
+    --color-text-funding: var(--rnt-white-1000);
+    --color-text-funding-secondary: var(--rnt-white-500);
+    --color-text-funding-tertiary: var(--rnt-white-400);
+    --color-text-neutral: var(--rnt-slate-200);
+    --color-text-neutral-on-neutral: var(--rnt-slate-1000);
+    --color-text-neutral-on-neutral-secondary: var(--rnt-slate-100);
+    --color-text-neutral-on-neutral-tertiary: var(--rnt-slate-100);
+    --color-text-neutral-secondary: var(--rnt-slate-300);
+    --color-text-neutral-tertiary: var(--rnt-slate-400);
+    --color-text-positive: var(--rnt-green-200);
+    --color-text-positive-on-positive-secondary: var(--rnt-green-100);
+    --color-text-positive-on-positive-tertiary: var(--rnt-green-100);
+    --color-text-positive-secondary: var(--rnt-green-400);
+    --color-text-positive-tertiary: var(--rnt-green-600);
+    --color-text-rtid: var(--rnt-white-1000);
+    --color-text-rtid-secondary: var(--rnt-white-500);
+    --color-text-rtid-tertiary: var(--rnt-white-400);
+    --color-text-secondary: var(--rnt-white-500);
+    --color-text-tertiary: var(--rnt-white-400);
+    --color-text-utilities-text-on-measurement: var(--rnt-pink-200);
+    --color-text-utilities-text-on-overlay: var(--rnt-white-1000);
+    --color-text-warning: var(--rnt-yellow-200);
+    --color-text-warning-on-warning-secondary: var(--rnt-yellow-100);
+    --color-text-warning-on-warning-tertiary: var(--rnt-yellow-100);
+    --color-text-warning-secondary: var(--rnt-yellow-400);
+    --color-border-brand: var(--rnt-primary-100);
+    --color-border-brand-secondary: var(--rnt-primary-300);
+    --color-border-brand-tertiary: var(--rnt-primary-400);
+    --color-border-cdmx: var(--rnt-cdmx-600);
+    --color-border-cdmx-tertiary: var(--rnt-cdmx-400);
+    --color-border-danger: var(--rnt-red-200);
+    --color-border-danger-secondary: var(--rnt-red-400);
+    --color-border-ddm: var(--rnt-ddm-600);
+    --color-border-ddm-tertiary: var(--rnt-ddm-400);
+    --color-border-default: var(--rnt-neutral-600);
+    --color-border-disabled: var(--rnt-neutral-600);
+    --color-border-funding: var(--rnt-funding-600);
+    --color-border-funding-tertiary: var(--rnt-funding-400);
+    --color-border-neutral: var(--rnt-slate-100);
+    --color-border-neutral-secondary: var(--rnt-slate-500);
+    --color-border-neutral-tertiary: var(--rnt-slate-600);
+    --color-border-positive: var(--rnt-green-200);
+    --color-border-positive-secondary: var(--rnt-green-400);
+    --color-border-positive-tertiary: var(--rnt-green-600);
+    --color-border-rtid: var(--rnt-rtid-600);
+    --color-border-rtid-tertiary: var(--rnt-rtid-400);
+    --color-border-tertiary: var(--rnt-neutral-400);
+    --color-border-utilities-measurement: var(--rnt-pink-600);
+    --color-border-utilities-swatch: #ffffff3d;
+    --color-border-warning: var(--rnt-yellow-200);
+    --color-border-warning-secondary: var(--rnt-yellow-400);
+    --color-icon-brand: var(--rnt-primary-100);
+    --color-icon-brand-on-brand: var(--rnt-primary-900);
+    --color-icon-brand-on-brand-secondary: var(--rnt-primary-100);
+    --color-icon-brand-on-brand-tertiary: var(--rnt-primary-100);
+    --color-icon-brand-secondary: var(--rnt-primary-300);
+    --color-icon-brand-tertiary: var(--rnt-primary-400);
+    --color-icon-cdmx: var(--rnt-white-1000);
+    --color-icon-cdmx-secondary: var(--rnt-white-500);
+    --color-icon-cdmx-tertiary: var(--rnt-white-400);
+    --color-icon-danger: var(--rnt-red-200);
+    --color-icon-danger-on-danger-secondary: var(--rnt-red-100);
+    --color-icon-danger-on-danger-tertiary: var(--rnt-red-100);
+    --color-icon-danger-secondary: var(--rnt-red-400);
+    --color-icon-ddm: var(--rnt-white-1000);
+    --color-icon-ddm-secondary: var(--rnt-white-500);
+    --color-icon-ddm-tertiary: var(--rnt-white-400);
+    --color-icon-default: var(--rnt-white-1000);
+    --color-icon-disabled: var(--rnt-neutral-500);
+    --color-icon-funding: var(--rnt-white-1000);
+    --color-icon-funding-secondary: var(--rnt-white-500);
+    --color-icon-funding-tertiary: var(--rnt-white-400);
+    --color-icon-neutral: var(--rnt-slate-200);
+    --color-icon-neutral-on-neutral: var(--rnt-slate-1000);
+    --color-icon-neutral-on-neutral-secondary: var(--rnt-slate-100);
+    --color-icon-neutral-on-neutral-tertiary: var(--rnt-slate-100);
+    --color-icon-neutral-secondary: var(--rnt-slate-300);
+    --color-icon-neutral-tertiary: var(--rnt-slate-400);
+    --color-icon-positive: var(--rnt-green-200);
+    --color-icon-positive-on-positive-secondary: var(--rnt-green-100);
+    --color-icon-positive-on-positive-tertiary: var(--rnt-green-100);
+    --color-icon-positive-secondary: var(--rnt-green-400);
+    --color-icon-positive-tertiary: var(--rnt-green-600);
+    --color-icon-rtid: var(--rnt-white-1000);
+    --color-icon-rtid-secondary: var(--rnt-white-500);
+    --color-icon-rtid-tertiary: var(--rnt-white-400);
+    --color-icon-secondary: var(--rnt-white-500);
+    --color-icon-tertiary: var(--rnt-white-400);
+    --color-icon-utilities-icon: var(--rnt-pink-400);
+    --color-icon-utilities-icon-on-measurement: var(--rnt-pink-200);
+    --color-icon-warning: var(--rnt-yellow-200);
+    --color-icon-warning-on-warning-secondary: var(--rnt-yellow-100);
+    --color-icon-warning-on-warning-tertiary: var(--rnt-yellow-100);
+    --color-icon-warning-secondary: var(--rnt-yellow-400);
+    /* focus must lift off dark surfaces */
+    --color-focus-outline: var(--rnt-primary-300);
+    --color-focus-outer:   var(--rnt-primary-200);
+    --color-focus-inner:   var(--rnt-neutral-900);
+}
+
+/*! =========================================================================== */
+/*! 3. NET-NEW ONLY — nothing here duplicates OutSystems UI                      */
+/*! =========================================================================== */
+
+/* Body font family — explicit guarantee for the from-scratch theme.
+   OS UI's base reset already does html { font-family: var(--font-family) }, so
+   the token alone normally suffices; this pins it regardless and inherits down.
+   -servicestudio-font-family gives the Studio preview a safe fallback while
+   Manrope loads. */
+html,
+body {
+  font-family: var(--font-family-body);
+  -servicestudio-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Motion safeguard — WCAG 2.2 SC 2.3.3 (OS UI ships no blanket rule) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Semantic helper utilities that OS UI does NOT provide.
+   (Generic color/typography/weight utilities are intentionally omitted —
+    OS UI already ships those and they re-theme via the tokens above.) */
+
+/*! Surfaces — semantic, dark-mode aware */
+.background-surface        { background-color: var(--color-background-default); }
+.background-surface-raised { background-color: var(--color-background-secondary); }
+
+/*! Subtle status fills — for inline badges / alerts */
+.background-success-subtle { background-color: var(--color-background-positive-tertiary); }
+.background-warning-subtle { background-color: var(--color-background-warning-tertiary); }
+.background-danger-subtle  { background-color: var(--color-background-danger-tertiary); }
+.background-brand-subtle   { background-color: var(--color-background-brand-tertiary); }
+
+/*! Secondary / tertiary text — semantic naming */
+.text-muted  { color: var(--color-text-secondary); }
+.text-subtle { color: var(--color-text-tertiary); }
+
+
+/*! =========================================================================== */
+/*! 4. FONTS — @font-face (Manrope only)                                        */
+/*!    Static weights 200–800, served from the RNTConnect_Theme module.         */
+/*!    Upload the .woff2 files to RNTConnect_Theme so paths resolve to          */
+/*!    /RNTConnect_Theme/<file>. font-display: swap avoids invisible text.      */
+/*! =========================================================================== */
+@font-face {
+  font-family: "Manrope";
+  font-weight: 200;   /* Extra Light */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-ExtraLight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 300;   /* Light */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 400;   /* Regular */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 500;   /* Medium */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 600;   /* Semi Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 700;   /* Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 800;   /* Extra Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-ExtraBold.woff2") format("woff2");
+}
+
+/*! =========================================================================== */
+/*!  R&T CONNECT — Theme Master Stylesheet                                      */
+/*!  Target: OutSystems UI (ODC)                                                */
+/*! =========================================================================== */
+
+/*! --------------------------------------------------------------------------- */
+/*! 1. THEME FOUNDATION                                                         */
+/*! --------------------------------------------------------------------------- */
+/* CSS Variables, Dark Mode Overrides, Typography, and Global Utilities will go here */
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 2. LAYOUTS                                                                  */
+/*! --------------------------------------------------------------------------- */
+
+/* ---- Main Background ---- */
+/* Targets the body and main content wrappers for the light tinted background */
+body,
+.layout,
+.active-screen .main-content {
+  background-color: var(--rnt-primary-100); 
+}
+
+/* Ensures blocks/containers inside the main content stand out with white backgrounds */
+.main-content .card,
+.main-content .osui-card {
+  background-color: var(--color-neutral-0); 
+  border-radius: var(--border-radius-rounded);
+  box-shadow: var(--shadow-xs);
+  border: var(--border-size-s) solid var(--color-border-default);
+}
+
+/* ---- Header ---- */
+/* Dark blue header matching the R&T brand */
+.header {
+  background-color: var(--rnt-primary-900); 
+  color: var(--color-neutral-0);            
+  border-bottom: none;                      
+  box-shadow: var(--shadow-s);              
+}
+
+/* Ensures text, icons, and links inside the header are white */
+.header .header-content,
+.header .user-info,
+.header a,
+.header .icon {
+  color: var(--color-neutral-0);
+}
+
+/* ---- Footer ---- */
+/* Dark blue footer matching the header */
+.footer {
+  background-color: var(--rnt-primary-900); 
+  color: var(--color-neutral-0);
+  border-top: none;                         
+  padding: var(--space-s) var(--space-l);
+  font-size: var(--font-size-xs);           
+  display: flex;
+  align-items: center;
+  justify-content: space-between;           
+}
+
+/* Footer Links */
+.footer a {
+  color: var(--color-neutral-0);
+  text-decoration: none;
+  transition: opacity var(--animation-duration) var(--animation-function);
+}
+
+.footer a:hover,
+.footer a:focus {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Separators between footer links */
+.footer-links-separator {
+  margin: 0 var(--space-xs);
+  color: var(--color-neutral-4); 
+}
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 3. ADAPTIVE PATTERNS                                                        */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for structural OutSystems UI patterns: Columns, Gallery, etc. */
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 4. CONTENT PATTERNS                                                         */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for informational OutSystems UI patterns: Accordion, Alert, Card, etc. */
+/* ==========================================================================
+   OUTSYSTEMS UI TABLE OF CONTENTS:
+   -> Widgets
+      -> Inputs and TextAreas
+   ========================================================================== */
+
+/* 1. Base Styling (Default State) */
+input.form-control[data-input],
+textarea.form-control[data-textarea] {
+    background-color: var(--color-background-default);
+    border: var(--border-size-s) solid var(--color-border-default);
+    border-radius: var(--border-radius-soft);
+    color: var(--color-text-default);
+    transition: border-color var(--animation-duration) var(--animation-function), 
+                box-shadow var(--animation-duration) var(--animation-function);
+}
+
+/* 2. Placeholder Text */
+input.form-control[data-input]::placeholder,
+textarea.form-control[data-textarea]::placeholder {
+    color: var(--color-text-tertiary);
+    opacity: 1; /* Firefox default override */
+}
+
+/* 3. Hover State */
+input.form-control[data-input]:hover:not([disabled]):not(.not-valid),
+textarea.form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
+    border-color: var(--color-border-neutral-secondary);
+}
+
+/* 4. Focus State */
+input.form-control[data-input]:focus:not([disabled]):not(.not-valid),
+textarea.form-control[data-textarea]:focus:not([disabled]):not(.not-valid) {
+    border-color: var(--color-focus-outline);
+    box-shadow: 0 0 0 1px var(--color-focus-outline);
+    outline: none;
+}
+
+/* 5. Disabled State */
+input.form-control[data-input][disabled],
+textarea.form-control[data-textarea][disabled] {
+    background-color: var(--color-background-disabled);
+    border-color: var(--color-border-disabled);
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+}
+
+/* Ensure disabled placeholders match disabled text */
+input.form-control[data-input][disabled]::placeholder,
+textarea.form-control[data-textarea][disabled]::placeholder {
+    color: var(--color-text-disabled);
+}
+
+/* 6. Error State (OutSystems .not-valid class) */
+input.form-control[data-input].not-valid,
+textarea.form-control[data-textarea].not-valid {
+    border-color: var(--color-border-danger);
+}
+
+input.form-control[data-input].not-valid:focus,
+textarea.form-control[data-textarea].not-valid:focus {
+    box-shadow: 0 0 0 1px var(--color-border-danger);
+}
+
+/* ==========================================================================
+   Custom OutSystems UI Feedback Messages (Token-Driven & High Specificity)
+   ========================================================================== */
+
+/* 1. Base Styling for all feedback messages */
+div.feedback-message {
+    border-radius: var(--border-radius-rounded);
+    border-width: var(--border-size-s);
+    border-style: solid;
+    box-shadow: var(--shadow-none);
+}
+
+/* Ensure icons inside the feedback message match the text color */
+div.feedback-message .feedback-message-icon svg,
+div.feedback-message .icon {
+    fill: currentColor;
+    color: currentColor;
+}
+
+/* ==========================================================================
+   2. State-Specific Overrides
+   ========================================================================== */
+
+/* SUCCESS FEEDBACK MESSAGE */
+div.feedback-message.feedback-message-success {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+    color: var(--color-text-positive);
+}
+
+/* ERROR FEEDBACK MESSAGE */
+div.feedback-message.feedback-message-error {
+    background-color: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-text-danger);
+}
+
+/* WARNING FEEDBACK MESSAGE */
+div.feedback-message.feedback-message-warning {
+    background-color: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: var(--color-text-warning);
+}
+
+/* INFO FEEDBACK MESSAGE */
+div.feedback-message.feedback-message-info {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info);
+    color: var(--color-text-brand); 
+}
+
+/* Ensure the close button ('x') inherits the specific dark color of the state */
+div.feedback-message.feedback-message-success .feedback-message-close,
+div.feedback-message.feedback-message-error .feedback-message-close,
+div.feedback-message.feedback-message-warning .feedback-message-close,
+div.feedback-message.feedback-message-info .feedback-message-close {
+    color: currentColor;
+}
+/*! --------------------------------------------------------------------------- */
+/*! 5. INTERACTION PATTERNS                                                     */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for user input/interactive OutSystems UI patterns */
+
+/* 5.1 Buttons */
+/* Button CSS overrides will go here */
+
+/*! =========================================================================== */
+/*! 5. COMPONENTS — Button  (overrides OutSystems UI .btn / .btn-*)             */
+/*!    Escalation: L3 — restyle native classes, no parallel classes.           */
+/*!    Variant -> class:  Primary .btn-primary · Secondary .btn-secondary ·     */
+/*!    Tertiary .btn-light · Danger .btn-danger (added; OS UI has no danger).   */
+/*!    States covered: default · hover · focus · disabled · loading.            */
+/*!    Focus ring is re-themed through OS UI's own focus tokens (navy default,  */
+/*!    red for danger) so it works in both OS UI focus modes without fighting   */
+/*!    OS UI specificity. Loading is handled by the Button widget's Is Loading. */
+/*! =========================================================================== */
+
+/* ---- Base geometry (R&T: 8px radius, 8px gap, 40px target) ---- */
+.btn {
+  border-radius: var(--border-radius-rounded);   /* 8px (radius_200) */
+  gap: var(--space-s);
+}
+.btn:not(.btn-link) {
+  min-width: 120px;
+  min-height: 40px;                               /* WCAG 2.2 SC 2.5.8 target >= 24px */
+}
+.btn-small:not(.btn-link) {
+  min-height: 36px;                               /* >= 24px */
+}
+
+/* R&T uses explicit hover colors -> neutralize OS UI's brightness-filter hover.
+   (Matches OS UI's device-scoped selector specificity; our theme loads last.) */
+.phone .btn:hover,
+.tablet .btn:hover,
+.desktop .btn:hover {
+  filter: none;
+}
+
+/* ---- PRIMARY (filled brand) — .btn-primary ----
+   OS UI already fills .btn-primary with --color-primary (#2a4a66) + white text,
+   so resting bg/color are inherited; only hover + disabled differ.
+   Focus: stays filled with the navy token ring (no override needed). */
+.btn-primary:hover {
+  background-color: var(--color-background-brand-hover);     /* #143656 · 12.41:1  AA */
+}
+.btn-primary:disabled,
+.btn-primary[disabled],
+.btn-primary.disabled {
+  background-color: var(--color-background-brand-secondary); /* #e6eef5 (disabled = contrast-exempt) */
+  color: var(--color-text-brand-on-brand);
+}
+
+/* ---- SECONDARY (outlined brand) — .btn-secondary ---- */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-brand);                            /* #2a4a66 · 9.25:1  AA */
+  border: var(--border-size-s) solid var(--color-border-brand);  /* 1px #2a4a66 */
+}
+.btn-secondary:hover {
+  background-color: var(--color-background-default-hover);   /* #f5f5f5 (dark-mode aware) */
+  color: var(--color-text-brand);
+}
+.btn-secondary:disabled,
+.btn-secondary[disabled],
+.btn-secondary.disabled {
+  background-color: transparent;
+  color: var(--color-text-tertiary);                         /* #b3b3b3 (disabled-exempt) */
+  border-color: var(--color-border-default);                 /* #d9d9d9 */
+}
+
+/* ---- TERTIARY (ghost / text) — mapped to .btn-light ---- */
+.btn-light {
+  background-color: transparent;
+  color: var(--color-text-brand);                            /* #2a4a66 · 9.25:1  AA */
+  border: var(--border-size-s) solid transparent;
+}
+.btn-light:hover {
+  background-color: var(--color-background-default-hover);    /* #f5f5f5 (dark-mode aware) */
+  color: var(--color-text-brand);
+}
+.btn-light:disabled,
+.btn-light[disabled],
+.btn-light.disabled {
+  background-color: transparent;
+  color: var(--color-text-tertiary);                         /* #b3b3b3 (disabled-exempt) */
+  border-color: transparent;
+}
+
+/* ---- DANGER (filled destructive) — .btn-danger (no native OS UI class) ----
+   Driven by R&T's danger BACKGROUND aliases (true to Figma), not the flat
+   --color-error slot. Default = --color-background-danger (red-500 #ec221f);
+   hover = --color-background-danger-hover (red-600 #c00f0c).
+   Transparent 1px border kept in the box model so the focus flip doesn't resize.
+   A11y note: white text on red-500 is 4.36:1 (just under the 4.5:1 AA text
+   threshold). Faithful to the design; see message for the AA option. */
+.btn-danger {
+  background-color: var(--color-background-danger);          /* #ec221f (Figma default) */
+  color: var(--color-neutral-0);                             /* #fff · 4.36:1 (see note) */
+  border: var(--border-size-s) solid transparent;
+}
+.btn-danger:hover {
+  background-color: var(--color-background-danger-hover);    /* #c00f0c · 6.33:1  AA */
+}
+.btn-danger:disabled,
+.btn-danger[disabled],
+.btn-danger.disabled {
+  background-color: var(--color-background-danger-secondary); /* #fdd3d0 (disabled-exempt) */
+  color: var(--color-text-danger-on-danger);
+  border-color: transparent;
+}
+/* Danger focus (per R&T spec): RED ring + flip to outlined red.
+   Local token override recolors OS UI's focus ring without a specificity fight. */
+.btn-danger:focus,
+.btn-danger:focus-visible {
+  --color-focus-outline: var(--color-border-danger-secondary);
+  --color-focus-outer:   var(--color-border-danger-secondary);
+  background-color: transparent;
+  color: var(--color-text-danger-secondary);                 /* #c00f0c · 6.33:1  AA */
+  border-color: var(--color-border-danger-secondary);        /* #c00f0c */
+}
+
+/* ---- Base (Default state) — shared by single-line inputs and textareas ----
+   Inputs use the soft 4px radius (input-typical; subtler than the 8px button). */
+.form-control[data-input],
+.form-control[data-textarea] {
+  background-color: var(--color-background-default);     /* #ffffff */
+  border: var(--border-size-s) solid var(--color-neutral-5); /* 1px #757575 · 4.61:1  AA (Figma's #d9d9d9 fails 3:1) */
+  border-radius: var(--border-radius-soft);              /* 4px */
+  color: var(--color-text-default);                      /* #1e1e1e · typed value = "Filled" · 14.6:1  AA */
+  transition: border-color var(--animation-duration) var(--animation-function),
+              box-shadow   var(--animation-duration) var(--animation-function);
+}
+
+/* Placeholder — hint text, kept readable rather than the design's pale grey.
+   #757575 on #fff = 4.61:1  AA (exceeds the placeholder convenience bar). */
+.form-control[data-input]::-webkit-input-placeholder,
+.form-control[data-textarea]::-webkit-input-placeholder { color: var(--color-text-secondary); }
+.form-control[data-input]::-moz-placeholder,
+.form-control[data-textarea]::-moz-placeholder { color: var(--color-text-secondary); }
+.form-control[data-input]:-ms-input-placeholder,
+.form-control[data-textarea]:-ms-input-placeholder { color: var(--color-text-secondary); }
+.form-control[data-input]::placeholder,
+.form-control[data-textarea]::placeholder {
+  color: var(--color-text-secondary);                    /* #757575 · 4.61:1  AA */
+  opacity: 1;                                            /* neutralize Firefox dimming */
+}
+
+/* ---- Hover ---- */
+.form-control[data-input]:hover:not([disabled]):not(.not-valid),
+.form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
+  border-color: var(--color-neutral-6);                  /* #444444 */
+}
+
+/* ---- Focus ---- (border shift on any focus; 2px ring for keyboard users)
+   Neutralize OS UI's default focus box-shadow, then apply our own ring.
+   WCAG 2.2 SC 2.4.11/2.4.13: ring #3f5f7c ~5:1 on #fff, 2px size + 2px offset. */
+.form-control[data-input]:focus,
+.form-control[data-textarea]:focus {
+  border-color: var(--color-border-brand);               /* #2a4a66 · 9.25:1 */
+  box-shadow: none;
+  outline: none;
+}
+.form-control[data-input]:focus-visible,
+.form-control[data-textarea]:focus-visible {
+  outline: var(--border-size-m) solid var(--color-focus-outline); /* 2px #3f5f7c ~5:1  AA */
+  outline-offset: var(--border-size-m);                  /* 2px */
+}
+
+/* ---- Filled ----
+   No OS UI "filled" class exists. "Filled" = a typed value, which renders in the
+   base color (--color-text-default) while the placeholder uses the muted token,
+   so the resting border + dark value already produce the Filled appearance.
+   No separate rule needed (design shows Filled border == Default border). */
+
+/* ---- Sizes — Large / Default / Small ----
+   Single-line heights and textarea min-heights; all targets >= 24px CSS (SC 2.5.8). */
+.form-control[data-input].input-large {
+  min-height: 48px;
+  padding: var(--space-s) var(--space-base);             /* 8px / 16px */
+  font-size: var(--font-size-base);                      /* 16px */
+}
+.form-control[data-input] {                              /* Default (no size modifier) */
+  min-height: 40px;
+  padding: var(--space-s) var(--space-base);             /* 8px / 16px */
+  font-size: var(--font-size-base);                      /* 16px */
+}
+.form-control[data-input].input-small {
+  min-height: 32px;
+  padding: var(--space-xs) var(--space-s);               /* 4px / 8px */
+  font-size: var(--font-size-s);                         /* 14px */
+}
+
+.form-control[data-textarea],
+.form-control[data-textarea].input-large {
+  min-height: 96px;
+  padding: var(--space-base);                            /* 16px */
+  font-size: var(--font-size-base);                      /* 16px */
+  resize: vertical;
+}
+.form-control[data-textarea].input-small {
+  min-height: 72px;
+  padding: calc(var(--space-s) + var(--space-xs));       /* 12px */
+  font-size: var(--font-size-s);                         /* 14px */
+}
+
+/* ---- Disabled ---- (contrast-exempt per WCAG 2.2) */
+.form-control[data-input][disabled],
+.form-control[data-textarea][disabled] {
+  background-color: var(--color-background-secondary);   /* #f5f5f5 */
+  border-color: var(--color-border-disabled);            /* #b3b3b3 */
+  color: var(--color-text-disabled);                     /* #b3b3b3 */
+  cursor: not-allowed;
+}
+.form-control[data-input][disabled]::placeholder,
+.form-control[data-textarea][disabled]::placeholder {
+  color: var(--color-text-disabled);                     /* #b3b3b3 */
+}
+
+/* ---- Error ---- (placed after hover/focus so the red border wins on those states)
+   Border #ec221f = 4.36:1 on #fff -> passes the 3:1 UI-boundary bar (SC 1.4.11).
+   Error is also signalled by the validation message text, not colour alone (SC 1.4.1). */
+.form-control[data-input].not-valid,
+.form-control[data-textarea].not-valid {
+  border-color: var(--color-border-danger-tertiary);     /* #ec221f · 4.36:1  AA */
+}
+.form-control[data-input].not-valid:focus,
+.form-control[data-textarea].not-valid:focus {
+  border-color: var(--color-border-danger-tertiary);     /* keep red while focused */
+}
+.form-control[data-input].not-valid:focus-visible,
+.form-control[data-textarea].not-valid:focus-visible {
+  outline-color: var(--color-error);                     /* #c00f0c · 6.33:1 ring on error */
+}
+
+/* ---- Validation message ---- */
+.form-control[data-input].not-valid + span.validation-message,
+.form-control[data-textarea].not-valid + span.validation-message {
+  color: var(--color-error);                             /* #c00f0c · 6.33:1  AA */
+  font-size: var(--font-size-xs);                        /* 12px */
+}
+/* Size-scoped validation text (matches legacy large-input override) */
+[data-input].input-large + span.validation-message {
+  font-size: var(--font-size-s);                         /* 14px */
+}
+
+/*! --------------------------------------------------------------------------- */
+/*! 6. NAVIGATION PATTERNS                                                      */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for wayfinding OutSystems UI patterns: Bottom Bar, Breadcrumbs, Tabs, etc. */
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 7. NUMBERS PATTERNS                                                         */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for quantitative OutSystems UI patterns: Badge, Counter, Progress, etc. */
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 8. UTILITIES                                                                */
+/*! --------------------------------------------------------------------------- */
+/* Overrides for OS UI helper patterns: Align Center, Margin Container, etc. */
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 9. CUSTOM R&T COMPONENTS                                                    */
+/*! --------------------------------------------------------------------------- */
+/* Any net-new components specific to R&T Connect that do not map to OS UI patterns. */
+
+
+/*! =========================================================================== */
+
