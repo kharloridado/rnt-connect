@@ -971,7 +971,12 @@ footer {
     min-width: 64px !important;
     max-width: 64px !important;
 }
-
+.app-menu-control {
+      padding: var(--space-m);
+    border-bottom: var(--border-size-s) solid var(--color-border-default);
+    text-align: right;
+    color: var(--color-primary);
+}
 /* Hide labels when collapsed, center the icons */
 .layout-side.menu-collapsed .app-menu-links a span { display: none; }
 .layout-side.menu-collapsed .app-menu-links a { justify-content: center; }
