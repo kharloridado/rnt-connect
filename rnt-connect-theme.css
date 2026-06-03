@@ -1809,3 +1809,103 @@ html, body            { height: 100%; overflow: hidden; }
 .layout-side .app-menu-links {
     gap: var(--space-s);   /* 4px between every sibling item */
 }
+
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links a.active,
+.layout-side .app-menu-links .osui-submenu .osui-submenu__header,
+.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header,
+.desktop .layout-side .app-menu-links .osui-submenu__header:hover,
+.tablet .osui-submenu__header,
+.phone .osui-submenu__header,
+.tablet .osui-submenu.active .osui-submenu__header,
+.phone .osui-submenu.active .osui-submenu__header {
+    border-left: var(--border-size-none) solid transparent; /* 0px */
+}
+
+.layout-side .app-menu-links a.active,
+.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
+    background-color: var(--color-background-brand-secondary); /* #e6eef5 */
+    border-radius: var(--border-radius-rounded);               /* 8px */
+}
+
+/* ─── Outer gutter: keeps all items away from sidebar edges ─── */
+.layout-side .app-menu-links {
+    padding: var(--space-s) var(--space-s);   /* 8px top/bottom, 8px left/right */
+}
+
+/* ─── Items must not exceed the new container width ─── */
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links .osui-submenu {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ─── Pill/active background needs border-radius now that it's inset ─── */
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links .osui-submenu__header {
+    border-radius: var(--border-radius-rounded);   /* 8px */
+}
+
+/* ─── Gap between menu items (Home link + each osui-submenu) ─── */
+.layout-side .app-menu-links {
+    gap: var(--space-s);   /* 4px between every sibling item */
+}
+
+/* ==========================================================================
+   R&T Custom OutSystems UI Table (Token-Driven Override)
+   ========================================================================== */
+
+/* 1. Base Table Styling */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    border: var(--border-size-s, 1px) solid var(--rnt-neutral-300); /* Reset OSUI default outer border to match edge-to-edge mockup */
+}
+
+/* 2. Table Header Styling */
+.table th,
+.table .table-header th {
+    color: var(--rnt-neutral-500); 
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-neutral-300); 
+    background-color: var(--color-background-secondary); /* Fallback for header bg */
+    padding: var(--space-m);
+    font-weight: var(--font-semi-bold);
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* 3. Table Body Cell Styling */
+.table td,
+.table .table-row td {
+    color: var(--rnt-neutral-900); 
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-neutral-300); 
+    background-color: var(--color-background-default);
+    padding: var(--space-m);
+    vertical-align: middle;
+}
+
+/* 4. Link Styling within Table (e.g., Nick name column) */
+.table td a {
+    color: var(--rnt-primary-800); 
+    text-decoration: underline;
+    font-weight: var(--font-semi-bold);
+    transition: color var(--animation-duration) var(--animation-function);
+}
+
+.table td a:hover,
+.table td a:focus {
+    /* Assumes --color-primary-hover is mapped globally, else use a darker R&T brand token */
+    color: var(--color-primary-hover); 
+}
+
+/* 5. Action Icons in Table */
+.table td .icon {
+    color: var(--rnt-neutral-500); 
+    cursor: pointer;
+    transition: color var(--animation-duration) var(--animation-function);
+}
+
+.table td .icon:hover,
+.table td .icon:focus {
+    color: var(--rnt-primary-800); 
+}
