@@ -960,6 +960,21 @@ footer {
     position: relative;
     border-right: var(--border-size-s) solid var(--color-border-default);
 }
+
+.aside-navigation {
+    transition: width .25s ease, min-width .25s ease, max-width .25s ease;
+    overflow-x: hidden;
+}
+
+.layout-side.menu-collapsed .aside-navigation {
+    width: 64px  !important;
+    min-width: 64px !important;
+    max-width: 64px !important;
+}
+
+/* Hide labels when collapsed, center the icons */
+.layout-side.menu-collapsed .app-menu-links a span { display: none; }
+.layout-side.menu-collapsed .app-menu-links a { justify-content: center; }
 /*! --------------------------------------------------------------------------- */
 /*! 3. ADAPTIVE PATTERNS                                                        */
 /*! --------------------------------------------------------------------------- */
