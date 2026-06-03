@@ -1822,6 +1822,10 @@ html, body            { height: 100%; overflow: hidden; }
     border-left: var(--border-size-none) solid transparent; /* 0px */
 }
 
+.layout-side .app-menu-links .osui-submenu .osui-submenu__header {
+  font-size: var(--font-size-base);
+}
+
 .layout-side .app-menu-links a.active,
 .layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
     background-color: var(--color-background-brand-secondary); /* #e6eef5 */
