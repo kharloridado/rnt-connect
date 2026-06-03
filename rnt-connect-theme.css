@@ -854,6 +854,12 @@ body {
   box-shadow: var(--shadow-s);              
 }
 
+.layout-side .app-logo {
+    max-height: var(--header-size);
+    max-width: 100%;
+    height: 48px;
+}
+
 /* Ensures text, icons, and links inside the header are white */
 .header .header-content,
 .header .user-info,
@@ -881,6 +887,7 @@ footer.content-bottom {
 /* Footer Links */
 .content-bottom .footer.ThemeGrid_Container a {
   color: var(--color-neutral-0);
+  font-weight: var(--font-bold);
   text-decoration: none;
   transition: opacity var(--animation-duration) var(--animation-function);
 }
