@@ -1451,3 +1451,101 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 
 /*! =========================================================================== */
 
+/* =========================================================
+   Side menu collapse fix + accessibility focus styles
+   Works with the existing `.menu-collapsed` class that
+   OutSystems toggles on the `.layout` container.
+   ========================================================= */
+/* =========================================================
+   Fixed header / side menu / footer layout
+   Structure on this app:
+     .layout > .main > [ header.header  +  .content ]
+     .content (CSS grid) > [ aside.aside-navigation | .main-content | footer.content-bottom ]
+   Only .main-content scrolls; header, menu and footer stay put.
+   ========================================================= */
+
+/* Header / footer heights — adjust if your theme changes them */
+/* header = 56px, footer = 37px */
+
+/* Lock the app to the viewport; no page-level scroll */
+html, body            { height: 100%; overflow: hidden; }
+.layout,
+.layout .main         { height: 100vh; min-height: 100vh; }
+
+/* HEADER — fixed to the top, full width
+   (the selector is specific enough to override the theme's left:300px) */
+.layout .main > .header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 56px;
+  z-index: 1000;
+}
+
+/* CONTENT grid — fills the space between the fixed header and fixed footer */
+.layout .main > .content {
+  position: fixed;
+  top: 56px;       /* header height */
+  bottom: 37px;    /* footer height */
+  left: 0;
+  right: 0;
+  height: auto;    /* top + bottom define the height */
+}
+
+/* SIDE MENU — full height of the content region; scrolls internally if very tall */
+.layout .aside-navigation {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* MAIN CONTENT — the only scrolling region */
+.layout .main-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* FOOTER — fixed to the bottom, full width */
+.layout .content .content-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 37px;
+  z-index: 1000;
+}
+/* --- 1. Make the layout grid's first column track the menu width --- */
+/* Expanded (default) state */
+.layout .content {
+  grid-template-columns: var(--side-menu-size) 1fr;
+  transition: grid-template-columns 0.25s ease;
+}
+
+/* Collapsed state: shrink the first column so main-content shifts left
+   and the gap closes. 64px matches the collapsed aside width. */
+.layout.menu-collapsed .content {
+  --side-menu-size: 64px;
+}
+
+/* Let the aside fill its grid column instead of using a hard-coded width,
+   so the menu and the grid column always stay in sync. */
+.layout .aside-navigation {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+/* --- 2. Accessibility: visible keyboard focus indicator --- */
+.app-menu-control {
+  cursor: pointer;
+  outline: none;
+}
+
+.app-menu-control:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
