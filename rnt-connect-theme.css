@@ -900,6 +900,57 @@ footer.content-bottom {
   color: var(--color-neutral-4); 
 }
 
+/* 1. Remove the large left margin */
+.layout.layout-side .main {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: var(--side-menu-size) 1fr; 
+    grid-template-rows: 1fr auto; 
+}
+
+/* 1. Adjust Nav (so it sits above the footer instead of beside it) */
+nav {
+    grid-column: 1 / 2; /* First column */
+    grid-row: 1 / 2;    /* UPDATED: Only occupies the top row now */
+}
+
+/* 2. Main Content remains the same */
+.main-content {
+    grid-column: 2 / 3; /* Second column */
+    grid-row: 1 / 2;    /* First row */
+}
+
+/* 3. Expand the Footer to full width */
+footer {
+    grid-column: 1 / -1; /* UPDATED: Stretches from the first line to the very last */
+    grid-row: 2 / 3;     /* Placed in the bottom row */
+}
+
+
+.aside-navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+/* the immediate wrapper div inside the aside */
+.aside-navigation > div {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.aside-navigation .app-menu-content {
+  height: 100%;
+}
+
+.app-menu-links a {
+    color: var(--color-primary);
+    font-weight: var(--font-semi-bold);
+    font-size: var(--font-size-base);
+}
 /*! --------------------------------------------------------------------------- */
 /*! 3. ADAPTIVE PATTERNS                                                        */
 /*! --------------------------------------------------------------------------- */
@@ -1049,7 +1100,7 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 /*! 5. COMPONENTS — Button  (overrides OutSystems UI .btn / .btn-*)             */
 /*!    Escalation: L3 — restyle native classes, no parallel classes.           */
 /*!    Variant -> class:  Primary .btn-primary · Secondary .btn-secondary ·     */
-/*!    Tertiary .btn-light · Danger .btn-danger (added; OS UI has no danger).   */
+/*!    Tertiary .btn-light · Danger .btn-error (added; OS UI has no danger).   */
 /*!    States covered: default · hover · focus · disabled · loading.            */
 /*!    Focus ring is re-themed through OS UI's own focus tokens (navy default,  */
 /*!    red for danger) so it works in both OS UI focus modes without fighting   */
@@ -1127,32 +1178,32 @@ div.feedback-message.feedback-message-info .feedback-message-close {
   border-color: transparent;
 }
 
-/* ---- DANGER (filled destructive) — .btn-danger (no native OS UI class) ----
+/* ---- DANGER (filled destructive) — .btn-error (no native OS UI class) ----
    Driven by R&T's danger BACKGROUND aliases (true to Figma), not the flat
    --color-error slot. Default = --color-background-danger (red-500 #ec221f);
    hover = --color-background-danger-hover (red-600 #c00f0c).
    Transparent 1px border kept in the box model so the focus flip doesn't resize.
    A11y note: white text on red-500 is 4.36:1 (just under the 4.5:1 AA text
    threshold). Faithful to the design; see message for the AA option. */
-.btn-danger {
+.btn-error {
   background-color: var(--color-background-danger);          /* #ec221f (Figma default) */
   color: var(--color-neutral-0);                             /* #fff · 4.36:1 (see note) */
   border: var(--border-size-s) solid transparent;
 }
-.btn-danger:hover {
+.btn-error:hover {
   background-color: var(--color-background-danger-hover);    /* #c00f0c · 6.33:1  AA */
 }
-.btn-danger:disabled,
-.btn-danger[disabled],
-.btn-danger.disabled {
+.btn-error:disabled,
+.btn-error[disabled],
+.btn-error.disabled {
   background-color: var(--color-background-danger-secondary); /* #fdd3d0 (disabled-exempt) */
   color: var(--color-text-danger-on-danger);
   border-color: transparent;
 }
 /* Danger focus (per R&T spec): RED ring + flip to outlined red.
    Local token override recolors OS UI's focus ring without a specificity fight. */
-.btn-danger:focus,
-.btn-danger:focus-visible {
+.btn-error:focus,
+.btn-error:focus-visible {
   --color-focus-outline: var(--color-border-danger-secondary);
   --color-focus-outer:   var(--color-border-danger-secondary);
   background-color: transparent;
