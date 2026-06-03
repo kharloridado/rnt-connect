@@ -1619,3 +1619,42 @@ html, body            { height: 100%; overflow: hidden; }
 .button-group-item {
   display: inline-grid; /* stack real text + sizer in same cell */
 }
+
+/* ---- App menu control: center when collapsed, icon right when expanded ---- */
+
+/* Collapsed (default OutSystems state has .menu-collapsed on .layout) */
+.menu-collapsed .app-menu-control {
+    text-align: center;
+    display: flex;
+    justify-content: center;   /* center the icon */
+    align-items: center;
+}
+
+/* Expanded (no .menu-collapsed) */
+.layout:not(.menu-collapsed) .app-menu-control {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* icon to the right */
+    align-items: center;
+}
+
+/* ---- Icon rotation depending on state ---- */
+.app-menu-control .icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Collapsed: point right (open hint) */
+.menu-collapsed .app-menu-control .icon {
+    transform: rotate(0deg);
+}
+
+/* Expanded: rotate to opposite direction (point left / collapse hint) */
+.layout:not(.menu-collapsed) .app-menu-control .icon {
+    transform: rotate(180deg);
+}
+
+/* ---- Remove horizontal scroll on the menu links ---- */
+.app-menu-links {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
