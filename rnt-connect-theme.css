@@ -1658,3 +1658,110 @@ html, body            { height: 100%; overflow: hidden; }
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+/*! =========================================================================== */
+/*! COMPONENT — rnt-tint  (soft/tinted appearance for Badge · Tag · Card)        */
+/*!   Escalation: L3 — ExtendedClass + BEM modifier. Opt-in "mix" block applied  */
+/*!   alongside the native OS UI pattern; does NOT restyle .badge/.tag/.card     */
+/*!   globally. Pure color treatment — geometry & radius stay with the host      */
+/*!   (pill from Badge/Tag, rounded from Card), so it's reusable across all 3.   */
+/*!                                                                              */
+/*!   Look: light background + darker same-hue border + darker same-hue text.    */
+/*!   100% token-driven (semantic aliases, not primitives) -> dark-mode-safe.    */
+/*!                                                                              */
+/*!   APPLY via ExtendedClass, e.g.:                                            */
+/*!     Badge  ExtendedClass = "rnt-tint rnt-tint--positive"                    */
+/*!     Tag    ExtendedClass = "rnt-tint rnt-tint--warning"                     */
+/*!     Card   ExtendedClass = "rnt-tint rnt-tint--ddm"                         */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): text/bg validated >=4.5:1, border/bg >=3:1 (SC 1.4.3   */
+/*!   / 1.4.11) for every variant in light mode. Ratios noted inline. Variants   */
+/*!   are non-text labels by default; if used as interactive filter chips the    */
+/*!   host pattern supplies the >=24px target (OS UI Badge is 32px tall).        */
+/*! =========================================================================== */
+
+/* ---- Base: shared geometry-agnostic treatment + slot definitions ---- */
+.rnt-tint {
+  background-color: var(--rnt-tint-bg);
+  border: var(--border-size-s) solid var(--rnt-tint-border);
+  color: var(--rnt-tint-text);
+}
+
+/* Icons (e.g. the card's arrow glyph) track the dark text color */
+.rnt-tint .icon,
+.rnt-tint .icon svg,
+.rnt-tint svg {
+  fill: currentColor;
+  color: currentColor;
+}
+
+/* ==========================================================================
+   Variants — fill the three slots from existing R&T semantic aliases.
+   Tier suffix differs per family because R&T maps -secondary/-tertiary to
+   different primitive levels: for semantic families the palest fill is
+   -tertiary; for the business families (cdmx/ddm/rtid/funding) it's
+   -secondary. Each variant picks the palest bg + a clearly darker border.
+   ========================================================================== */
+
+/* POSITIVE — green ("Promotion") */
+.rnt-tint--positive {
+  --rnt-tint-bg:     var(--color-background-positive-tertiary);  /* #ebffee            */
+  --rnt-tint-border: var(--color-border-positive-secondary);     /* #009951 · 3.54:1 UI */
+  --rnt-tint-text:   var(--color-text-positive);                 /* #02542d · 8.69:1 AA */
+}
+
+/* WARNING — amber ("Alert") */
+.rnt-tint--warning {
+  --rnt-tint-bg:     var(--color-background-warning-tertiary);   /* #fffbeb             */
+  --rnt-tint-border: var(--color-border-warning-secondary);      /* #975102 · 5.80:1 UI */
+  --rnt-tint-text:   var(--color-text-warning);                  /* #522504 · 12.46:1 AA */
+}
+
+/* DANGER — red */
+.rnt-tint--danger {
+  --rnt-tint-bg:     var(--color-background-danger-tertiary);    /* #fee9e7             */
+  --rnt-tint-border: var(--color-border-danger-secondary);       /* #c00f0c · 5.44:1 UI */
+  --rnt-tint-text:   var(--color-text-danger);                   /* #900b09 · 8.05:1 AA */
+}
+
+/* INFO / BRAND — navy */
+.rnt-tint--info {
+  --rnt-tint-bg:     var(--color-background-brand-tertiary);     /* #f3f7fa             */
+  --rnt-tint-border: var(--color-border-brand-secondary);        /* #5a7f9e · 3.93:1 UI */
+  --rnt-tint-text:   var(--color-text-brand);                    /* #2a4a66 · 8.59:1 AA */
+}
+
+/* NEUTRAL — slate */
+.rnt-tint--neutral {
+  --rnt-tint-bg:     var(--color-background-neutral-tertiary);   /* #e3e3e3             */
+  --rnt-tint-border: var(--color-border-neutral-secondary);      /* #767676 · 3.54:1 UI */
+  --rnt-tint-text:   var(--color-text-neutral);                  /* #303030 · 10.28:1 AA */
+}
+
+/* CDMX — orange */
+.rnt-tint--cdmx {
+  --rnt-tint-bg:     var(--color-background-cdmx-secondary);     /* #fef6f0             */
+  --rnt-tint-border: var(--color-border-cdmx-tertiary);          /* #cb5b05 · 3.90:1 UI */
+  --rnt-tint-text:   var(--color-text-cdmx);                     /* #6c3003 · 9.53:1 AA */
+}
+
+/* DDM — blue */
+.rnt-tint--ddm {
+  --rnt-tint-bg:     var(--color-background-ddm-secondary);      /* #e7eff7             */
+  --rnt-tint-border: var(--color-border-ddm-tertiary);           /* #376592 · 5.26:1 UI */
+  --rnt-tint-text:   var(--color-text-ddm);                      /* #1d354c · 10.86:1 AA */
+}
+
+/* RTID — cyan/teal */
+.rnt-tint--rtid {
+  --rnt-tint-bg:     var(--color-background-rtid-secondary);     /* #f3fafc             */
+  --rnt-tint-border: var(--color-border-rtid-tertiary);          /* #3495b0 · 3.28:1 UI */
+  --rnt-tint-text:   var(--color-text-rtid);                     /* #1b4e5d · 8.67:1 AA */
+}
+
+/* FUNDING — blue */
+.rnt-tint--funding {
+  --rnt-tint-bg:     var(--color-background-funding-secondary);  /* #f0f5fa             */
+  --rnt-tint-border: var(--color-border-funding-secondary);      /* #3975bf · 4.28:1 UI */
+  --rnt-tint-text:   var(--color-text-funding);                  /* #04254f · 13.85:1 AA */
+}
