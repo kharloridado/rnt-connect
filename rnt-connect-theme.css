@@ -727,7 +727,7 @@
 html,
 body {
   font-family: var(--font-family-body);
-  -servicestudio-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  
 }
 
 /* Motion safeguard — WCAG 2.2 SC 2.3.3 (OS UI ships no blanket rule) */
@@ -770,49 +770,49 @@ body {
   font-weight: 200;   /* Extra Light */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-ExtraLight.woff2") format("woff2");
+  src: url("../Manrope-ExtraLight.woff2?z5Mjn4b+iNmROf+SdLlNDw") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 300;   /* Light */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Light.woff2") format("woff2");
+  src: url("../Manrope-Light.woff2?rgQ0eR7mpyZ7EJLu2qEBWA") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 400;   /* Regular */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Regular.woff2") format("woff2");
+  src: url("../Manrope-Regular.woff2?M8qRfdvZSd41PCSY6ImlGQ") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 500;   /* Medium */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Medium.woff2") format("woff2");
+  src: url("../Manrope-Medium.woff2?ycwJigmub8u9ZvjsTqXgjw") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 600;   /* Semi Bold */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-SemiBold.woff2") format("woff2");
+  src: url("../Manrope-SemiBold.woff2?Eb9UuZqzIcbvXCHOeaUP7g") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 700;   /* Bold */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Bold.woff2") format("woff2");
+  src: url("../Manrope-Bold.woff2?rE9DuX0pbH0t7tjSuyabTQ") format("woff2");
 }
 @font-face {
   font-family: "Manrope";
   font-weight: 800;   /* Extra Bold */
   font-style: normal;
   font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-ExtraBold.woff2") format("woff2");
+  src: url("../Manrope-ExtraBold.woff2?adWWRILpzT_Wu3SJAC4B2g") format("woff2");
 }
 
 /*! =========================================================================== */
@@ -877,11 +877,12 @@ footer.content-bottom {
 
 /* 2. Keep layout constraints and spacing on the inner grid container */
 .content-bottom .footer.ThemeGrid_Container {
-  background-color: transparent; /* Overrides the previous base setting */
-  padding: var(--space-s) var(--space-l);   
-  display: flex;
-  align-items: center;
-  justify-content: space-between;           
+   /* Overrides the previous base setting */
+   padding: var(--space-xs) var(--space-xl);
+   display: flex;
+   align-items: center;
+   height: 100%;
+   justify-content: space-between;
 }
 
 /* Footer Links */
