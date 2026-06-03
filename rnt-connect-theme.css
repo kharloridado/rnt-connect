@@ -1,21 +1,11 @@
 /*! =========================================================================== */
-/*!  R&T — rnt  |  Theme Foundation                                             */
-/*!  Target: OutSystems UI 2.33.0+ (ODC) · OutSystems UI standard token style   */
-/*!  Source: Figma "R&T Library" variables export (SDS)                         */
-/*!  Accessibility: WCAG 2.2 AA (token contrast verified at generation)         */
-/*!                                                                              */
-/*!  APPROACH: This Theme INHERITS OutSystems UI and overrides only via tokens. */
-/*!  No OS UI default classes/rules are restated (typography, headings, focus   */
-/*!  CSS, generic color utilities all re-theme automatically through :root).    */
-/*!                                                                              */
-/*!  STRUCTURE                                                                   */
-/*!   1. :root  — Tier 1 primitives · Tier 2 OS UI slots · scalars · Tier 3 aliases */
-/*!   2. Dark mode  ([data-theme="dark"] + prefers-color-scheme)                 */
-/*!   3. Net-new only — reduced-motion safeguard + semantic helper utilities     */
-/*!   4. Fonts (@font-face) — Manrope only                                       */
-/*!   --> Primitive component states (button, input, ...) come NEXT pass.        */
+/*!  R&T CONNECT — Theme Master Stylesheet                                      */
+/*!  Target: OutSystems UI (ODC)                                                */
 /*! =========================================================================== */
 
+/*! --------------------------------------------------------------------------- */
+/*! 0. ROOT & FOUNDATION                                                        */
+/*! --------------------------------------------------------------------------- */
 :root {
   /* primary */
   --rnt-primary-100: #f3f7fa;
@@ -238,8 +228,7 @@
   --color-info:          var(--rnt-blue-600);   /* #3271d7 · 4.69:1 on #fff AA */
   --color-info-light:    var(--rnt-blue-100);   /* #f1f6fd */
 
-  /* Focus — re-theme OS UI's own focus tokens (no custom focus CSS).
-     WCAG 2.2 SC 2.4.11/2.4.13: ring color >=3:1 on its background. */
+  /* Focus — re-theme OS UI's own focus tokens (no custom focus CSS). */
   --color-focus-outline: var(--rnt-primary-700); /* #3f5f7c · ~5:1 on #fff ring */
   --color-focus-outer:   var(--rnt-primary-800); /* outer ring                  */
   --color-focus-inner:   var(--color-neutral-0); /* inner gap (2-tone)          */
@@ -250,10 +239,9 @@
   /* ========================================================= */
   /* TYPOGRAPHY (Manrope only)                                 */
   /* ========================================================= */
-  --font-family-heading: 'Manrope', sans-serif;   /* R&T: family sans */
-  --font-family-body:    'Manrope', sans-serif;   /* R&T: family sans */
+  --font-family-heading: 'Manrope', sans-serif;
+  --font-family-body:    'Manrope', sans-serif;
   --font-family:         var(--font-family-body);
-  /* (mono/serif intentionally NOT declared -> OS UI defaults stand) */
 
   /* Sizes — mapped from R&T semantic type styles */
   --font-size-display: 40px;
@@ -272,7 +260,7 @@
   --rnt-font-scale-10: 40px; --rnt-font-scale-11: 48px; --rnt-font-scale-12: 64px;
   --rnt-font-scale-13: 72px;
 
-  /* Weights — OS UI standard names (semi-bold corrected to 600) */
+  /* Weights — OS UI standard names */
   --font-thin: 100; --font-extra-light: 200; --font-light: 300;
   --font-regular: 400; --font-medium: 500; --font-semi-bold: 600;
   --font-bold: 700; --font-extra-bold: 800; --font-black: 900;
@@ -329,7 +317,6 @@
   --rnt-icon-s: 24px; --rnt-icon-m: 32px; --rnt-icon-l: 40px;
   --breakpoint-small: 375px; --breakpoint-medium: 768px; --breakpoint-large: 1200px;
   --max-width: 1200px;
-
 
   /* color */
   --color-background-brand: var(--rnt-primary-800);
@@ -530,10 +517,6 @@
   --color-icon-warning-tertiary: var(--rnt-yellow-600);
 }
 
-/*! =========================================================================== */
-/*! 2. DARK MODE — semantic alias + focus token overrides                       */
-/*!    Apply via <body data-theme="dark"> (recommended for ODC theme switch)    */
-/*! =========================================================================== */
 [data-theme="dark"] {
     /* color */
     --color-background-brand: var(--rnt-primary-100);
@@ -709,28 +692,72 @@
     --color-icon-warning-on-warning-secondary: var(--rnt-yellow-100);
     --color-icon-warning-on-warning-tertiary: var(--rnt-yellow-100);
     --color-icon-warning-secondary: var(--rnt-yellow-400);
+    
     /* focus must lift off dark surfaces */
     --color-focus-outline: var(--rnt-primary-300);
     --color-focus-outer:   var(--rnt-primary-200);
     --color-focus-inner:   var(--rnt-neutral-900);
 }
 
-/*! =========================================================================== */
-/*! 3. NET-NEW ONLY — nothing here duplicates OutSystems UI                      */
-/*! =========================================================================== */
+@font-face {
+  font-family: "Manrope";
+  font-weight: 200;   /* Extra Light */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-ExtraLight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 300;   /* Light */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 400;   /* Regular */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 500;   /* Medium */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 600;   /* Semi Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 700;   /* Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-weight: 800;   /* Extra Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url("/RNTConnectTheme/Manrope-ExtraBold.woff2") format("woff2");
+}
 
-/* Body font family — explicit guarantee for the from-scratch theme.
-   OS UI's base reset already does html { font-family: var(--font-family) }, so
-   the token alone normally suffices; this pins it regardless and inherits down.
-   -servicestudio-font-family gives the Studio preview a safe fallback while
-   Manrope loads. */
+/*! --------------------------------------------------------------------------- */
+/*! 1. RESETS & HTML ELEMENTS                                                   */
+/*! --------------------------------------------------------------------------- */
 html,
 body {
   font-family: var(--font-family-body);
-  
+  -servicestudio-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Motion safeguard — WCAG 2.2 SC 2.3.3 (OS UI ships no blanket rule) */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -740,124 +767,92 @@ body {
   }
 }
 
-/* Semantic helper utilities that OS UI does NOT provide.
-   (Generic color/typography/weight utilities are intentionally omitted —
-    OS UI already ships those and they re-theme via the tokens above.) */
-
-/*! Surfaces — semantic, dark-mode aware */
-.background-surface        { background-color: var(--color-background-default); }
-.background-surface-raised { background-color: var(--color-background-secondary); }
-
-/*! Subtle status fills — for inline badges / alerts */
-.background-success-subtle { background-color: var(--color-background-positive-tertiary); }
-.background-warning-subtle { background-color: var(--color-background-warning-tertiary); }
-.background-danger-subtle  { background-color: var(--color-background-danger-tertiary); }
-.background-brand-subtle   { background-color: var(--color-background-brand-tertiary); }
-
-/*! Secondary / tertiary text — semantic naming */
-.text-muted  { color: var(--color-text-secondary); }
-.text-subtle { color: var(--color-text-tertiary); }
-
-
-/*! =========================================================================== */
-/*! 4. FONTS — @font-face (Manrope only)                                        */
-/*!    Static weights 200–800, served from the RNTConnect_Theme module.         */
-/*!    Upload the .woff2 files to RNTConnect_Theme so paths resolve to          */
-/*!    /RNTConnect_Theme/<file>. font-display: swap avoids invisible text.      */
-/*! =========================================================================== */
-@font-face {
-  font-family: "Manrope";
-  font-weight: 200;   /* Extra Light */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-ExtraLight.woff2?z5Mjn4b+iNmROf+SdLlNDw") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 300;   /* Light */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-Light.woff2?rgQ0eR7mpyZ7EJLu2qEBWA") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 400;   /* Regular */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-Regular.woff2?M8qRfdvZSd41PCSY6ImlGQ") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 500;   /* Medium */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-Medium.woff2?ycwJigmub8u9ZvjsTqXgjw") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 600;   /* Semi Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-SemiBold.woff2?Eb9UuZqzIcbvXCHOeaUP7g") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 700;   /* Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-Bold.woff2?rE9DuX0pbH0t7tjSuyabTQ") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 800;   /* Extra Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("../Manrope-ExtraBold.woff2?adWWRILpzT_Wu3SJAC4B2g") format("woff2");
-}
-
-/*! =========================================================================== */
-/*!  R&T CONNECT — Theme Master Stylesheet                                      */
-/*!  Target: OutSystems UI (ODC)                                                */
-/*! =========================================================================== */
-
 /*! --------------------------------------------------------------------------- */
-/*! 1. THEME FOUNDATION                                                         */
+/*! 2. PAGE LAYOUT                                                              */
 /*! --------------------------------------------------------------------------- */
-/* CSS Variables, Dark Mode Overrides, Typography, and Global Utilities will go here */
-
-
-/*! --------------------------------------------------------------------------- */
-/*! 2. LAYOUTS                                                                  */
-/*! --------------------------------------------------------------------------- */
-
-/* ---- Main Background ---- */
-/* Targets the body and main content wrappers for the light tinted background */
+/* ---- 2.1. Layout ---- */
 body {
   background-color: var(--rnt-primary-100); 
 }
 
-/* Ensures blocks/containers inside the main content stand out with white backgrounds */
-.card {
-  border-radius: var(--border-radius-rounded);
-  border: var(--border-size-s) solid var(--color-border-default);
+/* Lock the app to the viewport; no page-level scroll */
+html, body { height: 100%; overflow: hidden; }
+.layout,
+.layout .main { height: 100vh; min-height: 100vh; }
+
+/* Remove the large left margin */
+.layout.layout-side .main {
+    margin-left: 0;
+    padding-left: 0;
 }
 
-/* ---- Header ---- */
+/* CONTENT grid — fills the space between the fixed header and fixed footer */
+.layout .main > .content {
+  position: fixed;
+  top: 56px;       /* header height */
+  bottom: 37px;    /* footer height */
+  left: 0;
+  right: 0;
+  height: auto;    /* top + bottom define the height */
+}
+
+.content {
+    display: grid;
+    grid-template-columns: var(--side-menu-size) 1fr; 
+    grid-template-rows: 1fr auto; 
+    transition: grid-template-columns 0.25s ease;
+}
+
+.layout.menu-collapsed .content {
+  --side-menu-size: 64px;
+}
+
+/* Adjust Nav (so it sits above the footer instead of beside it) */
+nav {
+    grid-column: 1 / 2; /* First column */
+    grid-row: 1 / 2;    /* Only occupies the top row now */
+}
+
+/* Main Content remains the same */
+.main-content {
+    grid-column: 2 / 3; /* Second column */
+    grid-row: 1 / 2;    /* First row */
+}
+
+/* MAIN CONTENT — the only scrolling region */
+.layout .main-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Expand the Footer to full width */
+footer {
+    grid-column: 1 / -1; /* Stretches from the first line to the very last */
+    grid-row: 2 / 3;     /* Placed in the bottom row */
+}
+
+/* ---- 2.2. Header ---- */
+/* HEADER — fixed to the top, full width */
+.layout .main > .header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 56px;
+  z-index: 1000;
+}
+
 .desktop .header-content > [data-block*=ApplicationTitle] .application-name {
     display: flex;
 }
+
 /* Dark blue header matching the R&T brand */
 .header {
   background-color: var(--rnt-primary-900); 
   color: var(--color-neutral-0);            
   border-bottom: none;                      
   box-shadow: var(--shadow-s);              
-}
-
-.layout-side .app-logo {
-    max-height: var(--header-size);
-    max-width: 100%;
-    height: 48px;
 }
 
 /* Ensures text, icons, and links inside the header are white */
@@ -867,22 +862,175 @@ body {
 .header .icon {
   color: var(--color-neutral-0);
 }
-/* ---- Footer ---- */
-/* 1. Apply the dark blue background to the full-width parent tag */
+
+/* ---- 2.3. Menu ---- */
+.layout-side .app-logo {
+    max-height: var(--header-size);
+    max-width: 100%;
+    height: 48px;
+}
+
+/* SIDE MENU — full height of the content region; scrolls internally if very tall */
+.layout .aside-navigation {
+  height: 100%;
+  overflow-y: auto;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.aside-navigation {
+  display: flex;
+  flex-direction: column;
+  transition: width .25s ease, min-width .25s ease, max-width .25s ease;
+  overflow-x: hidden;
+}
+
+.layout-side.menu-collapsed .aside-navigation {
+    width: 64px  !important;
+    min-width: 64px !important;
+    max-width: 64px !important;
+}
+
+/* the immediate wrapper div inside the aside */
+.aside-navigation > div {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.aside-navigation .app-menu-content {
+  height: 100%;
+}
+
+.layout-side .app-menu-content {
+    position: relative;
+    border-right: var(--border-size-s) solid var(--color-border-default);
+}
+
+/* ---- 2.4. Menu - App Menu Link ---- */
+.app-menu-links a {
+    color: var(--color-primary);
+    font-weight: var(--font-semi-bold);
+    font-size: var(--font-size-base);
+}
+
+/* Outer gutter: keeps all items away from sidebar edges */
+.layout-side .app-menu-links {
+    padding: var(--space-s) var(--space-s);   /* 8px top/bottom, 8px left/right */
+    gap: var(--space-s);   /* 4px between every sibling item */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Items must not exceed the new container width */
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links .osui-submenu {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Hide labels when collapsed, center the icons */
+.layout-side.menu-collapsed .app-menu-links a span { display: none; }
+.layout-side.menu-collapsed .app-menu-links a { justify-content: center; }
+
+/* Pill/active background needs border-radius now that it's inset */
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links .osui-submenu__header {
+    border-radius: var(--border-radius-rounded);   /* 8px */
+}
+
+.layout-side .app-menu-links a,
+.layout-side .app-menu-links a.active,
+.layout-side .app-menu-links .osui-submenu .osui-submenu__header,
+.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header,
+.desktop .layout-side .app-menu-links .osui-submenu__header:hover,
+.tablet .osui-submenu__header,
+.phone .osui-submenu__header,
+.tablet .osui-submenu.active .osui-submenu__header,
+.phone .osui-submenu.active .osui-submenu__header {
+    border-left: var(--border-size-none) solid transparent; /* 0px */
+}
+
+.layout-side .app-menu-links a.active,
+.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
+    background-color: var(--color-background-brand-secondary); /* #e6eef5 */
+}
+
+/* Menu Control */
+.app-menu-control {
+    padding: var(--space-m);
+    border-bottom: var(--border-size-s) solid var(--color-border-default);
+    text-align: right;
+    color: var(--color-primary);
+    cursor: pointer;
+    outline: none;
+}
+
+.app-menu-control:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Collapsed (default OutSystems state has .menu-collapsed on .layout) */
+.menu-collapsed .app-menu-control {
+    text-align: center;
+    display: flex;
+    justify-content: center;   /* center the icon */
+    align-items: center;
+}
+
+/* Expanded (no .menu-collapsed) */
+.layout:not(.menu-collapsed) .app-menu-control {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* icon to the right */
+    align-items: center;
+}
+
+/* Icon rotation depending on state */
+.app-menu-control .icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Collapsed: point right (open hint) */
+.menu-collapsed .app-menu-control .icon {
+    transform: rotate(0deg);
+}
+
+/* Expanded: rotate to opposite direction (point left / collapse hint) */
+.layout:not(.menu-collapsed) .app-menu-control .icon {
+    transform: rotate(180deg);
+}
+
+
+/* ---- 2.5. Footer ---- */
+/* FOOTER — fixed to the bottom, full width */
+.layout .content .content-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 37px;
+  z-index: 1000;
+}
+
+/* Apply the dark blue background to the full-width parent tag */
 footer.content-bottom {
   background-color: var(--rnt-primary-900); 
   color: var(--color-neutral-0);
   border-top: none;
 }
 
-/* 2. Keep layout constraints and spacing on the inner grid container */
+/* Keep layout constraints and spacing on the inner grid container */
 .content-bottom .footer.ThemeGrid_Container {
-   /* Overrides the previous base setting */
-   padding: var(--space-xs) var(--space-xl);
-   display: flex;
-   align-items: center;
-   height: 100%;
-   justify-content: space-between;
+  background-color: transparent; /* Overrides the previous base setting */
+  padding: var(--space-s) var(--space-l);   
+  display: flex;
+  align-items: center;
+  justify-content: space-between;           
+  height: 100%;
 }
 
 /* Footer Links */
@@ -905,103 +1053,16 @@ footer.content-bottom {
   color: var(--color-neutral-4); 
 }
 
-/* 1. Remove the large left margin */
-.layout.layout-side .main {
-    margin-left: 0;
-    padding-left: 0;
-}
-
-.content {
-    display: grid;
-    grid-template-columns: var(--side-menu-size) 1fr; 
-    grid-template-rows: 1fr auto; 
-}
-
-/* 1. Adjust Nav (so it sits above the footer instead of beside it) */
-nav {
-    grid-column: 1 / 2; /* First column */
-    grid-row: 1 / 2;    /* UPDATED: Only occupies the top row now */
-}
-
-/* 2. Main Content remains the same */
-.main-content {
-    grid-column: 2 / 3; /* Second column */
-    grid-row: 1 / 2;    /* First row */
-}
-
-/* 3. Expand the Footer to full width */
-footer {
-    grid-column: 1 / -1; /* UPDATED: Stretches from the first line to the very last */
-    grid-row: 2 / 3;     /* Placed in the bottom row */
-}
-
-
-.aside-navigation {
-  display: flex;
-  flex-direction: column;
-}
-
-/* the immediate wrapper div inside the aside */
-.aside-navigation > div {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.aside-navigation .app-menu-content {
-  height: 100%;
-}
-
-.app-menu-links a {
-    color: var(--color-primary);
-    font-weight: var(--font-semi-bold);
-    font-size: var(--font-size-base);
-}
-
-.layout-side .app-menu-content {
-    position: relative;
-    border-right: var(--border-size-s) solid var(--color-border-default);
-}
-
-.aside-navigation {
-    transition: width .25s ease, min-width .25s ease, max-width .25s ease;
-    overflow-x: hidden;
-}
-
-.layout-side.menu-collapsed .aside-navigation {
-    width: 64px  !important;
-    min-width: 64px !important;
-    max-width: 64px !important;
-}
-.app-menu-control {
-      padding: var(--space-m);
-    border-bottom: var(--border-size-s) solid var(--color-border-default);
-    text-align: right;
-    color: var(--color-primary);
-}
-/* Hide labels when collapsed, center the icons */
-.layout-side.menu-collapsed .app-menu-links a span { display: none; }
-.layout-side.menu-collapsed .app-menu-links a { justify-content: center; }
 /*! --------------------------------------------------------------------------- */
-/*! 3. ADAPTIVE PATTERNS                                                        */
+/*! 3. WIDGETS                                                                  */
 /*! --------------------------------------------------------------------------- */
-/* Overrides for structural OutSystems UI patterns: Columns, Gallery, etc. */
 
-
-/*! --------------------------------------------------------------------------- */
-/*! 4. CONTENT PATTERNS                                                         */
-/*! --------------------------------------------------------------------------- */
-/* Overrides for informational OutSystems UI patterns: Accordion, Alert, Card, etc. */
-/* ==========================================================================
-   OUTSYSTEMS UI TABLE OF CONTENTS:
-   -> Widgets
-      -> Inputs and TextAreas
-   ========================================================================== */
-
+/* ---- 3.1. Inputs and TextAreas ---- */
 /* 1. Base Styling (Default State) */
-input.form-control[data-input],
-textarea.form-control[data-textarea] {
+.form-control[data-input],
+.form-control[data-textarea] {
     background-color: var(--color-background-default);
-    border: var(--border-size-s) solid var(--color-border-default);
+    border: var(--border-size-s) solid var(--color-neutral-5);
     border-radius: var(--border-radius-soft);
     color: var(--color-text-default);
     transition: border-color var(--animation-duration) var(--animation-function), 
@@ -1009,252 +1070,6 @@ textarea.form-control[data-textarea] {
 }
 
 /* 2. Placeholder Text */
-input.form-control[data-input]::placeholder,
-textarea.form-control[data-textarea]::placeholder {
-    color: var(--color-text-tertiary);
-    opacity: 1; /* Firefox default override */
-}
-
-/* 3. Hover State */
-input.form-control[data-input]:hover:not([disabled]):not(.not-valid),
-textarea.form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
-    border-color: var(--color-border-neutral-secondary);
-}
-
-/* 4. Focus State */
-input.form-control[data-input]:focus:not([disabled]):not(.not-valid),
-textarea.form-control[data-textarea]:focus:not([disabled]):not(.not-valid) {
-    border-color: var(--color-focus-outline);
-    box-shadow: 0 0 0 1px var(--color-focus-outline);
-    outline: none;
-}
-
-/* 5. Disabled State */
-input.form-control[data-input][disabled],
-textarea.form-control[data-textarea][disabled] {
-    background-color: var(--color-background-disabled);
-    border-color: var(--color-border-disabled);
-    color: var(--color-text-disabled);
-    cursor: not-allowed;
-}
-
-/* Ensure disabled placeholders match disabled text */
-input.form-control[data-input][disabled]::placeholder,
-textarea.form-control[data-textarea][disabled]::placeholder {
-    color: var(--color-text-disabled);
-}
-
-/* 6. Error State (OutSystems .not-valid class) */
-input.form-control[data-input].not-valid,
-textarea.form-control[data-textarea].not-valid {
-    border-color: var(--color-border-danger);
-}
-
-input.form-control[data-input].not-valid:focus,
-textarea.form-control[data-textarea].not-valid:focus {
-    box-shadow: 0 0 0 1px var(--color-border-danger);
-}
-
-/* ==========================================================================
-   Custom OutSystems UI Feedback Messages (Token-Driven & High Specificity)
-   ========================================================================== */
-
-/* 1. Base Styling for all feedback messages */
-div.feedback-message {
-    border-radius: var(--border-radius-rounded);
-    border-width: var(--border-size-s);
-    border-style: solid;
-    box-shadow: var(--shadow-none);
-}
-
-/* Ensure icons inside the feedback message match the text color */
-div.feedback-message .feedback-message-icon svg,
-div.feedback-message .icon {
-    fill: currentColor;
-    color: currentColor;
-}
-
-/* ==========================================================================
-   2. State-Specific Overrides
-   ========================================================================== */
-
-/* SUCCESS FEEDBACK MESSAGE */
-div.feedback-message.feedback-message-success {
-    background-color: var(--color-success-light);
-    border-color: var(--color-success);
-    color: var(--color-text-positive);
-}
-
-/* ERROR FEEDBACK MESSAGE */
-div.feedback-message.feedback-message-error {
-    background-color: var(--color-error-light);
-    border-color: var(--color-error);
-    color: var(--color-text-danger);
-}
-
-/* WARNING FEEDBACK MESSAGE */
-div.feedback-message.feedback-message-warning {
-    background-color: var(--color-warning-light);
-    border-color: var(--color-warning);
-    color: var(--color-text-warning);
-}
-
-/* INFO FEEDBACK MESSAGE */
-div.feedback-message.feedback-message-info {
-    background-color: var(--color-info-light);
-    border-color: var(--color-info);
-    color: var(--color-text-brand); 
-}
-
-/* Ensure the close button ('x') inherits the specific dark color of the state */
-div.feedback-message.feedback-message-success .feedback-message-close,
-div.feedback-message.feedback-message-error .feedback-message-close,
-div.feedback-message.feedback-message-warning .feedback-message-close,
-div.feedback-message.feedback-message-info .feedback-message-close {
-    color: currentColor;
-}
-
-.card {
-    border-radius: var(--border-radius-rounded);
-    border: var(--border-size-s) solid var(--color-border-default); 
-}
-/*! --------------------------------------------------------------------------- */
-/*! 5. INTERACTION PATTERNS                                                     */
-/*! --------------------------------------------------------------------------- */
-/* Overrides for user input/interactive OutSystems UI patterns */
-
-/* 5.1 Buttons */
-/* Button CSS overrides will go here */
-
-/*! =========================================================================== */
-/*! 5. COMPONENTS — Button  (overrides OutSystems UI .btn / .btn-*)             */
-/*!    Escalation: L3 — restyle native classes, no parallel classes.           */
-/*!    Variant -> class:  Primary .btn-primary · Secondary .btn-secondary ·     */
-/*!    Tertiary .btn-light · Danger .btn-error (added; OS UI has no danger).   */
-/*!    States covered: default · hover · focus · disabled · loading.            */
-/*!    Focus ring is re-themed through OS UI's own focus tokens (navy default,  */
-/*!    red for danger) so it works in both OS UI focus modes without fighting   */
-/*!    OS UI specificity. Loading is handled by the Button widget's Is Loading. */
-/*! =========================================================================== */
-
-/* ---- Base geometry (R&T: 8px radius, 8px gap, 40px target) ---- */
-.btn {
-  border-radius: var(--border-radius-rounded);   /* 8px (radius_200) */
-  gap: var(--space-s);
-}
-.btn:not(.btn-link) {
-  min-width: 120px;
-  min-height: 40px;                               /* WCAG 2.2 SC 2.5.8 target >= 24px */
-}
-.btn-small:not(.btn-link) {
-  min-height: 36px;                               /* >= 24px */
-}
-
-/* R&T uses explicit hover colors -> neutralize OS UI's brightness-filter hover.
-   (Matches OS UI's device-scoped selector specificity; our theme loads last.) */
-.phone .btn:hover,
-.tablet .btn:hover,
-.desktop .btn:hover {
-  filter: none;
-}
-
-/* ---- PRIMARY (filled brand) — .btn-primary ----
-   OS UI already fills .btn-primary with --color-primary (#2a4a66) + white text,
-   so resting bg/color are inherited; only hover + disabled differ.
-   Focus: stays filled with the navy token ring (no override needed). */
-.btn-primary:hover {
-  background-color: var(--color-background-brand-hover);     /* #143656 · 12.41:1  AA */
-}
-.btn-primary:disabled,
-.btn-primary[disabled],
-.btn-primary.disabled {
-  background-color: var(--color-background-brand-secondary); /* #e6eef5 (disabled = contrast-exempt) */
-  color: var(--color-text-brand-on-brand);
-}
-
-/* ---- SECONDARY (outlined brand) — .btn-secondary ---- */
-.btn-secondary {
-  background-color: transparent;
-  color: var(--color-text-brand);                            /* #2a4a66 · 9.25:1  AA */
-  border: var(--border-size-s) solid var(--color-border-brand);  /* 1px #2a4a66 */
-}
-.btn-secondary:hover {
-  background-color: var(--color-background-default-hover);   /* #f5f5f5 (dark-mode aware) */
-  color: var(--color-text-brand);
-}
-.btn-secondary:disabled,
-.btn-secondary[disabled],
-.btn-secondary.disabled {
-  background-color: transparent;
-  color: var(--color-text-tertiary);                         /* #b3b3b3 (disabled-exempt) */
-  border-color: var(--color-border-default);                 /* #d9d9d9 */
-}
-
-/* ---- TERTIARY (ghost / text) — mapped to .btn-light ---- */
-.btn-light {
-  background-color: transparent;
-  color: var(--color-text-brand);                            /* #2a4a66 · 9.25:1  AA */
-  border: var(--border-size-s) solid transparent;
-}
-.btn-light:hover {
-  background-color: var(--color-background-default-hover);    /* #f5f5f5 (dark-mode aware) */
-  color: var(--color-text-brand);
-}
-.btn-light:disabled,
-.btn-light[disabled],
-.btn-light.disabled {
-  background-color: transparent;
-  color: var(--color-text-tertiary);                         /* #b3b3b3 (disabled-exempt) */
-  border-color: transparent;
-}
-
-/* ---- DANGER (filled destructive) — .btn-error (no native OS UI class) ----
-   Driven by R&T's danger BACKGROUND aliases (true to Figma), not the flat
-   --color-error slot. Default = --color-background-danger (red-500 #ec221f);
-   hover = --color-background-danger-hover (red-600 #c00f0c).
-   Transparent 1px border kept in the box model so the focus flip doesn't resize.
-   A11y note: white text on red-500 is 4.36:1 (just under the 4.5:1 AA text
-   threshold). Faithful to the design; see message for the AA option. */
-.btn-error {
-  background-color: var(--color-background-danger);          /* #ec221f (Figma default) */
-  color: var(--color-neutral-0);                             /* #fff · 4.36:1 (see note) */
-  border: var(--border-size-s) solid transparent;
-}
-.btn-error:hover {
-  background-color: var(--color-background-danger-hover);    /* #c00f0c · 6.33:1  AA */
-}
-.btn-error:disabled,
-.btn-error[disabled],
-.btn-error.disabled {
-  background-color: var(--color-background-danger-secondary); /* #fdd3d0 (disabled-exempt) */
-  color: var(--color-text-danger-on-danger);
-  border-color: transparent;
-}
-/* Danger focus (per R&T spec): RED ring + flip to outlined red.
-   Local token override recolors OS UI's focus ring without a specificity fight. */
-.btn-error:focus,
-.btn-error:focus-visible {
-  --color-focus-outline: var(--color-border-danger-secondary);
-  --color-focus-outer:   var(--color-border-danger-secondary);
-  background-color: transparent;
-  color: var(--color-text-danger-secondary);                 /* #c00f0c · 6.33:1  AA */
-  border-color: var(--color-border-danger-secondary);        /* #c00f0c */
-}
-
-/* ---- Base (Default state) — shared by single-line inputs and textareas ----
-   Inputs use the soft 4px radius (input-typical; subtler than the 8px button). */
-.form-control[data-input],
-.form-control[data-textarea] {
-  background-color: var(--color-background-default);     /* #ffffff */
-  border: var(--border-size-s) solid var(--color-neutral-5); /* 1px #757575 · 4.61:1  AA (Figma's #d9d9d9 fails 3:1) */
-  border-radius: var(--border-radius-soft);              /* 4px */
-  color: var(--color-text-default);                      /* #1e1e1e · typed value = "Filled" · 14.6:1  AA */
-  transition: border-color var(--animation-duration) var(--animation-function),
-              box-shadow   var(--animation-duration) var(--animation-function);
-}
-
-/* Placeholder — hint text, kept readable rather than the design's pale grey.
-   #757575 on #fff = 4.61:1  AA (exceeds the placeholder convenience bar). */
 .form-control[data-input]::-webkit-input-placeholder,
 .form-control[data-textarea]::-webkit-input-placeholder { color: var(--color-text-secondary); }
 .form-control[data-input]::-moz-placeholder,
@@ -1263,622 +1078,211 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 .form-control[data-textarea]:-ms-input-placeholder { color: var(--color-text-secondary); }
 .form-control[data-input]::placeholder,
 .form-control[data-textarea]::placeholder {
-  color: var(--color-text-secondary);                    /* #757575 · 4.61:1  AA */
-  opacity: 1;                                            /* neutralize Firefox dimming */
+    color: var(--color-text-secondary);
+    opacity: 1; /* Firefox default override */
 }
 
-/* ---- Hover ---- */
+/* 3. Hover State */
 .form-control[data-input]:hover:not([disabled]):not(.not-valid),
 .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
-  border-color: var(--color-neutral-6);                  /* #444444 */
+    border-color: var(--color-neutral-6);
 }
 
-/* ---- Focus ---- (border shift on any focus; 2px ring for keyboard users)
-   Neutralize OS UI's default focus box-shadow, then apply our own ring.
-   WCAG 2.2 SC 2.4.11/2.4.13: ring #3f5f7c ~5:1 on #fff, 2px size + 2px offset. */
+/* 4. Focus State */
 .form-control[data-input]:focus,
 .form-control[data-textarea]:focus {
-  border-color: var(--color-border-brand);               /* #2a4a66 · 9.25:1 */
-  box-shadow: none;
-  outline: none;
+    border-color: var(--color-border-brand);
+    box-shadow: none;
+    outline: none;
 }
 .form-control[data-input]:focus-visible,
 .form-control[data-textarea]:focus-visible {
-  outline: var(--border-size-m) solid var(--color-focus-outline); /* 2px #3f5f7c ~5:1  AA */
-  outline-offset: var(--border-size-m);                  /* 2px */
+    outline: var(--border-size-m) solid var(--color-focus-outline);
+    outline-offset: var(--border-size-m);
 }
 
-/* ---- Filled ----
-   No OS UI "filled" class exists. "Filled" = a typed value, which renders in the
-   base color (--color-text-default) while the placeholder uses the muted token,
-   so the resting border + dark value already produce the Filled appearance.
-   No separate rule needed (design shows Filled border == Default border). */
+/* 5. Disabled State */
+.form-control[data-input][disabled],
+.form-control[data-textarea][disabled] {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border-disabled);
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+}
 
-/* ---- Sizes — Large / Default / Small ----
-   Single-line heights and textarea min-heights; all targets >= 24px CSS (SC 2.5.8). */
+.form-control[data-input][disabled]::placeholder,
+.form-control[data-textarea][disabled]::placeholder {
+    color: var(--color-text-disabled);
+}
+
+/* 6. Error State (OutSystems .not-valid class) */
+.form-control[data-input].not-valid,
+.form-control[data-textarea].not-valid {
+    border-color: var(--color-border-danger-tertiary);
+}
+
+.form-control[data-input].not-valid:focus,
+.form-control[data-textarea].not-valid:focus {
+    border-color: var(--color-border-danger-tertiary);
+}
+.form-control[data-input].not-valid:focus-visible,
+.form-control[data-textarea].not-valid:focus-visible {
+    outline-color: var(--color-error);
+}
+
+/* Validation message */
+.form-control[data-input].not-valid + span.validation-message,
+.form-control[data-textarea].not-valid + span.validation-message {
+  color: var(--color-error);
+  font-size: var(--font-size-xs);
+}
+
+/* Size-scoped validation text */
+[data-input].input-large + span.validation-message {
+  font-size: var(--font-size-s);
+}
+
+/* Sizes — Large / Default / Small */
 .form-control[data-input].input-large {
   min-height: 48px;
-  padding: var(--space-s) var(--space-base);             /* 8px / 16px */
-  font-size: var(--font-size-base);                      /* 16px */
+  padding: var(--space-s) var(--space-base);
+  font-size: var(--font-size-base);
 }
-.form-control[data-input] {                              /* Default (no size modifier) */
+.form-control[data-input] {
   min-height: 40px;
-  padding: var(--space-s) var(--space-base);             /* 8px / 16px */
-  font-size: var(--font-size-base);                      /* 16px */
+  padding: var(--space-s) var(--space-base);
+  font-size: var(--font-size-base);
 }
 .form-control[data-input].input-small {
   min-height: 32px;
-  padding: var(--space-xs) var(--space-s);               /* 4px / 8px */
-  font-size: var(--font-size-s);                         /* 14px */
+  padding: var(--space-xs) var(--space-s);
+  font-size: var(--font-size-s);
 }
 
 .form-control[data-textarea],
 .form-control[data-textarea].input-large {
   min-height: 96px;
-  padding: var(--space-base);                            /* 16px */
-  font-size: var(--font-size-base);                      /* 16px */
+  padding: var(--space-base);
+  font-size: var(--font-size-base);
   resize: vertical;
 }
 .form-control[data-textarea].input-small {
   min-height: 72px;
-  padding: calc(var(--space-s) + var(--space-xs));       /* 12px */
-  font-size: var(--font-size-s);                         /* 14px */
+  padding: calc(var(--space-s) + var(--space-xs));
+  font-size: var(--font-size-s);
 }
 
-/* ---- Disabled ---- (contrast-exempt per WCAG 2.2) */
-.form-control[data-input][disabled],
-.form-control[data-textarea][disabled] {
-  background-color: var(--color-background-secondary);   /* #f5f5f5 */
-  border-color: var(--color-border-disabled);            /* #b3b3b3 */
-  color: var(--color-text-disabled);                     /* #b3b3b3 */
-  cursor: not-allowed;
-}
-.form-control[data-input][disabled]::placeholder,
-.form-control[data-textarea][disabled]::placeholder {
-  color: var(--color-text-disabled);                     /* #b3b3b3 */
-}
 
-/* ---- Error ---- (placed after hover/focus so the red border wins on those states)
-   Border #ec221f = 4.36:1 on #fff -> passes the 3:1 UI-boundary bar (SC 1.4.11).
-   Error is also signalled by the validation message text, not colour alone (SC 1.4.1). */
-.form-control[data-input].not-valid,
-.form-control[data-textarea].not-valid {
-  border-color: var(--color-border-danger-tertiary);     /* #ec221f · 4.36:1  AA */
+/* ---- 3.2. Button ---- */
+/* Base geometry */
+.btn {
+  border-radius: var(--border-radius-rounded);
+  gap: var(--space-s);
 }
-.form-control[data-input].not-valid:focus,
-.form-control[data-textarea].not-valid:focus {
-  border-color: var(--color-border-danger-tertiary);     /* keep red while focused */
+.btn:not(.btn-link) {
+  min-width: 120px;
+  min-height: 40px;
 }
-.form-control[data-input].not-valid:focus-visible,
-.form-control[data-textarea].not-valid:focus-visible {
-  outline-color: var(--color-error);                     /* #c00f0c · 6.33:1 ring on error */
+.btn-small:not(.btn-link) {
+  min-height: 36px;
 }
 
-/* ---- Validation message ---- */
-.form-control[data-input].not-valid + span.validation-message,
-.form-control[data-textarea].not-valid + span.validation-message {
-  color: var(--color-error);                             /* #c00f0c · 6.33:1  AA */
-  font-size: var(--font-size-xs);                        /* 12px */
-}
-/* Size-scoped validation text (matches legacy large-input override) */
-[data-input].input-large + span.validation-message {
-  font-size: var(--font-size-s);                         /* 14px */
+.phone .btn:hover,
+.tablet .btn:hover,
+.desktop .btn:hover {
+  filter: none;
 }
 
-/* ==========================================================================
-   Custom OutSystems UI Alert (Token-Driven & High Specificity)
-   ========================================================================== */
-
-/* 1. Base Styling for the Alert wrapper */
-.alert {
-    border-radius: var(--border-radius-rounded);
-    border-width: var(--border-size-s);
-    border-style: solid;
-    padding: var(--space-base);
-    /* Reset OSUI's default white text on colored backgrounds */
-    color: inherit; 
-    box-shadow: var(--shadow-none);
+/* PRIMARY (filled brand) */
+.btn-primary:hover {
+  background-color: var(--color-background-brand-hover);
+}
+.btn-primary:disabled,
+.btn-primary[disabled],
+.btn-primary.disabled {
+  background-color: var(--color-background-brand-secondary);
+  color: var(--color-text-brand-on-brand);
 }
 
-/* Ensure icons inside the alert match the semantic text color */
-.alert .alert-icon,
-.alert .alert-icon svg,
-.alert .icon {
-    fill: currentColor;
-    color: currentColor;
+/* SECONDARY (outlined brand) */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-brand);
+  border: var(--border-size-s) solid var(--color-border-brand);
+}
+.btn-secondary:hover {
+  background-color: var(--color-background-default-hover);
+  color: var(--color-text-brand);
+}
+.btn-secondary:disabled,
+.btn-secondary[disabled],
+.btn-secondary.disabled {
+  background-color: transparent;
+  color: var(--color-text-tertiary);
+  border-color: var(--color-border-default);
 }
 
-/* ==========================================================================
-   2. State-Specific Overrides (Targeting AlertType classes)
-   ========================================================================== */
-
-/* SUCCESS ALERT */
-.alert.alert-success {
-    background-color: var(--color-success-light);
-    border-color: var(--color-success);
-    color: var(--color-text-positive);
+/* TERTIARY (ghost / text) */
+.btn-light {
+  background-color: transparent;
+  color: var(--color-text-brand);
+  border: var(--border-size-s) solid transparent;
+}
+.btn-light:hover {
+  background-color: var(--color-background-default-hover);
+  color: var(--color-text-brand);
+}
+.btn-light:disabled,
+.btn-light[disabled],
+.btn-light.disabled {
+  background-color: transparent;
+  color: var(--color-text-tertiary);
+  border-color: transparent;
 }
 
-/* ERROR / DANGER ALERT */
-.alert.alert-error {
-    background-color: var(--color-error-light);
-    border-color: var(--color-error);
-    color: var(--color-text-danger);
+/* DANGER (filled destructive) */
+.btn-error {
+  background-color: var(--color-background-danger);
+  color: var(--color-neutral-0);
+  border: var(--border-size-s) solid transparent;
+}
+.btn-error:hover {
+  background-color: var(--color-background-danger-hover);
+}
+.btn-error:disabled,
+.btn-error[disabled],
+.btn-error.disabled {
+  background-color: var(--color-background-danger-secondary);
+  color: var(--color-text-danger-on-danger);
+  border-color: transparent;
+}
+.btn-error:focus,
+.btn-error:focus-visible {
+  --color-focus-outline: var(--color-border-danger-secondary);
+  --color-focus-outer:   var(--color-border-danger-secondary);
+  background-color: transparent;
+  color: var(--color-text-danger-secondary);
+  border-color: var(--color-border-danger-secondary);
 }
 
-/* WARNING ALERT */
-.alert.alert-warning {
-    background-color: var(--color-warning-light);
-    border-color: var(--color-warning);
-    color: var(--color-text-warning);
-}
-
-/* INFO ALERT (Maps to Primary/Brand in R&T Theme) */
-.alert.alert-info {
-    background-color: var(--color-info-light);
-    border-color: var(--color-info);
-    color: var(--color-text-brand);
-}
-
-/* RTL Support for the Alert Icon spacing */
-.is-rtl .alert-icon {
-    margin-left: var(--space-base);
-    margin-right: var(--space-none);
-}
-
-/*! --------------------------------------------------------------------------- */
-/*! 6. NAVIGATION PATTERNS                                                      */
-/*! --------------------------------------------------------------------------- */
-/* Overrides for wayfinding OutSystems UI patterns: Bottom Bar, Breadcrumbs, Tabs, etc. */
-
-
-/*! --------------------------------------------------------------------------- */
-/*! 7. NUMBERS PATTERNS                                                         */
-/*! --------------------------------------------------------------------------- */
-/* Overrides for quantitative OutSystems UI patterns: Badge, Counter, Progress, etc. */
-
-
-/*! --------------------------------------------------------------------------- */
-/*! 8. UTILITIES                                                                */
-/*! --------------------------------------------------------------------------- */
-/* Overrides for OS UI helper patterns: Align Center, Margin Container, etc. */
-
-
-/*! --------------------------------------------------------------------------- */
-/*! 9. CUSTOM R&T COMPONENTS                                                    */
-/*! --------------------------------------------------------------------------- */
-/* Any net-new components specific to R&T Connect that do not map to OS UI patterns. */
-
-
-/*! =========================================================================== */
-
-/* =========================================================
-   Side menu collapse fix + accessibility focus styles
-   Works with the existing `.menu-collapsed` class that
-   OutSystems toggles on the `.layout` container.
-   ========================================================= */
-/* =========================================================
-   Fixed header / side menu / footer layout
-   Structure on this app:
-     .layout > .main > [ header.header  +  .content ]
-     .content (CSS grid) > [ aside.aside-navigation | .main-content | footer.content-bottom ]
-   Only .main-content scrolls; header, menu and footer stay put.
-   ========================================================= */
-
-/* Header / footer heights — adjust if your theme changes them */
-/* header = 56px, footer = 37px */
-
-/* Lock the app to the viewport; no page-level scroll */
-html, body            { height: 100%; overflow: hidden; }
-.layout,
-.layout .main         { height: 100vh; min-height: 100vh; }
-
-/* HEADER — fixed to the top, full width
-   (the selector is specific enough to override the theme's left:300px) */
-.layout .main > .header.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 56px;
-  z-index: 1000;
-}
-
-/* CONTENT grid — fills the space between the fixed header and fixed footer */
-.layout .main > .content {
-  position: fixed;
-  top: 56px;       /* header height */
-  bottom: 37px;    /* footer height */
-  left: 0;
-  right: 0;
-  height: auto;    /* top + bottom define the height */
-}
-
-/* SIDE MENU — full height of the content region; scrolls internally if very tall */
-.layout .aside-navigation {
-  height: 100%;
-  overflow-y: auto;
-}
-
-/* MAIN CONTENT — the only scrolling region */
-.layout .main-content {
-  height: 100%;
-  overflow-y: auto;
-}
-
-/* FOOTER — fixed to the bottom, full width */
-.layout .content .content-bottom {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 37px;
-  z-index: 1000;
-}
-/* --- 1. Make the layout grid's first column track the menu width --- */
-/* Expanded (default) state */
-.layout .content {
-  grid-template-columns: var(--side-menu-size) 1fr;
-  transition: grid-template-columns 0.25s ease;
-}
-
-/* Collapsed state: shrink the first column so main-content shifts left
-   and the gap closes. 64px matches the collapsed aside width. */
-.layout.menu-collapsed .content {
-  --side-menu-size: 64px;
-}
-
-/* Let the aside fill its grid column instead of using a hard-coded width,
-   so the menu and the grid column always stay in sync. */
-.layout .aside-navigation {
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-}
-
-/* --- 2. Accessibility: visible keyboard focus indicator --- */
-.app-menu-control {
-  cursor: pointer;
-  outline: none;
-}
-
-.app-menu-control:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* ==========================================================================
-   Components — Button Group (Overrides OutSystems UI .button-group)
-   Escalation: L3 — restyle native classes, no parallel classes.
-   ========================================================================== */
-
-/* ---- Container ---- */
-.button-group {
-    background-color: var(--color-background-secondary);
-    border: var(--border-size-s) solid var(--color-border-default);
-    border-radius: var(--border-radius-rounded);
-    padding: var(--rnt-space-050); /* Creates the internal padding offset seen in Figma */
-    display: inline-flex;
-    gap: var(--space-none);
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-}
-
-/* ---- Base Item (Unselected) ---- */
-.button-group .button-group-item {
-    background-color: transparent;
-    border: var(--border-size-s) solid transparent; /* Reserves space so active state doesn't jump */
-    border-radius: var(--border-radius-soft);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-regular);
-    padding: var(--space-xs) var(--space-base);
-    transition: all var(--animation-duration) var(--animation-function);
-    height: 32px;
-}
-
-/* Neutralize OS UI's default border-left separators */
-.button-group .button-group-item + .button-group-item {
-    border-left-color: transparent;
-}
-
-/* ---- Hover State ---- */
-.button-group .button-group-item:hover:not(.button-group-selected-item) {
-    background-color: var(--color-background-default-hover);
-    color: var(--color-text-brand);
-}
-
-/* ---- Focus State for Accessibility ---- */
-.has-accessible-features .button-group .button-group-item:focus {
-    box-shadow: 0 0 0 var(--border-size-m) var(--color-focus-outline);
-    outline: none;
-}
-
-/* ---- Active/Selected State ---- */
-.button-group .button-group-item.button-group-selected-item {
-    background-color: var(--rnt-primary-100);
-    border-color: var(--rnt-primary-600);
-    color: var(
-    --color-text-brand);
-    font-weight: var(
-    --font-semi-bold);
-}
-.button-group-item::after {
-  content: attr(data-label); /* or the button text */
-  font-weight: 600;
-  height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  user-select: none;
-  pointer-events: none;
-  position: absolute;
-}
-.button-group-item {
-  display: inline-grid; /* stack real text + sizer in same cell */
-}
-
-/* ---- App menu control: center when collapsed, icon right when expanded ---- */
-
-/* Collapsed (default OutSystems state has .menu-collapsed on .layout) */
-.menu-collapsed .app-menu-control {
-    text-align: center;
-    display: flex;
-    justify-content: center;   /* center the icon */
-    align-items: center;
-}
-
-/* Expanded (no .menu-collapsed) */
-.layout:not(.menu-collapsed) .app-menu-control {
-    text-align: right;
-    display: flex;
-    justify-content: flex-end; /* icon to the right */
-    align-items: center;
-}
-
-/* ---- Icon rotation depending on state ---- */
-.app-menu-control .icon {
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Collapsed: point right (open hint) */
-.menu-collapsed .app-menu-control .icon {
-    transform: rotate(0deg);
-}
-
-/* Expanded: rotate to opposite direction (point left / collapse hint) */
-.layout:not(.menu-collapsed) .app-menu-control .icon {
-    transform: rotate(180deg);
-}
-
-/* ---- Remove horizontal scroll on the menu links ---- */
-.app-menu-links {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-/*! =========================================================================== */
-/*! COMPONENT — rnt-tint  (soft/tinted appearance for Badge · Tag · Card)        */
-/*!   Escalation: L3 — ExtendedClass + BEM modifier. Opt-in "mix" block applied  */
-/*!   alongside the native OS UI pattern; does NOT restyle .badge/.tag/.card     */
-/*!   globally. Pure color treatment — geometry & radius stay with the host      */
-/*!   (pill from Badge/Tag, rounded from Card), so one class serves all three.   */
-/*!                                                                              */
-/*!   Look: light background + darker same-hue border + darker same-hue text.    */
-/*!   Each modifier sets the three colors DIRECTLY (no slot indirection), so     */
-/*!   applying it via ExtendedClass changes bg + border + text accordingly.      */
-/*!   100% token-driven (semantic aliases, not primitives) -> dark-mode-safe.    */
-/*!                                                                              */
-/*!   APPLY via ExtendedClass, e.g.:                                            */
-/*!     Badge  ExtendedClass = "rnt-tint rnt-tint--positive"                    */
-/*!     Tag    ExtendedClass = "rnt-tint rnt-tint--warning"                     */
-/*!     Card   ExtendedClass = "rnt-tint rnt-tint--ddm"                         */
-/*!   "rnt-tint" alone = neutral tint. Loads after the OS UI layer, so single-   */
-/*!   class specificity cleanly overrides native .badge/.tag/.card colors.       */
-/*!                                                                              */
-/*!   A11y (WCAG 2.2 AA): text/bg validated >=4.5:1, border/bg >=3:1 (SC 1.4.3   */
-/*!   / 1.4.11) for every variant in light mode. Ratios noted inline. Variants   */
-/*!   are non-text labels by default; if used as interactive filter chips the    */
-/*!   host pattern supplies the >=24px target (OS UI Badge is 32px tall).        */
-/*! =========================================================================== */
-
-/* ---- Base: border geometry + icon color + sensible neutral default ---- */
-.rnt-tint {
-  background-color: var(--color-background-neutral-tertiary);  /* #e3e3e3              */
-  border: var(--border-size-s) solid var(--color-border-neutral-secondary); /* #767676  */
-  color: var(--color-text-neutral);                            /* #303030 · 10.28:1 AA */
-}
-
-/* Icons (e.g. the card's arrow glyph) track the dark text color */
-.rnt-tint .icon,
-.rnt-tint .icon svg,
-.rnt-tint svg {
-  fill: currentColor;
-  color: currentColor;
-}
-
-/* ==========================================================================
-   Variants — each directly overrides bg + border-color + text from existing
-   R&T semantic aliases. Tier suffix differs per family because R&T maps
-   -secondary/-tertiary to different primitive levels: semantic families take
-   the palest fill at -tertiary; business families (cdmx/ddm/rtid/funding) at
-   -secondary. Each variant = palest bg + a clearly darker border.
-   ========================================================================== */
-
-/* POSITIVE — green ("Promotion") */
-.rnt-tint--positive {
-  background-color: var(--color-background-positive-tertiary);  /* #ebffee             */
-  border-color:     var(--color-border-positive-secondary);     /* #009951 · 3.54:1 UI */
-  color:            var(--color-text-positive);                 /* #02542d · 8.69:1 AA */
-}
-
-/* WARNING — amber ("Alert") */
-.rnt-tint--warning {
-  background-color: var(--color-background-warning-tertiary);   /* #fffbeb              */
-  border-color:     var(--color-border-warning-secondary);      /* #975102 · 5.80:1 UI  */
-  color:            var(--color-text-warning);                  /* #522504 · 12.46:1 AA */
-}
-
-/* DANGER — red */
-.rnt-tint--danger {
-  background-color: var(--color-background-danger-tertiary);    /* #fee9e7             */
-  border-color:     var(--color-border-danger-secondary);       /* #c00f0c · 5.44:1 UI */
-  color:            var(--color-text-danger);                   /* #900b09 · 8.05:1 AA */
-}
-
-/* INFO / BRAND — navy */
-.rnt-tint--info {
-  background-color: var(--color-background-brand-tertiary);     /* #f3f7fa             */
-  border-color:     var(--color-border-brand-secondary);        /* #5a7f9e · 3.93:1 UI */
-  color:            var(--color-text-brand);                    /* #2a4a66 · 8.59:1 AA */
-}
-
-/* NEUTRAL — slate (same as base default; provided for explicit use) */
-.rnt-tint--neutral {
-  background-color: var(--color-background-neutral-tertiary);   /* #e3e3e3              */
-  border-color:     var(--color-border-neutral-secondary);      /* #767676 · 3.54:1 UI  */
-  color:            var(--color-text-neutral);                  /* #303030 · 10.28:1 AA */
-}
-
-/* CDMX — orange */
-.rnt-tint--cdmx {
-  background-color: var(--color-background-cdmx-secondary);     /* #fef6f0             */
-  border-color:     var(--color-border-cdmx-tertiary);          /* #cb5b05 · 3.90:1 UI */
-  color:            var(--color-text-cdmx);                     /* #6c3003 · 9.53:1 AA */
-}
-
-/* DDM — blue */
-.rnt-tint--ddm {
-  background-color: var(--color-background-ddm-secondary);      /* #e7eff7              */
-  border-color:     var(--color-border-ddm-tertiary);           /* #376592 · 5.26:1 UI  */
-  color:            var(--color-text-ddm);                      /* #1d354c · 10.86:1 AA */
-}
-
-/* RTID — cyan/teal */
-.rnt-tint--rtid {
-  background-color: var(--color-background-rtid-secondary);     /* #f3fafc             */
-  border-color:     var(--color-border-rtid-tertiary);          /* #3495b0 · 3.28:1 UI */
-  color:            var(--color-text-rtid);                     /* #1b4e5d · 8.67:1 AA */
-}
-
-/* FUNDING — blue */
-.rnt-tint--funding {
-  background-color: var(--color-background-funding-secondary);  /* #f0f5fa              */
-  border-color:     var(--color-border-funding-secondary);      /* #3975bf · 4.28:1 UI  */
-  color:            var(--color-text-funding);                  /* #04254f · 13.85:1 AA */
-}
-
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links a.active,
-.layout-side .app-menu-links .osui-submenu .osui-submenu__header,
-.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header,
-.desktop .layout-side .app-menu-links .osui-submenu__header:hover,
-.tablet .osui-submenu__header,
-.phone .osui-submenu__header,
-.tablet .osui-submenu.active .osui-submenu__header,
-.phone .osui-submenu.active .osui-submenu__header {
-    border-left: var(--border-size-none) solid transparent; /* 0px */
-}
-
-.layout-side .app-menu-links a.active,
-.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
-    background-color: var(--color-background-brand-secondary); /* #e6eef5 */
-    border-radius: var(--border-radius-rounded);               /* 8px */
-}
-
-/* ─── Outer gutter: keeps all items away from sidebar edges ─── */
-.layout-side .app-menu-links {
-    padding: var(--space-s) var(--space-s);   /* 8px top/bottom, 8px left/right */
-}
-
-/* ─── Items must not exceed the new container width ─── */
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links .osui-submenu {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* ─── Pill/active background needs border-radius now that it's inset ─── */
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links .osui-submenu__header {
-    border-radius: var(--border-radius-rounded);   /* 8px */
-}
-
-/* ─── Gap between menu items (Home link + each osui-submenu) ─── */
-.layout-side .app-menu-links {
-    gap: var(--space-s);   /* 4px between every sibling item */
-}
-
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links a.active,
-.layout-side .app-menu-links .osui-submenu .osui-submenu__header,
-.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header,
-.desktop .layout-side .app-menu-links .osui-submenu__header:hover,
-.tablet .osui-submenu__header,
-.phone .osui-submenu__header,
-.tablet .osui-submenu.active .osui-submenu__header,
-.phone .osui-submenu.active .osui-submenu__header {
-    border-left: var(--border-size-none) solid transparent; /* 0px */
-}
-
-.layout-side .app-menu-links .osui-submenu .osui-submenu__header {
-  font-size: var(--font-size-base);
-}
-
-.layout-side .app-menu-links a.active,
-.layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
-    background-color: var(--color-background-brand-secondary); /* #e6eef5 */
-    border-radius: var(--border-radius-rounded);               /* 8px */
-}
-
-/* ─── Outer gutter: keeps all items away from sidebar edges ─── */
-.layout-side .app-menu-links {
-    padding: var(--space-s) var(--space-s);   /* 8px top/bottom, 8px left/right */
-}
-
-/* ─── Items must not exceed the new container width ─── */
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links .osui-submenu {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* ─── Pill/active background needs border-radius now that it's inset ─── */
-.layout-side .app-menu-links a,
-.layout-side .app-menu-links .osui-submenu__header {
-    border-radius: var(--border-radius-rounded);   /* 8px */
-}
-
-/* ─── Gap between menu items (Home link + each osui-submenu) ─── */
-.layout-side .app-menu-links {
-    gap: var(--space-s);   /* 4px between every sibling item */
-}
-
-/* ==========================================================================
-   R&T Custom OutSystems UI Table (Token-Driven Override)
-   ========================================================================== */
-
-/* 1. Base Table Styling */
+/* ---- 3.3. Table ---- */
 .table {
     border-collapse: collapse;
     width: 100%;
-    border: var(--border-size-s, 1px) solid var(--rnt-neutral-300); /* Reset OSUI default outer border to match edge-to-edge mockup */
+    border: var(--border-size-s, 1px) solid var(--rnt-neutral-300);
 }
 
-/* 2. Table Header Styling */
 .table th,
 .table .table-header th {
     color: var(--rnt-neutral-500); 
     border-bottom: var(--border-size-s, 1px) solid var(--rnt-neutral-300); 
-    background-color: var(--color-background-secondary); /* Fallback for header bg */
+    background-color: var(--color-background-secondary);
     padding: var(--space-m);
     font-weight: var(--font-semi-bold);
     text-align: left;
     vertical-align: middle;
 }
 
-/* 3. Table Body Cell Styling */
 .table td,
 .table .table-row td {
     color: var(--rnt-neutral-900); 
@@ -1888,7 +1292,6 @@ html, body            { height: 100%; overflow: hidden; }
     vertical-align: middle;
 }
 
-/* 4. Link Styling within Table (e.g., Nick name column) */
 .table td a {
     color: var(--rnt-primary-800); 
     text-decoration: underline;
@@ -1898,11 +1301,9 @@ html, body            { height: 100%; overflow: hidden; }
 
 .table td a:hover,
 .table td a:focus {
-    /* Assumes --color-primary-hover is mapped globally, else use a darker R&T brand token */
     color: var(--color-primary-hover); 
 }
 
-/* 5. Action Icons in Table */
 .table td .icon {
     color: var(--rnt-neutral-500); 
     cursor: pointer;
@@ -1914,26 +1315,274 @@ html, body            { height: 100%; overflow: hidden; }
     color: var(--rnt-primary-800); 
 }
 
+/* ---- 3.4. Button Group ---- */
+.button-group {
+    background-color: var(--color-background-secondary);
+    border: var(--border-size-s) solid var(--color-border-default);
+    border-radius: var(--border-radius-rounded);
+    padding: var(--rnt-space-050);
+    display: inline-flex;
+    gap: var(--space-none);
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+.button-group .button-group-item {
+    background-color: transparent;
+    border: var(--border-size-s) solid transparent;
+    border-radius: var(--border-radius-soft);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-regular);
+    padding: var(--space-xs) var(--space-base);
+    transition: all var(--animation-duration) var(--animation-function);
+    height: 32px;
+    display: inline-grid;
+}
+
+.button-group .button-group-item + .button-group-item {
+    border-left-color: transparent;
+}
+
+.button-group .button-group-item:hover:not(.button-group-selected-item) {
+    background-color: var(--color-background-default-hover);
+    color: var(--color-text-brand);
+}
+
+.has-accessible-features .button-group .button-group-item:focus {
+    box-shadow: 0 0 0 var(--border-size-m) var(--color-focus-outline);
+    outline: none;
+}
+
+.button-group .button-group-item.button-group-selected-item {
+    background-color: var(--rnt-primary-100);
+    border-color: var(--rnt-primary-600);
+    color: var(--color-text-brand);
+    font-weight: var(--font-semi-bold);
+}
+
+.button-group-item::after {
+    content: attr(data-label);
+    font-weight: 600;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+}
+
+/* ---- 3.5. Feedback Message ---- */
+div.feedback-message {
+    border-radius: var(--border-radius-rounded);
+    border-width: var(--border-size-s);
+    border-style: solid;
+    box-shadow: var(--shadow-none);
+}
+
+div.feedback-message .feedback-message-icon svg,
+div.feedback-message .icon {
+    fill: currentColor;
+    color: currentColor;
+}
+
+div.feedback-message.feedback-message-success {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+    color: var(--color-text-positive);
+}
+
+div.feedback-message.feedback-message-error {
+    background-color: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-text-danger);
+}
+
+div.feedback-message.feedback-message-warning {
+    background-color: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: var(--color-text-warning);
+}
+
+div.feedback-message.feedback-message-info {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info);
+    color: var(--color-text-brand); 
+}
+
+div.feedback-message.feedback-message-success .feedback-message-close,
+div.feedback-message.feedback-message-error .feedback-message-close,
+div.feedback-message.feedback-message-warning .feedback-message-close,
+div.feedback-message.feedback-message-info .feedback-message-close {
+    color: currentColor;
+}
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 4. PATTERNS                                                                 */
+/*! --------------------------------------------------------------------------- */
+
+/* ---- 4.1. Alert ---- */
+.alert {
+    border-radius: var(--border-radius-rounded);
+    border-width: var(--border-size-s);
+    border-style: solid;
+    padding: var(--space-base);
+    color: inherit; 
+    box-shadow: var(--shadow-none);
+}
+
+.alert .alert-icon,
+.alert .alert-icon svg,
+.alert .icon {
+    fill: currentColor;
+    color: currentColor;
+}
+
+.alert.alert-success {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+    color: var(--color-text-positive);
+}
+
+.alert.alert-error {
+    background-color: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-text-danger);
+}
+
+.alert.alert-warning {
+    background-color: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: var(--color-text-warning);
+}
+
+.alert.alert-info {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info);
+    color: var(--color-text-brand);
+}
+
+.is-rtl .alert-icon {
+    margin-left: var(--space-base);
+    margin-right: var(--space-none);
+}
+
+/* ---- 4.2. Card ---- */
+.card {
+  border-radius: var(--border-radius-rounded);
+  border: var(--border-size-s) solid var(--color-border-default);
+}
+
+/* ---- 4.3. Submenu ---- */
+.layout-side .app-menu-links .osui-submenu .osui-submenu__header {
+  font-size: var(--font-size-base);
+}
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 5. UTILITIES & HELPER CLASSES                                               */
+/*! --------------------------------------------------------------------------- */
+.background-surface        { background-color: var(--color-background-default); }
+.background-surface-raised { background-color: var(--color-background-secondary); }
+
+.background-success-subtle { background-color: var(--color-background-positive-tertiary); }
+.background-warning-subtle { background-color: var(--color-background-warning-tertiary); }
+.background-danger-subtle  { background-color: var(--color-background-danger-tertiary); }
+.background-brand-subtle   { background-color: var(--color-background-brand-tertiary); }
+
+.text-muted  { color: var(--color-text-secondary); }
+.text-subtle { color: var(--color-text-tertiary); }
+
+
+/*! --------------------------------------------------------------------------- */
+/*! 6. CUSTOM R&T COMPONENTS                                                    */
+/*! --------------------------------------------------------------------------- */
+
+/* ---- rnt-tint (Badge, Tag, Card tint wrapper) ---- */
+.rnt-tint {
+  background-color: var(--color-background-neutral-tertiary); 
+  border: var(--border-size-s) solid var(--color-border-neutral-secondary); 
+  color: var(--color-text-neutral); 
+}
+
+.rnt-tint .icon,
+.rnt-tint .icon svg,
+.rnt-tint svg {
+  fill: currentColor;
+  color: currentColor;
+}
+
+.rnt-tint--positive {
+  background-color: var(--color-background-positive-tertiary);
+  border-color:     var(--color-border-positive-secondary);
+  color:            var(--color-text-positive);
+}
+
+.rnt-tint--warning {
+  background-color: var(--color-background-warning-tertiary);
+  border-color:     var(--color-border-warning-secondary);
+  color:            var(--color-text-warning);
+}
+
+.rnt-tint--danger {
+  background-color: var(--color-background-danger-tertiary);
+  border-color:     var(--color-border-danger-secondary);
+  color:            var(--color-text-danger);
+}
+
+.rnt-tint--info {
+  background-color: var(--color-background-brand-tertiary);
+  border-color:     var(--color-border-brand-secondary);
+  color:            var(--color-text-brand);
+}
+
+.rnt-tint--neutral {
+  background-color: var(--color-background-neutral-tertiary);
+  border-color:     var(--color-border-neutral-secondary);
+  color:            var(--color-text-neutral);
+}
+
+.rnt-tint--cdmx {
+  background-color: var(--color-background-cdmx-secondary);
+  border-color:     var(--color-border-cdmx-tertiary);
+  color:            var(--color-text-cdmx);
+}
+
+.rnt-tint--ddm {
+  background-color: var(--color-background-ddm-secondary);
+  border-color:     var(--color-border-ddm-tertiary);
+  color:            var(--color-text-ddm);
+}
+
+.rnt-tint--rtid {
+  background-color: var(--color-background-rtid-secondary);
+  border-color:     var(--color-border-rtid-tertiary);
+  color:            var(--color-text-rtid);
+}
+
+.rnt-tint--funding {
+  background-color: var(--color-background-funding-secondary);
+  border-color:     var(--color-border-funding-secondary);
+  color:            var(--color-text-funding);
+}
+
+/* ---- icon-label ---- */
 .icon-label {
     display: flex;
     align-items: center;
-    gap: var(--space-s);          /* 8px between icon and label */
+    gap: var(--space-s);
     min-width: 0;
 }
 .icon-label__icon {
     flex-shrink: 0;
-    color: var(--rnt-primary-600);   /* #2a4a66, inherits active color from parent */
+    color: var(--rnt-primary-600);
     font-size: var(--font-size-l);
 }
 .icon-label__text {
-    color: inherit;                    /* picks up the link/header text color */
-    font-family: var(--font-family);   /* Manrope */
+    color: inherit;
+    font-family: var(--font-family);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-
-.osui-submenu__header__item {
-    color: var(--rnt-primary-800);
 }
