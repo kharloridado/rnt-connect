@@ -832,18 +832,13 @@ body {
 
 /* ---- Main Background ---- */
 /* Targets the body and main content wrappers for the light tinted background */
-body,
-.layout,
-.active-screen .main-content {
+body {
   background-color: var(--rnt-primary-100); 
 }
 
 /* Ensures blocks/containers inside the main content stand out with white backgrounds */
-.main-content .card,
-.main-content .osui-card {
-  background-color: var(--color-neutral-0); 
+.card {
   border-radius: var(--border-radius-rounded);
-  box-shadow: var(--shadow-xs);
   border: var(--border-size-s) solid var(--color-border-default);
 }
 
@@ -874,8 +869,7 @@ footer.content-bottom {
 /* 2. Keep layout constraints and spacing on the inner grid container */
 .content-bottom .footer.ThemeGrid_Container {
   background-color: transparent; /* Overrides the previous base setting */
-  padding: var(--space-s) var(--space-l);
-  font-size: var(--font-size-xs);           
+  padding: var(--space-s) var(--space-l);   
   display: flex;
   align-items: center;
   justify-content: space-between;           
@@ -950,6 +944,11 @@ footer {
     color: var(--color-primary);
     font-weight: var(--font-semi-bold);
     font-size: var(--font-size-base);
+}
+
+.layout-side .app-menu-content {
+    position: relative;
+    border-right: var(--border-size-s) solid var(--color-border-default);
 }
 /*! --------------------------------------------------------------------------- */
 /*! 3. ADAPTIVE PATTERNS                                                        */
