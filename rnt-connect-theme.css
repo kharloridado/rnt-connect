@@ -1637,6 +1637,7 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 /* Collapse toggle icon — also lighter when inactive */
 .app-menu-control .icon {
     color: var(--color-icon-brand-secondary);        /* #5A7F9E */
+    font-size: var(--font-size-h5);
 }
 
 /* Active (current link / open expandable) → brand */
