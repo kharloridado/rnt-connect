@@ -1731,3 +1731,16 @@ a.active .icon-label,
 .content-bottom .footer.ThemeGrid_Container {
       padding: var(--space-s) var(--space-xxl);
 }
+
+
+    .osui-submenu__header__icon::before {
+      width: 13px !important;
+      height: 13px !important;
+      border-bottom-color: var(--color-icon-brand-secondary) !important;
+      border-left-color: var(--color-icon-brand-secondary) !important;
+      border-bottom-width: 2px !important;
+      border-left-width: 2px !important;
+      border-bottom-style: solid !important;
+      border-left-style: solid !important;
+    }
+  
