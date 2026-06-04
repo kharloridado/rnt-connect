@@ -1734,8 +1734,8 @@ a.active .icon-label,
 
 
     .osui-submenu__header__icon::before {
-      width: 13px !important;
-      height: 13px !important;
+      width: 8px !important;
+      height: 8px !important;
       border-bottom-color: var(--color-icon-brand-secondary) !important;
       border-left-color: var(--color-icon-brand-secondary) !important;
       border-bottom-width: 2px !important;
@@ -1744,3 +1744,8 @@ a.active .icon-label,
       border-left-style: solid !important;
     }
   
+
+    .card.padding-none .table {
+  border-left: none;
+  border-right: none;
+}
