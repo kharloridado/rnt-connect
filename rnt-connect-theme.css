@@ -1026,7 +1026,7 @@ footer.content-bottom {
 /* Keep layout constraints and spacing on the inner grid container */
 .content-bottom .footer.ThemeGrid_Container {
   background-color: transparent; /* Overrides the previous base setting */
-  padding: var(--space-s) var(--space-l);   
+  padding: var(--space-s) var(--space-xxl);   
   display: flex;
   align-items: center;
   justify-content: space-between;           
@@ -1722,4 +1722,9 @@ a.active .icon-label,
     width: 36px;
     display: flex;
     justify-content: center;
+}
+
+
+.header .ThemeGrid_Container {
+      padding: var(--space-none) var(--space-xxl);
 }
