@@ -1717,3 +1717,9 @@ a.active .icon-label,
     display: flex;
     align-items: center;
 }
+
+.menu-collapsed .app-menu-links > a {
+    width: 36px;
+    display: flex;
+    justify-content: center;
+}
