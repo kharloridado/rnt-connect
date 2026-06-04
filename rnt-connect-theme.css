@@ -916,8 +916,8 @@ footer {
 
 /* Outer gutter: keeps all items away from sidebar edges */
 .layout-side .app-menu-links {
-    padding: var(--space-s) var(--space-s);   /* 8px top/bottom, 8px left/right */
-    gap: var(--space-base);   /* 4px between every sibling item */
+    padding: var(--rnt-space-300);   /* 8px top/bottom, 8px left/right */
+    gap: var(--rnt-space-300);   /* 4px between every sibling item */
     overflow-x: hidden;
     overflow-y: auto;
 }
