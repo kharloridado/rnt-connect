@@ -1,0 +1,124 @@
+/*! =========================================================================== */
+/*! COMPONENT — rnt-card-section  (split layout card: rail · panel · footer)      */
+/*!   Escalation: L4 — custom Block (semantic layout + named Placeholders + BEM). */
+/*!   Pure structural shell. No JS, no interactive chrome of its own — the rail,  */
+/*!   title, body and actions are all Placeholders the consumer fills, so their   */
+/*!   own widgets (Buttons, nav, headings) carry the focus/keyboard/ARIA.         */
+/*!                                                                              */
+/*!   Layout: __main is a flex row (left rail + right panel) that grows; __footer */
+/*!   is a full-width band pinned beneath it. Stacks to a single column at the    */
+/*!   small breakpoint (SC 1.4.10 reflow). 100% token-driven; component tokens    */
+/*!   alias R&T semantic tokens with Figma-derived fallbacks so it renders before */
+/*!   the Theme loads — Theme :root always wins. Manrope inherited from OS UI.    */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): shell adds no contrast-bearing controls; the 1px        */
+/*!   divider/outline are decorative (panels are separated by layout, not colour  */
+/*!   alone) so SC 1.4.11 is N/A to them. Region naming optional via the Block's  */
+/*!   RegionLabel input -> aria-label. Consumer-supplied actions must meet the    */
+/*!   >=24px (44px primary) target — OS UI Button satisfies this by default.      */
+/*! =========================================================================== */
+
+/* ---- Block ---- */
+.rnt-card-section {
+  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
+  --rnt-card-section-bg:        var(--color-background-default-default, #ffffff);
+  --rnt-card-section-border:    var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-divider:   var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-fg:        var(--color-text-default-default, #1d354c);
+  /* geometry (component-local; not part of the global scale) */
+  --rnt-card-section-rail:       280px;  /* left panel width on >= medium */
+  --rnt-card-section-min-height: 360px;  /* override to 100% inside a fixed-height modal */
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: var(--rnt-card-section-min-height);
+
+  color: var(--rnt-card-section-fg);             /* inherits Manrope from OS UI body */
+  background-color: var(--rnt-card-section-bg);
+  border: var(--border-size-s, 1px) solid var(--rnt-card-section-border);
+  border-radius: var(--border-radius-soft, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+  overflow: hidden;                              /* clip child borders to the radius */
+}
+
+/* ---- Elements ---- */
+
+/* Row holding the two panels; grows so the footer can pin to the bottom */
+.rnt-card-section__main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;            /* allow children to scroll instead of overflowing */
+}
+
+/* Shared panel padding */
+.rnt-card-section__panel {
+  min-width: 0;             /* let long content wrap instead of forcing overflow */
+}
+
+/* Left rail — fixed width, vertical divider on its trailing edge */
+.rnt-card-section__panel--left {
+  flex: 0 0 var(--rnt-card-section-rail);
+  padding: var(--space-l, 24px);
+  border-right: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* Right panel — fills remaining width, stacks title over body */
+.rnt-card-section__panel--right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl, 32px);
+  gap: var(--space-m, 16px);
+}
+
+/* Title slot (sectioning header — NOT a banner landmark inside <section>) */
+.rnt-card-section__title {
+  flex: 0 0 auto;
+}
+
+/* Body slot — takes the remaining height; scrolls if content is tall */
+.rnt-card-section__content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Full-width action band (sectioning footer — NOT a contentinfo landmark) */
+.rnt-card-section__footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;          /* actions sit at the trailing edge */
+  gap: var(--space-s, 8px);
+  padding: var(--space-m, 16px) var(--space-xl, 32px);
+  border-top: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* ---- Modifier: rail on the right instead of the left ---- */
+.rnt-card-section--rail-end .rnt-card-section__main {
+  flex-direction: row-reverse;
+}
+.rnt-card-section--rail-end .rnt-card-section__panel--left {
+  border-right: 0;
+  border-left: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* ---- Reflow: stack to one column on small viewports (SC 1.4.10) ---- */
+@media (max-width: 768px) {
+  .rnt-card-section__main,
+  .rnt-card-section--rail-end .rnt-card-section__main {
+    flex-direction: column;
+  }
+  .rnt-card-section__panel--left {
+    flex: 0 0 auto;
+    border-right: 0;
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+  }
+  .rnt-card-section--rail-end .rnt-card-section__panel--left {
+    border-left: 0;
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+  }
+}
