@@ -1780,3 +1780,20 @@ footer a + a::before {
 .app-menu-links .icon-label .icon-label__icon .osui-inline-svg {
     color: var(--color-icon-brand-secondary);
 }
+
+.main-content.ThemeGrid_Container {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  justify-self: stretch !important;
+  padding-left: 32px !important;
+  box-sizing: border-box !important;
+}
+.main-content.ThemeGrid_Container > .content-breadcrumbs,
+.main-content.ThemeGrid_Container > .content-top,
+.main-content.ThemeGrid_Container > .content-middle {
+  max-width: 1376px;   /* original 1440 minus left+right padding */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
