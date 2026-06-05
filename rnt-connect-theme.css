@@ -1341,7 +1341,6 @@ footer.content-bottom {
     padding: var(--space-xs) var(--space-base);
     transition: all var(--animation-duration) var(--animation-function);
     height: 32px;
-    display: inline-flex;
 }
 
 .button-group .button-group-item + .button-group-item {
