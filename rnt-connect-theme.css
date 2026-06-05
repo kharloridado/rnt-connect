@@ -1826,3 +1826,132 @@ footer a + a::before {
     inset: 0;             /* cover the whole button */
     pointer-events: none;
 }
+
+/* ===== RNT Branding Overrides — Profile Info Step ===== */
+
+/* Helper / description paragraph within a native Card */
+.osui-card-sectioned .osui-card-sectioned__content p,
+.card p {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-regular);
+  line-height: 1.5;
+}
+
+/* Field labels */
+label {
+  color: var(--color-text-default);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-semi-bold);
+}
+
+/* Required asterisk (Overrides native OSUI Mandatory state) */
+label.mandatory::after {
+  color: var(--color-text-danger-tertiary);
+  margin-left: var(--space-xs); /* Replaced custom --rnt-space-100 */
+  font-weight: var(--font-bold);
+}
+
+/* ===== Inputs (Native OSUI form-control) ===== */
+.form-control[data-input] {
+  background-color: var(--color-background-default);
+  border: var(--border-size-s) solid var(--color-border-default);
+  border-radius: var(--border-radius-rounded);
+  color: var(--color-text-default);
+  font-family: var(--font-family-body);
+  height: 40px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control[data-input]::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.form-control[data-input]:hover:not([disabled]):not(.not-valid) {
+  border-color: var(--color-border-secondary);
+}
+
+.form-control[data-input]:focus:not([disabled]):not(.not-valid),
+.form-control[data-input]:focus-visible:not([disabled]):not(.not-valid) {
+  outline: none;
+  border-color: var(--color-border-brand);
+  box-shadow: 0 0 0 3px var(--color-background-brand-secondary);
+}
+
+/* Leading icon (Using native OSUI Input with Icon pattern) */
+.osui-input-with-icon .osui-icon {
+  color: var(--color-icon-secondary);
+}
+
+/* ===== Input Error State ===== */
+.form-control[data-input].not-valid {
+  border-color: var(--color-text-danger-tertiary);
+}
+
+.form-control[data-input].not-valid:focus,
+.form-control[data-input].not-valid:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-background-danger-tertiary);
+}
+
+/* Validation message (Native OSUI class) */
+span.validation-message {
+  display: block;
+  color: var(--color-text-danger-tertiary);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-medium);
+  margin-top: var(--space-s); /* Replaced custom --rnt-space-150 */
+}
+
+/* ===== SSO / MFA Radio Group (Native OSUI widgets) ===== */
+.radio-group.OSFillParent {
+  display: flex;
+  align-items: center;
+}
+
+.radio-group label[for] {
+  font-weight: var(--font-medium);
+  color: var(--color-text-default);
+  cursor: pointer;
+  margin-left: var(--space-s); /* Replaced custom --rnt-space-200 */
+}
+
+.radio-button {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-circle);
+  background-color: var(--color-background-default);
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.radio-button:hover:not([disabled]) {
+  border-color: var(--color-border-brand);
+}
+
+.radio-button:checked {
+  border-color: var(--color-border-brand);
+  background-color: var(--color-background-brand);
+}
+
+.radio-button:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: var(--border-radius-circle);
+  background-color: var(--color-background-default);
+}
+
+.radio-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-background-brand-secondary);
+}
