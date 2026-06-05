@@ -1817,3 +1817,13 @@ footer a + a::before {
   background-color: var(--rnt-primary-200);    /* active fill       = #E6EEF5 */
   color: var(--rnt-neutral-900);               /* active text       = #1E1E1E */
 }
+
+.btn {
+    position: relative;   /* contain the absolutely-positioned span */
+}
+
+.btn-animation {
+    position: absolute;
+    inset: 0;             /* cover the whole button */
+    pointer-events: none;
+}
