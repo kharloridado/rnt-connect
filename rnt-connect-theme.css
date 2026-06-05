@@ -1758,3 +1758,22 @@ footer a + a::before {
     text-align: center;
     color: var(--color-neutral-0);
 }
+
+.app-menu-control .icon.fa-angle-right {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+.app-menu-control:hover .icon.fa-angle-right {
+  background-color: var(--color-background-brand-secondary);
+}
+
+[data-block*="Utilities.InlineSVG"] {
+  display: contents;
+}
