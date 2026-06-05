@@ -1365,16 +1365,6 @@ footer.content-bottom {
     font-weight: var(--font-semi-bold);
 }
 
-.button-group-item::after {
-    content: attr(data-label);
-    font-weight: 600;
-    height: 0;
-    visibility: hidden;
-    overflow: hidden;
-    user-select: none;
-    pointer-events: none;
-    position: absolute;
-}
 
 /* ---- 3.5. Feedback Message ---- */
 div.feedback-message {
