@@ -1633,6 +1633,7 @@ div.feedback-message.feedback-message-info .feedback-message-close {
     font-size: 20px;
     height: 20px;
     width: 20px;
+    left: -10px;
 }
 /* Collapse toggle icon — also lighter when inactive */
 .app-menu-control .icon {
@@ -1755,6 +1756,5 @@ footer a + a::before {
     display: inline-block;
     width: var(--space-xl);
     text-align: center;
-    color: #ffffff;
-    opacity: 1;
+    color: var(--color-neutral-0);
 }
