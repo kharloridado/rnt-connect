@@ -767,6 +767,10 @@ body {
   }
 }
 
+a, a:visited {
+    font-weight: var(--font-semi-bold);
+}
+
 /*! --------------------------------------------------------------------------- */
 /*! 2. PAGE LAYOUT                                                              */
 /*! --------------------------------------------------------------------------- */
@@ -1038,6 +1042,7 @@ footer.content-bottom {
   color: var(--color-neutral-0);
   text-decoration: none;
   transition: opacity var(--animation-duration) var(--animation-function);
+  font-weight: var(--font-regular);
 }
 
 .content-bottom .footer.ThemeGrid_Container a:hover,
