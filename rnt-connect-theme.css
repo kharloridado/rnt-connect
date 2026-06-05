@@ -1776,6 +1776,12 @@ footer a + a::before {
     color: var(--color-icon-brand-secondary);
 }
 
+.app-menu-links a.active .icon-label .icon-label__icon .osui-inline-svg,
+.app-menu-links .osui-submenu.active > .osui-submenu__header .icon-label__icon .osui-inline-svg,
+.app-menu-links .osui-submenu--is-open > .osui-submenu__header .osui-submenu__header__icon {
+  color: var(--color-icon-brand);
+}
+
 .main-content.ThemeGrid_Container {
   width: 100% !important;
   max-width: none !important;
