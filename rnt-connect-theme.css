@@ -1797,3 +1797,7 @@ footer a + a::before {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+.osui-tabs__content-item {
+    padding-top: var(--space-none);
+}
