@@ -1,12 +1,30 @@
 /*! =========================================================================== */
 /*!  R&T CONNECT — Theme Master Stylesheet                                      */
 /*!  Target: OutSystems UI (ODC)                                                */
+/*! ---------------------------------------------------------------------------*/
+/*!  TABLE OF CONTENTS                                                          */
+/*!    0. ROOT & FOUNDATION         tokens, dark theme, @font-face             */
+/*!    1. RESETS & HTML ELEMENTS                                               */
+/*!    2. PAGE LAYOUT               2.1 layout · 2.2 header · 2.3 menu          */
+/*!                                 2.4 menu link · 2.5 footer                  */
+/*!    3. WIDGETS                   3.1 inputs · 3.2 button · 3.3 table         */
+/*!                                 3.4 button group · 3.5 feedback message     */
+/*!    4. PATTERNS                  4.1 alert · 4.2 card · 4.3 submenu          */
+/*!    5. UTILITIES & HELPERS                                                   */
+/*!    6. CUSTOM R&T COMPONENTS     6.1 rnt-tint · 6.2 menu icon-label          */
+/*!                                 6.3 form labels · 6.4 dropdown tags         */
+/*!                                 6.5 rnt-icon-button · 6.6 rnt-announcement   */
+/*!                                 6.7 rnt-quick-link · 6.8 rnt-card-section    */
+/*!                                 6.9 rnt-step-item · 6.10 rnt-badge           */
 /*! =========================================================================== */
 
 /*! --------------------------------------------------------------------------- */
 /*! 0. ROOT & FOUNDATION                                                        */
 /*! --------------------------------------------------------------------------- */
 :root {
+  /* ========================================================= */
+  /* TIER 1 — RAW PALETTE                                      */
+  /* ========================================================= */
   /* primary */
   --rnt-primary-100: #f3f7fa;
   --rnt-primary-200: #e6eef5;
@@ -318,7 +336,15 @@
   --breakpoint-small: 375px; --breakpoint-medium: 768px; --breakpoint-large: 1200px;
   --max-width: 1200px;
 
-  /* color */
+  /* App-shell layout primitives (added: replaces magic numbers in §2) */
+  --rnt-header-size:          56px;  /* fixed header height                  */
+  --rnt-footer-size:          37px;  /* fixed footer height                  */
+  --rnt-menu-collapsed-size:  64px;  /* side menu width when collapsed       */
+  --rnt-menu-item-size:       36px;  /* menu row / icon square               */
+
+  /* ========================================================= */
+  /* SEMANTIC COLOR ROLES (light) — framework + components      */
+  /* ========================================================= */
   --color-background-brand: var(--rnt-primary-800);
   --color-background-brand-hover: var(--rnt-primary-900);
   --color-background-brand-secondary: var(--rnt-primary-200);
@@ -374,10 +400,10 @@
   --color-background-secondary-hover: var(--rnt-neutral-200);
   --color-background-tertiary: var(--rnt-neutral-300);
   --color-background-tertiary-hover: var(--rnt-neutral-400);
-  --color-background-utilities-blanket: #000000b2;
+  --color-background-utilities-blanket: var(--rnt-black-500);
   --color-background-utilities-measurement: var(--rnt-pink-200);
   --color-background-utilities-overlay: #00000080;
-  --color-background-utilities-scrim: #ffffffcc;
+  --color-background-utilities-scrim: var(--rnt-white-600);
   --color-background-warning: var(--rnt-yellow-400);
   --color-background-warning-hover: var(--rnt-yellow-500);
   --color-background-warning-secondary: var(--rnt-yellow-200);
@@ -462,7 +488,7 @@
   --color-border-secondary: var(--rnt-neutral-500);
   --color-border-tertiary: var(--rnt-neutral-700);
   --color-border-utilities-measurement: var(--rnt-pink-400);
-  --color-border-utilities-swatch: #0000003d;
+  --color-border-utilities-swatch: var(--rnt-black-300);
   --color-border-warning: var(--rnt-yellow-900);
   --color-border-warning-secondary: var(--rnt-yellow-700);
   --color-border-warning-tertiary: var(--rnt-yellow-600);
@@ -517,237 +543,201 @@
   --color-icon-warning-tertiary: var(--rnt-yellow-600);
 }
 
+/* ========================================================= */
+/* SEMANTIC COLOR ROLES (dark) — [data-theme="dark"]          */
+/* ========================================================= */
 [data-theme="dark"] {
-    /* color */
-    --color-background-brand: var(--rnt-primary-100);
-    --color-background-brand-hover: var(--rnt-primary-300);
-    --color-background-brand-secondary: var(--rnt-primary-600);
-    --color-background-brand-secondary-hover: var(--rnt-primary-500);
-    --color-background-brand-tertiary: var(--rnt-primary-900);
-    --color-background-brand-tertiary-hover: var(--rnt-primary-1000);
-    --color-background-cdmx: var(--rnt-cdmx-900);
-    --color-background-cdmx-default-hover: var(--rnt-cdmx-700);
-    --color-background-cdmx-secondary: var(--rnt-cdmx-800);
-    --color-background-cdmx-secondary-hover: var(--rnt-cdmx-900);
-    --color-background-cdmx-tertiary: var(--rnt-cdmx-600);
-    --color-background-cdmx-tertiary-hover: var(--rnt-cdmx-700);
-    --color-background-danger: var(--rnt-red-600);
-    --color-background-danger-hover: var(--rnt-red-700);
-    --color-background-danger-secondary: var(--rnt-red-800);
-    --color-background-danger-secondary-hover: var(--rnt-red-900);
-    --color-background-danger-tertiary: var(--rnt-red-900);
-    --color-background-danger-tertiary-hover: var(--rnt-red-1000);
-    --color-background-ddm: var(--rnt-ddm-900);
-    --color-background-ddm-hover: var(--rnt-ddm-700);
-    --color-background-ddm-secondary: var(--rnt-ddm-800);
-    --color-background-ddm-secondary-hover: var(--rnt-ddm-900);
-    --color-background-ddm-tertiary: var(--rnt-ddm-600);
-    --color-background-ddm-tertiary-hover: var(--rnt-ddm-700);
-    --color-background-default: var(--rnt-neutral-900);
-    --color-background-default-hover: var(--rnt-neutral-700);
-    --color-background-disabled: var(--rnt-neutral-700);
-    --color-background-funding: var(--rnt-funding-900);
-    --color-background-funding-default-hover: var(--rnt-funding-700);
-    --color-background-funding-secondary: var(--rnt-funding-800);
-    --color-background-funding-secondary-hover: var(--rnt-funding-900);
-    --color-background-funding-tertiary: var(--rnt-funding-600);
-    --color-background-funding-tertiary-hover: var(--rnt-funding-700);
-    --color-background-neutral: var(--rnt-slate-400);
-    --color-background-neutral-hover: var(--rnt-slate-500);
-    --color-background-neutral-secondary: var(--rnt-slate-900);
-    --color-background-neutral-secondary-hover: var(--rnt-slate-1000);
-    --color-background-neutral-tertiary: var(--rnt-slate-900);
-    --color-background-neutral-tertiary-hover: var(--rnt-slate-1000);
-    --color-background-positive: var(--rnt-green-700);
-    --color-background-positive-hover: var(--rnt-green-800);
-    --color-background-positive-secondary: var(--rnt-green-800);
-    --color-background-positive-secondary-hover: var(--rnt-green-900);
-    --color-background-positive-tertiary: var(--rnt-green-900);
-    --color-background-positive-tertiary-hover: var(--rnt-green-1000);
-    --color-background-rtid: var(--rnt-rtid-900);
-    --color-background-rtid-default-hover: var(--rnt-rtid-700);
-    --color-background-rtid-secondary: var(--rnt-rtid-800);
-    --color-background-rtid-secondary-hover: var(--rnt-rtid-900);
-    --color-background-rtid-tertiary: var(--rnt-rtid-600);
-    --color-background-rtid-tertiary-hover: var(--rnt-rtid-700);
-    --color-background-secondary: var(--rnt-neutral-800);
-    --color-background-secondary-hover: var(--rnt-neutral-900);
-    --color-background-tertiary: var(--rnt-neutral-600);
-    --color-background-tertiary-hover: var(--rnt-neutral-700);
-    --color-background-utilities-measurement: var(--rnt-pink-800);
-    --color-background-utilities-scrim: #000000cc;
-    --color-background-warning-secondary: var(--rnt-yellow-800);
-    --color-background-warning-secondary-hover: var(--rnt-yellow-900);
-    --color-background-warning-tertiary: var(--rnt-yellow-900);
-    --color-background-warning-tertiary-hover: var(--rnt-yellow-1000);
-    --color-text-brand: var(--rnt-primary-100);
-    --color-text-brand-on-brand: var(--rnt-primary-900);
-    --color-text-brand-on-brand-secondary: var(--rnt-primary-100);
-    --color-text-brand-on-brand-tertiary: var(--rnt-primary-100);
-    --color-text-brand-secondary: var(--rnt-primary-300);
-    --color-text-brand-tertiary: var(--rnt-primary-400);
-    --color-text-cdmx: var(--rnt-white-1000);
-    --color-text-cdmx-secondary: var(--rnt-white-500);
-    --color-text-cdmx-tertiary: var(--rnt-white-400);
-    --color-text-danger: var(--rnt-red-200);
-    --color-text-danger-on-danger-secondary: var(--rnt-red-100);
-    --color-text-danger-on-danger-tertiary: var(--rnt-red-100);
-    --color-text-danger-secondary: var(--rnt-red-400);
-    --color-text-ddm: var(--rnt-white-1000);
-    --color-text-ddm-secondary: var(--rnt-white-500);
-    --color-text-ddm-tertiary: var(--rnt-white-400);
-    --color-text-default: var(--rnt-white-1000);
-    --color-text-disabled: var(--rnt-neutral-500);
-    --color-text-funding: var(--rnt-white-1000);
-    --color-text-funding-secondary: var(--rnt-white-500);
-    --color-text-funding-tertiary: var(--rnt-white-400);
-    --color-text-neutral: var(--rnt-slate-200);
-    --color-text-neutral-on-neutral: var(--rnt-slate-1000);
-    --color-text-neutral-on-neutral-secondary: var(--rnt-slate-100);
-    --color-text-neutral-on-neutral-tertiary: var(--rnt-slate-100);
-    --color-text-neutral-secondary: var(--rnt-slate-300);
-    --color-text-neutral-tertiary: var(--rnt-slate-400);
-    --color-text-positive: var(--rnt-green-200);
-    --color-text-positive-on-positive-secondary: var(--rnt-green-100);
-    --color-text-positive-on-positive-tertiary: var(--rnt-green-100);
-    --color-text-positive-secondary: var(--rnt-green-400);
-    --color-text-positive-tertiary: var(--rnt-green-600);
-    --color-text-rtid: var(--rnt-white-1000);
-    --color-text-rtid-secondary: var(--rnt-white-500);
-    --color-text-rtid-tertiary: var(--rnt-white-400);
-    --color-text-secondary: var(--rnt-white-500);
-    --color-text-tertiary: var(--rnt-white-400);
-    --color-text-utilities-text-on-measurement: var(--rnt-pink-200);
-    --color-text-utilities-text-on-overlay: var(--rnt-white-1000);
-    --color-text-warning: var(--rnt-yellow-200);
-    --color-text-warning-on-warning-secondary: var(--rnt-yellow-100);
-    --color-text-warning-on-warning-tertiary: var(--rnt-yellow-100);
-    --color-text-warning-secondary: var(--rnt-yellow-400);
-    --color-border-brand: var(--rnt-primary-100);
-    --color-border-brand-secondary: var(--rnt-primary-300);
-    --color-border-brand-tertiary: var(--rnt-primary-400);
-    --color-border-cdmx: var(--rnt-cdmx-600);
-    --color-border-cdmx-tertiary: var(--rnt-cdmx-400);
-    --color-border-danger: var(--rnt-red-200);
-    --color-border-danger-secondary: var(--rnt-red-400);
-    --color-border-ddm: var(--rnt-ddm-600);
-    --color-border-ddm-tertiary: var(--rnt-ddm-400);
-    --color-border-default: var(--rnt-neutral-600);
-    --color-border-disabled: var(--rnt-neutral-600);
-    --color-border-funding: var(--rnt-funding-600);
-    --color-border-funding-tertiary: var(--rnt-funding-400);
-    --color-border-neutral: var(--rnt-slate-100);
-    --color-border-neutral-secondary: var(--rnt-slate-500);
-    --color-border-neutral-tertiary: var(--rnt-slate-600);
-    --color-border-positive: var(--rnt-green-200);
-    --color-border-positive-secondary: var(--rnt-green-400);
-    --color-border-positive-tertiary: var(--rnt-green-600);
-    --color-border-rtid: var(--rnt-rtid-600);
-    --color-border-rtid-tertiary: var(--rnt-rtid-400);
-    --color-border-tertiary: var(--rnt-neutral-400);
-    --color-border-utilities-measurement: var(--rnt-pink-600);
-    --color-border-utilities-swatch: #ffffff3d;
-    --color-border-warning: var(--rnt-yellow-200);
-    --color-border-warning-secondary: var(--rnt-yellow-400);
-    --color-icon-brand: var(--rnt-primary-100);
-    --color-icon-brand-on-brand: var(--rnt-primary-900);
-    --color-icon-brand-on-brand-secondary: var(--rnt-primary-100);
-    --color-icon-brand-on-brand-tertiary: var(--rnt-primary-100);
-    --color-icon-brand-secondary: var(--rnt-primary-300);
-    --color-icon-brand-tertiary: var(--rnt-primary-400);
-    --color-icon-cdmx: var(--rnt-white-1000);
-    --color-icon-cdmx-secondary: var(--rnt-white-500);
-    --color-icon-cdmx-tertiary: var(--rnt-white-400);
-    --color-icon-danger: var(--rnt-red-200);
-    --color-icon-danger-on-danger-secondary: var(--rnt-red-100);
-    --color-icon-danger-on-danger-tertiary: var(--rnt-red-100);
-    --color-icon-danger-secondary: var(--rnt-red-400);
-    --color-icon-ddm: var(--rnt-white-1000);
-    --color-icon-ddm-secondary: var(--rnt-white-500);
-    --color-icon-ddm-tertiary: var(--rnt-white-400);
-    --color-icon-default: var(--rnt-white-1000);
-    --color-icon-disabled: var(--rnt-neutral-500);
-    --color-icon-funding: var(--rnt-white-1000);
-    --color-icon-funding-secondary: var(--rnt-white-500);
-    --color-icon-funding-tertiary: var(--rnt-white-400);
-    --color-icon-neutral: var(--rnt-slate-200);
-    --color-icon-neutral-on-neutral: var(--rnt-slate-1000);
-    --color-icon-neutral-on-neutral-secondary: var(--rnt-slate-100);
-    --color-icon-neutral-on-neutral-tertiary: var(--rnt-slate-100);
-    --color-icon-neutral-secondary: var(--rnt-slate-300);
-    --color-icon-neutral-tertiary: var(--rnt-slate-400);
-    --color-icon-positive: var(--rnt-green-200);
-    --color-icon-positive-on-positive-secondary: var(--rnt-green-100);
-    --color-icon-positive-on-positive-tertiary: var(--rnt-green-100);
-    --color-icon-positive-secondary: var(--rnt-green-400);
-    --color-icon-positive-tertiary: var(--rnt-green-600);
-    --color-icon-rtid: var(--rnt-white-1000);
-    --color-icon-rtid-secondary: var(--rnt-white-500);
-    --color-icon-rtid-tertiary: var(--rnt-white-400);
-    --color-icon-secondary: var(--rnt-white-500);
-    --color-icon-tertiary: var(--rnt-white-400);
-    --color-icon-utilities-icon: var(--rnt-pink-400);
-    --color-icon-utilities-icon-on-measurement: var(--rnt-pink-200);
-    --color-icon-warning: var(--rnt-yellow-200);
-    --color-icon-warning-on-warning-secondary: var(--rnt-yellow-100);
-    --color-icon-warning-on-warning-tertiary: var(--rnt-yellow-100);
-    --color-icon-warning-secondary: var(--rnt-yellow-400);
-    
-    /* focus must lift off dark surfaces */
-    --color-focus-outline: var(--rnt-primary-300);
-    --color-focus-outer:   var(--rnt-primary-200);
-    --color-focus-inner:   var(--rnt-neutral-900);
+  --color-background-brand: var(--rnt-primary-100);
+  --color-background-brand-hover: var(--rnt-primary-300);
+  --color-background-brand-secondary: var(--rnt-primary-600);
+  --color-background-brand-secondary-hover: var(--rnt-primary-500);
+  --color-background-brand-tertiary: var(--rnt-primary-900);
+  --color-background-brand-tertiary-hover: var(--rnt-primary-1000);
+  --color-background-cdmx: var(--rnt-cdmx-900);
+  --color-background-cdmx-default-hover: var(--rnt-cdmx-700);
+  --color-background-cdmx-secondary: var(--rnt-cdmx-800);
+  --color-background-cdmx-secondary-hover: var(--rnt-cdmx-900);
+  --color-background-cdmx-tertiary: var(--rnt-cdmx-600);
+  --color-background-cdmx-tertiary-hover: var(--rnt-cdmx-700);
+  --color-background-danger: var(--rnt-red-600);
+  --color-background-danger-hover: var(--rnt-red-700);
+  --color-background-danger-secondary: var(--rnt-red-800);
+  --color-background-danger-secondary-hover: var(--rnt-red-900);
+  --color-background-danger-tertiary: var(--rnt-red-900);
+  --color-background-danger-tertiary-hover: var(--rnt-red-1000);
+  --color-background-ddm: var(--rnt-ddm-900);
+  --color-background-ddm-hover: var(--rnt-ddm-700);
+  --color-background-ddm-secondary: var(--rnt-ddm-800);
+  --color-background-ddm-secondary-hover: var(--rnt-ddm-900);
+  --color-background-ddm-tertiary: var(--rnt-ddm-600);
+  --color-background-ddm-tertiary-hover: var(--rnt-ddm-700);
+  --color-background-default: var(--rnt-neutral-900);
+  --color-background-default-hover: var(--rnt-neutral-700);
+  --color-background-disabled: var(--rnt-neutral-700);
+  --color-background-funding: var(--rnt-funding-900);
+  --color-background-funding-default-hover: var(--rnt-funding-700);
+  --color-background-funding-secondary: var(--rnt-funding-800);
+  --color-background-funding-secondary-hover: var(--rnt-funding-900);
+  --color-background-funding-tertiary: var(--rnt-funding-600);
+  --color-background-funding-tertiary-hover: var(--rnt-funding-700);
+  --color-background-neutral: var(--rnt-slate-400);
+  --color-background-neutral-hover: var(--rnt-slate-500);
+  --color-background-neutral-secondary: var(--rnt-slate-900);
+  --color-background-neutral-secondary-hover: var(--rnt-slate-1000);
+  --color-background-neutral-tertiary: var(--rnt-slate-900);
+  --color-background-neutral-tertiary-hover: var(--rnt-slate-1000);
+  --color-background-positive: var(--rnt-green-700);
+  --color-background-positive-hover: var(--rnt-green-800);
+  --color-background-positive-secondary: var(--rnt-green-800);
+  --color-background-positive-secondary-hover: var(--rnt-green-900);
+  --color-background-positive-tertiary: var(--rnt-green-900);
+  --color-background-positive-tertiary-hover: var(--rnt-green-1000);
+  --color-background-rtid: var(--rnt-rtid-900);
+  --color-background-rtid-default-hover: var(--rnt-rtid-700);
+  --color-background-rtid-secondary: var(--rnt-rtid-800);
+  --color-background-rtid-secondary-hover: var(--rnt-rtid-900);
+  --color-background-rtid-tertiary: var(--rnt-rtid-600);
+  --color-background-rtid-tertiary-hover: var(--rnt-rtid-700);
+  --color-background-secondary: var(--rnt-neutral-800);
+  --color-background-secondary-hover: var(--rnt-neutral-900);
+  --color-background-tertiary: var(--rnt-neutral-600);
+  --color-background-tertiary-hover: var(--rnt-neutral-700);
+  --color-background-utilities-measurement: var(--rnt-pink-800);
+  --color-background-utilities-scrim: var(--rnt-black-600);
+  --color-background-warning-secondary: var(--rnt-yellow-800);
+  --color-background-warning-secondary-hover: var(--rnt-yellow-900);
+  --color-background-warning-tertiary: var(--rnt-yellow-900);
+  --color-background-warning-tertiary-hover: var(--rnt-yellow-1000);
+  --color-text-brand: var(--rnt-primary-100);
+  --color-text-brand-on-brand: var(--rnt-primary-900);
+  --color-text-brand-on-brand-secondary: var(--rnt-primary-100);
+  --color-text-brand-on-brand-tertiary: var(--rnt-primary-100);
+  --color-text-brand-secondary: var(--rnt-primary-300);
+  --color-text-brand-tertiary: var(--rnt-primary-400);
+  --color-text-cdmx: var(--rnt-white-1000);
+  --color-text-cdmx-secondary: var(--rnt-white-500);
+  --color-text-cdmx-tertiary: var(--rnt-white-400);
+  --color-text-danger: var(--rnt-red-200);
+  --color-text-danger-on-danger-secondary: var(--rnt-red-100);
+  --color-text-danger-on-danger-tertiary: var(--rnt-red-100);
+  --color-text-danger-secondary: var(--rnt-red-400);
+  --color-text-ddm: var(--rnt-white-1000);
+  --color-text-ddm-secondary: var(--rnt-white-500);
+  --color-text-ddm-tertiary: var(--rnt-white-400);
+  --color-text-default: var(--rnt-white-1000);
+  --color-text-disabled: var(--rnt-neutral-500);
+  --color-text-funding: var(--rnt-white-1000);
+  --color-text-funding-secondary: var(--rnt-white-500);
+  --color-text-funding-tertiary: var(--rnt-white-400);
+  --color-text-neutral: var(--rnt-slate-200);
+  --color-text-neutral-on-neutral: var(--rnt-slate-1000);
+  --color-text-neutral-on-neutral-secondary: var(--rnt-slate-100);
+  --color-text-neutral-on-neutral-tertiary: var(--rnt-slate-100);
+  --color-text-neutral-secondary: var(--rnt-slate-300);
+  --color-text-neutral-tertiary: var(--rnt-slate-400);
+  --color-text-positive: var(--rnt-green-200);
+  --color-text-positive-on-positive-secondary: var(--rnt-green-100);
+  --color-text-positive-on-positive-tertiary: var(--rnt-green-100);
+  --color-text-positive-secondary: var(--rnt-green-400);
+  --color-text-positive-tertiary: var(--rnt-green-600);
+  --color-text-rtid: var(--rnt-white-1000);
+  --color-text-rtid-secondary: var(--rnt-white-500);
+  --color-text-rtid-tertiary: var(--rnt-white-400);
+  --color-text-secondary: var(--rnt-white-500);
+  --color-text-tertiary: var(--rnt-white-400);
+  --color-text-utilities-text-on-measurement: var(--rnt-pink-200);
+  --color-text-utilities-text-on-overlay: var(--rnt-white-1000);
+  --color-text-warning: var(--rnt-yellow-200);
+  --color-text-warning-on-warning-secondary: var(--rnt-yellow-100);
+  --color-text-warning-on-warning-tertiary: var(--rnt-yellow-100);
+  --color-text-warning-secondary: var(--rnt-yellow-400);
+  --color-border-brand: var(--rnt-primary-100);
+  --color-border-brand-secondary: var(--rnt-primary-300);
+  --color-border-brand-tertiary: var(--rnt-primary-400);
+  --color-border-cdmx: var(--rnt-cdmx-600);
+  --color-border-cdmx-tertiary: var(--rnt-cdmx-400);
+  --color-border-danger: var(--rnt-red-200);
+  --color-border-danger-secondary: var(--rnt-red-400);
+  --color-border-ddm: var(--rnt-ddm-600);
+  --color-border-ddm-tertiary: var(--rnt-ddm-400);
+  --color-border-default: var(--rnt-neutral-600);
+  --color-border-disabled: var(--rnt-neutral-600);
+  --color-border-funding: var(--rnt-funding-600);
+  --color-border-funding-tertiary: var(--rnt-funding-400);
+  --color-border-neutral: var(--rnt-slate-100);
+  --color-border-neutral-secondary: var(--rnt-slate-500);
+  --color-border-neutral-tertiary: var(--rnt-slate-600);
+  --color-border-positive: var(--rnt-green-200);
+  --color-border-positive-secondary: var(--rnt-green-400);
+  --color-border-positive-tertiary: var(--rnt-green-600);
+  --color-border-rtid: var(--rnt-rtid-600);
+  --color-border-rtid-tertiary: var(--rnt-rtid-400);
+  --color-border-tertiary: var(--rnt-neutral-400);
+  --color-border-utilities-measurement: var(--rnt-pink-600);
+  --color-border-utilities-swatch: var(--rnt-white-300);
+  --color-border-warning: var(--rnt-yellow-200);
+  --color-border-warning-secondary: var(--rnt-yellow-400);
+  --color-icon-brand: var(--rnt-primary-100);
+  --color-icon-brand-on-brand: var(--rnt-primary-900);
+  --color-icon-brand-on-brand-secondary: var(--rnt-primary-100);
+  --color-icon-brand-on-brand-tertiary: var(--rnt-primary-100);
+  --color-icon-brand-secondary: var(--rnt-primary-300);
+  --color-icon-brand-tertiary: var(--rnt-primary-400);
+  --color-icon-cdmx: var(--rnt-white-1000);
+  --color-icon-cdmx-secondary: var(--rnt-white-500);
+  --color-icon-cdmx-tertiary: var(--rnt-white-400);
+  --color-icon-danger: var(--rnt-red-200);
+  --color-icon-danger-on-danger-secondary: var(--rnt-red-100);
+  --color-icon-danger-on-danger-tertiary: var(--rnt-red-100);
+  --color-icon-danger-secondary: var(--rnt-red-400);
+  --color-icon-ddm: var(--rnt-white-1000);
+  --color-icon-ddm-secondary: var(--rnt-white-500);
+  --color-icon-ddm-tertiary: var(--rnt-white-400);
+  --color-icon-default: var(--rnt-white-1000);
+  --color-icon-disabled: var(--rnt-neutral-500);
+  --color-icon-funding: var(--rnt-white-1000);
+  --color-icon-funding-secondary: var(--rnt-white-500);
+  --color-icon-funding-tertiary: var(--rnt-white-400);
+  --color-icon-neutral: var(--rnt-slate-200);
+  --color-icon-neutral-on-neutral: var(--rnt-slate-1000);
+  --color-icon-neutral-on-neutral-secondary: var(--rnt-slate-100);
+  --color-icon-neutral-on-neutral-tertiary: var(--rnt-slate-100);
+  --color-icon-neutral-secondary: var(--rnt-slate-300);
+  --color-icon-neutral-tertiary: var(--rnt-slate-400);
+  --color-icon-positive: var(--rnt-green-200);
+  --color-icon-positive-on-positive-secondary: var(--rnt-green-100);
+  --color-icon-positive-on-positive-tertiary: var(--rnt-green-100);
+  --color-icon-positive-secondary: var(--rnt-green-400);
+  --color-icon-positive-tertiary: var(--rnt-green-600);
+  --color-icon-rtid: var(--rnt-white-1000);
+  --color-icon-rtid-secondary: var(--rnt-white-500);
+  --color-icon-rtid-tertiary: var(--rnt-white-400);
+  --color-icon-secondary: var(--rnt-white-500);
+  --color-icon-tertiary: var(--rnt-white-400);
+  --color-icon-utilities-icon: var(--rnt-pink-400);
+  --color-icon-utilities-icon-on-measurement: var(--rnt-pink-200);
+  --color-icon-warning: var(--rnt-yellow-200);
+  --color-icon-warning-on-warning-secondary: var(--rnt-yellow-100);
+  --color-icon-warning-on-warning-tertiary: var(--rnt-yellow-100);
+  --color-icon-warning-secondary: var(--rnt-yellow-400);
+
+  /* focus must lift off dark surfaces */
+  --color-focus-outline: var(--rnt-primary-300);
+  --color-focus-outer:   var(--rnt-primary-200);
+  --color-focus-inner:   var(--rnt-neutral-900);
 }
 
-@font-face {
-  font-family: "Manrope";
-  font-weight: 200;   /* Extra Light */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-ExtraLight.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 300;   /* Light */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Light.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 400;   /* Regular */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 500;   /* Medium */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Medium.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 600;   /* Semi Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-SemiBold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 700;   /* Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-Bold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Manrope";
-  font-weight: 800;   /* Extra Bold */
-  font-style: normal;
-  font-display: swap;
-  src: url("/RNTConnectTheme/Manrope-ExtraBold.woff2") format("woff2");
-}
+/* ========================================================= */
+/* @font-face — Manrope                                       */
+/* ========================================================= */
+@font-face { font-family: "Manrope"; font-weight: 200; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-ExtraLight.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 300; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-Light.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 400; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 500; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 800; font-style: normal; font-display: swap; src: url("/RNTConnectTheme/Manrope-ExtraBold.woff2") format("woff2"); }
+
 
 /*! --------------------------------------------------------------------------- */
 /*! 1. RESETS & HTML ELEMENTS                                                   */
@@ -755,12 +745,11 @@
 html,
 body {
   font-family: var(--font-family-body);
-  
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;       /* override: kill all motion */
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
@@ -768,15 +757,17 @@ body {
 }
 
 a, a:visited {
-    font-weight: var(--font-semi-bold);
+  font-weight: var(--font-semi-bold);
 }
+
 
 /*! --------------------------------------------------------------------------- */
 /*! 2. PAGE LAYOUT                                                              */
 /*! --------------------------------------------------------------------------- */
+
 /* ---- 2.1. Layout ---- */
 body {
-  background-color: var(--rnt-primary-100); 
+  background-color: var(--rnt-primary-100);
 }
 
 /* Lock the app to the viewport; no page-level scroll */
@@ -786,41 +777,40 @@ html, body { height: 100%; overflow: hidden; }
 
 /* Remove the large left margin */
 .layout.layout-side .main {
-    margin-left: 0;
-    padding-left: 0;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 /* CONTENT grid — fills the space between the fixed header and fixed footer */
 .layout .main > .content {
   position: fixed;
-  top: 56px;       /* header height */
-  bottom: 37px;    /* footer height */
+  top: var(--rnt-header-size);     /* header height */
+  bottom: var(--rnt-footer-size);  /* footer height */
   left: 0;
   right: 0;
-  height: auto;    /* top + bottom define the height */
+  height: auto;                    /* top + bottom define the height */
 }
 
 .content {
-    display: grid;
-    grid-template-columns: var(--side-menu-size) 1fr; 
-    grid-template-rows: 1fr auto; 
-    transition: grid-template-columns 0.25s ease;
+  display: grid;
+  grid-template-columns: var(--side-menu-size) 1fr;
+  grid-template-rows: 1fr auto;
+  transition: grid-template-columns 0.25s ease;
 }
 
 .layout.menu-collapsed .content {
-  --side-menu-size: 64px;
+  --side-menu-size: var(--rnt-menu-collapsed-size);
 }
 
-/* Adjust Nav (so it sits above the footer instead of beside it) */
+/* Nav sits above the footer instead of beside it */
 nav {
-    grid-column: 1 / 2; /* First column */
-    grid-row: 1 / 2;    /* Only occupies the top row now */
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
-/* Main Content remains the same */
 .main-content {
-    grid-column: 2 / 3; /* Second column */
-    grid-row: 1 / 2;    /* First row */
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 
 /* MAIN CONTENT — the only scrolling region */
@@ -829,37 +819,54 @@ nav {
   overflow-y: auto;
 }
 
-/* Expand the Footer to full width */
+/* Full-bleed main content; inner blocks stay centered to the max line length */
+.main-content.ThemeGrid_Container {
+  width: 100% !important;          /* override OS UI grid container width */
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  justify-self: stretch !important;
+  padding-left: var(--space-xl) !important;
+  box-sizing: border-box !important;
+}
+.main-content.ThemeGrid_Container > .content-breadcrumbs,
+.main-content.ThemeGrid_Container > .content-top,
+.main-content.ThemeGrid_Container > .content-middle {
+  max-width: 1376px;               /* 1440 design width minus L+R padding */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Footer band spans the full width */
 footer {
-    grid-column: 1 / -1; /* Stretches from the first line to the very last */
-    grid-row: 2 / 3;     /* Placed in the bottom row */
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
 }
 
 /* ---- 2.2. Header ---- */
-/* HEADER — fixed to the top, full width */
 .layout .main > .header.header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: 56px;
+  height: var(--rnt-header-size);
   z-index: 1000;
 }
 
 .desktop .header-content > [data-block*=ApplicationTitle] .application-name {
-    display: flex;
+  display: flex;
 }
 
 /* Dark blue header matching the R&T brand */
 .header {
-  background-color: var(--rnt-primary-900); 
-  color: var(--color-neutral-0);            
-  border-bottom: none;                      
-  box-shadow: var(--shadow-s);              
+  background-color: var(--rnt-primary-900);
+  color: var(--color-neutral-0);
+  border-bottom: none;
+  box-shadow: var(--shadow-s);
 }
 
-/* Ensures text, icons, and links inside the header are white */
+/* Text, icons, and links inside the header are white */
 .header .header-content,
 .header .user-info,
 .header a,
@@ -867,14 +874,18 @@ footer {
   color: var(--color-neutral-0);
 }
 
-/* ---- 2.3. Menu ---- */
-.layout-side .app-logo {
-    max-height: var(--header-size);
-    max-width: 100%;
-    height: 48px;
+.header .ThemeGrid_Container {
+  padding: var(--space-none) var(--space-xxl);
 }
 
-/* SIDE MENU — full height of the content region; scrolls internally if very tall */
+/* ---- 2.3. Menu ---- */
+.layout-side .app-logo {
+  max-height: var(--header-size);
+  max-width: 100%;
+  height: var(--space-xxl);        /* 48px */
+}
+
+/* SIDE MENU — full height of the content region; scrolls internally if tall */
 .layout .aside-navigation {
   height: 100%;
   overflow-y: auto;
@@ -891,12 +902,11 @@ footer {
 }
 
 .layout-side.menu-collapsed .aside-navigation {
-    width: 64px  !important;
-    min-width: 64px !important;
-    max-width: 64px !important;
+  width: var(--rnt-menu-collapsed-size) !important;      /* override OS UI width */
+  min-width: var(--rnt-menu-collapsed-size) !important;
+  max-width: var(--rnt-menu-collapsed-size) !important;
 }
 
-/* the immediate wrapper div inside the aside */
 .aside-navigation > div {
   flex: 1 1 auto;
   min-height: 0;
@@ -907,44 +917,62 @@ footer {
 }
 
 .layout-side .app-menu-content {
-    position: relative;
-    border-right: var(--border-size-s) solid var(--color-border-default);
+  position: relative;
+  border-right: var(--border-size-s) solid var(--color-border-default);
 }
 
-/* ---- 2.4. Menu - App Menu Link ---- */
-.app-menu-links a {
-    color: var(--color-primary);
-    font-weight: var(--font-semi-bold);
-    font-size: var(--font-size-base);
+@media (prefers-reduced-motion: reduce) {
+  .aside-navigation { transition: none; }
 }
 
-/* Outer gutter: keeps all items away from sidebar edges */
+/* ---- 2.4. Menu — App Menu Link ---- */
+.app-menu-links {
+  border-bottom: var(--border-size-s) solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rnt-space-400);                          /* 16px */
+  padding: var(--rnt-space-400) var(--rnt-space-300); /* 16px 12px */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* layout-side tightens the outer gutter (higher specificity wins over base) */
 .layout-side .app-menu-links {
-    padding: var(--rnt-space-300);   /* 8px top/bottom, 8px left/right */
-    gap: var(--rnt-space-300);   /* 4px between every sibling item */
-    overflow-x: hidden;
-    overflow-y: auto;
+  padding: var(--rnt-space-300);   /* 12px */
+  gap: var(--rnt-space-300);       /* 12px */
 }
 
-/* Items must not exceed the new container width */
+.app-menu-links a {
+  color: var(--color-primary);
+  font-weight: var(--font-semi-bold);
+  font-size: var(--font-size-base);
+}
+
+/* Items must not exceed the container width */
 .layout-side .app-menu-links a,
 .layout-side .app-menu-links .osui-submenu {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Hide labels when collapsed, center the icons */
 .layout-side.menu-collapsed .app-menu-links a span { display: none; }
 .layout-side.menu-collapsed .app-menu-links a { justify-content: center; }
 
-/* Pill/active background needs border-radius now that it's inset */
+/* Pill/active background radius now that items are inset */
 .layout-side .app-menu-links a,
 .layout-side .app-menu-links .osui-submenu__header {
-    border-radius: var(--border-radius-rounded);   /* 8px */
+  border-radius: var(--border-radius-rounded);        /* 8px */
 }
 
 .layout-side .app-menu-links a,
+.menu-visible .app-menu-links a,
+.layout-side .app-menu-links .osui-submenu .osui-submenu__header {
+  padding: var(--space-none);
+}
+
 .layout-side .app-menu-links a.active,
+.layout-side .app-menu-links a.active .icon-label,
 .layout-side .app-menu-links .osui-submenu .osui-submenu__header,
 .layout-side .app-menu-links .osui-submenu.active .osui-submenu__header,
 .desktop .layout-side .app-menu-links .osui-submenu__header:hover,
@@ -952,92 +980,113 @@ footer {
 .phone .osui-submenu__header,
 .tablet .osui-submenu.active .osui-submenu__header,
 .phone .osui-submenu.active .osui-submenu__header {
-    border-left: var(--border-size-none) solid transparent; /* 0px */
+  border-left: var(--border-size-none) solid transparent;   /* 0px */
 }
 
 .layout-side .app-menu-links a.active,
 .layout-side .app-menu-links .osui-submenu.active .osui-submenu__header {
-    background-color: var(--color-background-brand-secondary); /* #e6eef5 */
+  background-color: var(--color-background-brand-secondary); /* #e6eef5 */
 }
 
-/* Menu Control */
+.layout-side .app-menu-links .osui-submenu__items {
+  padding: var(--space-none);
+}
+
+.layout-side .app-menu-links .osui-submenu__items a {
+  padding: var(--space-xs) var(--space-s);
+  padding-left: calc(var(--space-xl) + var(--space-xs));
+  height: var(--rnt-menu-item-size);
+  margin-top: var(--space-s);
+  display: flex;
+  align-items: center;
+}
+
+.menu-collapsed .app-menu-links > a {
+  width: var(--rnt-menu-item-size);
+  display: flex;
+  justify-content: center;
+}
+
+/* Menu collapse control */
 .app-menu-control {
-    padding: var(--space-s) var(--space-base);
-    border-bottom: var(--border-size-s) solid var(--color-border-default);
-    text-align: right;
-    color: var(--color-primary);
-    cursor: pointer;
-    outline: none;
+  padding: var(--space-s) var(--space-base);
+  border-bottom: var(--border-size-s) solid var(--color-border-default);
+  text-align: right;
+  color: var(--color-primary);
+  cursor: pointer;
+  outline: none;
 }
 
 .app-menu-control:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
+  border-radius: var(--border-radius-soft);
 }
 
-/* Collapsed (default OutSystems state has .menu-collapsed on .layout) */
 .menu-collapsed .app-menu-control {
-    text-align: center;
-    display: flex;
-    justify-content: center;   /* center the icon */
-    align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Expanded (no .menu-collapsed) */
 .layout:not(.menu-collapsed) .app-menu-control {
-    text-align: right;
-    display: flex;
-    justify-content: flex-end; /* icon to the right */
-    align-items: center;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-/* Icon rotation depending on state */
 .app-menu-control .icon {
-    transition: transform 0.2s ease-in-out;
+  color: var(--color-icon-brand-secondary);   /* #5a7f9e */
+  font-size: var(--font-size-h5);
+  transition: transform 0.2s ease-in-out;
 }
 
-/* Collapsed: point right (open hint) */
-.menu-collapsed .app-menu-control .icon {
-    transform: rotate(0deg);
-}
+.menu-collapsed .app-menu-control .icon { transform: rotate(0deg); }
+.layout:not(.menu-collapsed) .app-menu-control .icon { transform: rotate(180deg); }
 
-/* Expanded: rotate to opposite direction (point left / collapse hint) */
-.layout:not(.menu-collapsed) .app-menu-control .icon {
-    transform: rotate(180deg);
+.app-menu-control .icon.fa-angle-right {
+  width: var(--rnt-menu-item-size);
+  min-width: var(--rnt-menu-item-size);
+  height: var(--rnt-menu-item-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;          /* one-off chevron hit-area; no matching token */
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
 }
-
+.app-menu-control:hover .icon.fa-angle-right {
+  background-color: var(--color-background-brand-secondary);
+}
 
 /* ---- 2.5. Footer ---- */
-/* FOOTER — fixed to the bottom, full width */
 .layout .content .content-bottom {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 37px;
+  height: var(--rnt-footer-size);
   z-index: 1000;
 }
 
-/* Apply the dark blue background to the full-width parent tag */
 footer.content-bottom {
-  background-color: var(--rnt-primary-900); 
+  background-color: var(--rnt-primary-900);
   color: var(--color-neutral-0);
   border-top: none;
 }
 
-/* Keep layout constraints and spacing on the inner grid container */
 .content-bottom .footer.ThemeGrid_Container {
-  background-color: transparent; /* Overrides the previous base setting */
-  padding: var(--space-s) var(--space-xxl);   
+  background-color: transparent;          /* overrides the base setting */
+  padding: var(--space-s) var(--space-xxl);
   display: flex;
   align-items: center;
-  justify-content: space-between;           
+  justify-content: space-between;
   height: 100%;
 }
 
-/* Footer Links */
 .content-bottom .footer.ThemeGrid_Container a {
   color: var(--color-neutral-0);
   text-decoration: none;
@@ -1054,99 +1103,99 @@ footer.content-bottom {
 /* Separators between footer links */
 .footer-links-separator {
   margin: 0 var(--space-xs);
-  color: var(--color-neutral-4); 
+  color: var(--color-neutral-4);
 }
+footer a + a::before {
+  content: "|";
+  display: inline-block;
+  width: var(--space-xl);
+  text-align: center;
+  color: var(--color-neutral-0);
+}
+
 
 /*! --------------------------------------------------------------------------- */
 /*! 3. WIDGETS                                                                  */
 /*! --------------------------------------------------------------------------- */
 
-/* ---- 3.1. Inputs and TextAreas ---- */
-/* 1. Base Styling (Default State) */
+/* ---- 3.1. Inputs and TextAreas ----
+   NOTE: merged the two input passes that previously lived in this file (the
+   base §3.1 block + the appended "theme patch"). Authoritative resolutions:
+     · disabled border -> --color-neutral-3 (#d9d9d9; controls exempt from 1.4.11)
+     · error border    -> --color-error     (#c00f0c · 6.33:1, was red-500 #ec221f)
+   Both were the later-declared ("last wins") values; nothing visual changed
+   versus the pre-optimization cascade.                                         */
+
+/* 1. Base (default + filled) */
 .form-control[data-input],
 .form-control[data-textarea] {
-    background-color: var(--color-background-default);
-    border: var(--border-size-s) solid var(--color-neutral-5);
-    border-radius: var(--border-radius-soft);
-    color: var(--color-text-default);
-    transition: border-color var(--animation-duration) var(--animation-function), 
-                box-shadow var(--animation-duration) var(--animation-function);
+  background-color: var(--color-background-default);
+  border: var(--border-size-s) solid var(--color-neutral-5);   /* AA-safe resting */
+  border-radius: var(--border-radius-soft);
+  color: var(--color-text-default);
+  font-size: var(--font-size-base);
+  transition: border-color var(--animation-duration) var(--animation-function),
+              box-shadow   var(--animation-duration) var(--animation-function);
 }
 
-/* 2. Placeholder Text */
-.form-control[data-input]::-webkit-input-placeholder,
-.form-control[data-textarea]::-webkit-input-placeholder { color: var(--color-text-secondary); }
-.form-control[data-input]::-moz-placeholder,
-.form-control[data-textarea]::-moz-placeholder { color: var(--color-text-secondary); }
-.form-control[data-input]:-ms-input-placeholder,
-.form-control[data-textarea]:-ms-input-placeholder { color: var(--color-text-secondary); }
+/* 2. Placeholder */
 .form-control[data-input]::placeholder,
 .form-control[data-textarea]::placeholder {
-    color: var(--color-text-secondary);
-    opacity: 1; /* Firefox default override */
+  color: var(--color-text-secondary);
+  opacity: 1;                       /* Firefox default override */
 }
 
-/* 3. Hover State */
+/* 3. Hover */
 .form-control[data-input]:hover:not([disabled]):not(.not-valid),
 .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
-    border-color: var(--color-neutral-6);
+  border-color: var(--color-neutral-6);
 }
 
-/* 4. Focus State */
+/* 4. Focus — brand border + 2px ring, no reflow (SC 2.4.7 / 2.4.11 / 2.4.13) */
 .form-control[data-input]:focus,
 .form-control[data-textarea]:focus {
-    border-color: var(--color-border-brand);
-    box-shadow: none;
-    outline: none;
+  border-color: var(--color-border-brand);
+  box-shadow: none;
+  outline: none;
 }
 .form-control[data-input]:focus-visible,
 .form-control[data-textarea]:focus-visible {
-    outline: var(--border-size-m) solid var(--color-focus-outline);
-    outline-offset: var(--border-size-m);
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
 }
 
-/* 5. Disabled State */
+/* 5. Disabled */
 .form-control[data-input][disabled],
 .form-control[data-textarea][disabled] {
-    background-color: var(--color-background-secondary);
-    border-color: var(--color-border-disabled);
-    color: var(--color-text-disabled);
-    cursor: not-allowed;
+  background-color: var(--color-background-secondary);
+  border-color: var(--color-neutral-3);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
 }
-
 .form-control[data-input][disabled]::placeholder,
 .form-control[data-textarea][disabled]::placeholder {
-    color: var(--color-text-disabled);
+  color: var(--color-text-disabled);
 }
 
-/* 6. Error State (OutSystems .not-valid class) */
+/* 6. Error (OutSystems .not-valid class) */
 .form-control[data-input].not-valid,
 .form-control[data-textarea].not-valid {
-    border-color: var(--color-border-danger-tertiary);
-}
-
-.form-control[data-input].not-valid:focus,
-.form-control[data-textarea].not-valid:focus {
-    border-color: var(--color-border-danger-tertiary);
+  border-color: var(--color-error);
 }
 .form-control[data-input].not-valid:focus-visible,
 .form-control[data-textarea].not-valid:focus-visible {
-    outline-color: var(--color-error);
+  outline-color: var(--color-error);
 }
-
-/* Validation message */
 .form-control[data-input].not-valid + span.validation-message,
 .form-control[data-textarea].not-valid + span.validation-message {
   color: var(--color-error);
   font-size: var(--font-size-xs);
 }
-
-/* Size-scoped validation text */
 [data-input].input-large + span.validation-message {
   font-size: var(--font-size-s);
 }
 
-/* Sizes — Large / Default / Small */
+/* 7. Sizes — Large / Default / Small */
 .form-control[data-input].input-large {
   min-height: 48px;
   padding: var(--space-s) var(--space-base);
@@ -1162,7 +1211,6 @@ footer.content-bottom {
   padding: var(--space-xs) var(--space-s);
   font-size: var(--font-size-s);
 }
-
 .form-control[data-textarea],
 .form-control[data-textarea].input-large {
   min-height: 96px;
@@ -1176,10 +1224,36 @@ footer.content-bottom {
   font-size: var(--font-size-s);
 }
 
+/* 8. Leading / trailing icon tone (Input Icon / Search pattern) */
+.input-with-icon .input-with-icon-content-icon,
+.input-with-icon .input-with-icon-content-icon a { color: var(--color-neutral-5); }
+.input-with-icon .input-with-icon-content-icon.search-actions:hover { color: var(--color-neutral-6); }
+
+/* 9. Error-state trailing status icon -> danger token */
+.input-with-icon:has(.form-control[data-input].not-valid) .input-with-icon-content-icon.search-actions {
+  color: var(--color-error);
+}
+
+/* 10. Mandatory marker (platform-inserted span) */
+.MandatoryLabel { color: var(--color-error); }
+
+@media (prefers-reduced-motion: reduce) {
+  .form-control[data-input], .form-control[data-textarea] { transition: none; }
+}
+
+/* Validation message (native OSUI span) */
+span.validation-message {
+  display: block;
+  color: var(--color-text-danger-tertiary);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-medium);
+  margin-top: var(--space-s);
+}
+
 
 /* ---- 3.2. Button ---- */
-/* Base geometry */
 .btn {
+  position: relative;                  /* contain the absolutely-positioned animation span */
   border-radius: var(--border-radius-rounded);
   gap: var(--space-s);
 }
@@ -1195,6 +1269,12 @@ footer.content-bottom {
 .tablet .btn:hover,
 .desktop .btn:hover {
   filter: none;
+}
+
+.btn-animation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 /* PRIMARY (filled brand) */
@@ -1269,145 +1349,147 @@ footer.content-bottom {
   border-color: var(--color-border-danger-secondary);
 }
 
+
 /* ---- 3.3. Table ---- */
 .table {
-    border-collapse: collapse;
-    width: 100%;
-    border: var(--border-size-s, 1px) solid var(--rnt-neutral-300);
+  border-collapse: collapse;
+  width: 100%;
+  border: var(--border-size-s) solid var(--color-border-default);
 }
 
 .table th,
 .table .table-header th {
-    color: var(--rnt-neutral-500); 
-    border-bottom: var(--border-size-s, 1px) solid var(--rnt-neutral-300); 
-    background-color: var(--color-background-secondary);
-    padding: var(--space-m);
-    font-weight: var(--font-semi-bold);
-    text-align: left;
-    vertical-align: middle;
+  color: var(--color-text-secondary);
+  border-bottom: var(--border-size-s) solid var(--color-border-default);
+  background-color: var(--color-background-secondary);
+  padding: var(--space-m);
+  font-weight: var(--font-semi-bold);
+  text-align: left;
+  vertical-align: middle;
 }
 
 .table td,
 .table .table-row td {
-    color: var(--rnt-neutral-900); 
-    border-bottom: var(--border-size-s, 1px) solid var(--rnt-neutral-300); 
-    background-color: var(--color-background-default);
-    padding: var(--space-m);
-    vertical-align: middle;
+  color: var(--color-text-default);
+  border-bottom: var(--border-size-s) solid var(--color-border-default);
+  background-color: var(--color-background-default);
+  padding: var(--space-m);
+  vertical-align: middle;
 }
 
 .table td a {
-    color: var(--rnt-primary-800); 
-    text-decoration: underline;
-    font-weight: var(--font-semi-bold);
-    transition: color var(--animation-duration) var(--animation-function);
+  color: var(--color-text-brand);
+  text-decoration: underline;
+  font-weight: var(--font-semi-bold);
+  transition: color var(--animation-duration) var(--animation-function);
 }
-
 .table td a:hover,
 .table td a:focus {
-    color: var(--color-primary-hover); 
+  color: var(--color-primary-hover);
 }
 
 .table td .icon {
-    color: var(--rnt-neutral-500); 
-    cursor: pointer;
-    transition: color var(--animation-duration) var(--animation-function);
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+  transition: color var(--animation-duration) var(--animation-function);
 }
-
 .table td .icon:hover,
 .table td .icon:focus {
-    color: var(--rnt-primary-800); 
+  color: var(--color-icon-brand);
 }
+
+.card.padding-none .table {
+  border-left: none;
+  border-right: none;
+}
+
 
 /* ---- 3.4. Button Group ---- */
 .button-group {
-    background-color: var(--color-background-secondary);
-    border: var(--border-size-s) solid var(--color-border-default);
-    border-radius: var(--border-radius-rounded);
-    padding: var(--rnt-space-050);
-    display: inline-flex;
-    gap: var(--space-none);
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
+  background-color: var(--color-background-secondary);
+  border: var(--border-size-s) solid var(--color-border-default);
+  border-radius: var(--border-radius-rounded);
+  padding: var(--rnt-space-050);
+  display: inline-flex;
+  gap: var(--space-none);
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
 }
 
 .button-group .button-group-item {
-    background-color: transparent;
-    border: var(--border-size-s) solid transparent;
-    border-radius: var(--border-radius-soft);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-regular);
-    padding: var(--space-xs) var(--space-base);
-    transition: all var(--animation-duration) var(--animation-function);
-    height: 32px;
+  background-color: transparent;
+  border: var(--border-size-s) solid transparent;
+  border-radius: var(--border-radius-soft);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-regular);
+  padding: var(--space-xs) var(--space-base);
+  transition: all var(--animation-duration) var(--animation-function);
+  height: 32px;
 }
 
 .button-group .button-group-item + .button-group-item {
-    border-left-color: transparent;
+  border-left-color: transparent;
 }
 
 .button-group .button-group-item:hover:not(.button-group-selected-item) {
-    background-color: var(--color-background-default-hover);
-    color: var(--color-text-brand);
+  background-color: var(--color-background-default-hover);
+  color: var(--color-text-brand);
 }
 
 .has-accessible-features .button-group .button-group-item:focus {
-    box-shadow: 0 0 0 var(--border-size-m) var(--color-focus-outline);
-    outline: none;
+  box-shadow: 0 0 0 var(--border-size-m) var(--color-focus-outline);
+  outline: none;
 }
 
 .button-group .button-group-item.button-group-selected-item {
-    background-color: var(--rnt-primary-100);
-    border-color: var(--rnt-primary-600);
-    color: var(--color-text-brand);
-    font-weight: var(--font-semi-bold);
+  background-color: var(--rnt-primary-100);
+  border-color: var(--rnt-primary-600);
+  color: var(--color-text-brand);
+  font-weight: var(--font-semi-bold);
 }
 
 
 /* ---- 3.5. Feedback Message ---- */
 div.feedback-message {
-    border-radius: var(--border-radius-rounded);
-    border-width: var(--border-size-s);
-    border-style: solid;
-    box-shadow: var(--shadow-none);
+  border-radius: var(--border-radius-rounded);
+  border-width: var(--border-size-s);
+  border-style: solid;
+  box-shadow: var(--shadow-none);
 }
 
 div.feedback-message .feedback-message-icon svg,
 div.feedback-message .icon {
-    fill: currentColor;
-    color: currentColor;
+  fill: currentColor;
+  color: currentColor;
 }
 
 div.feedback-message.feedback-message-success {
-    background-color: var(--color-success-light);
-    border-color: var(--color-success);
-    color: var(--color-text-positive);
+  background-color: var(--color-success-light);
+  border-color: var(--color-success);
+  color: var(--color-text-positive);
 }
-
 div.feedback-message.feedback-message-error {
-    background-color: var(--color-error-light);
-    border-color: var(--color-error);
-    color: var(--color-text-danger);
+  background-color: var(--color-error-light);
+  border-color: var(--color-error);
+  color: var(--color-text-danger);
 }
-
 div.feedback-message.feedback-message-warning {
-    background-color: var(--color-warning-light);
-    border-color: var(--color-warning);
-    color: var(--color-text-warning);
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning);
+  color: var(--color-text-warning);
 }
-
 div.feedback-message.feedback-message-info {
-    background-color: var(--color-info-light);
-    border-color: var(--color-info);
-    color: var(--color-text-brand); 
+  background-color: var(--color-info-light);
+  border-color: var(--color-info);
+  color: var(--color-text-brand);
 }
 
 div.feedback-message.feedback-message-success .feedback-message-close,
 div.feedback-message.feedback-message-error .feedback-message-close,
 div.feedback-message.feedback-message-warning .feedback-message-close,
 div.feedback-message.feedback-message-info .feedback-message-close {
-    color: currentColor;
+  color: currentColor;
 }
 
 
@@ -1417,48 +1499,45 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 
 /* ---- 4.1. Alert ---- */
 .alert {
-    border-radius: var(--border-radius-rounded);
-    border-width: var(--border-size-s);
-    border-style: solid;
-    padding: var(--space-base);
-    color: inherit; 
-    box-shadow: var(--shadow-none);
+  border-radius: var(--border-radius-rounded);
+  border-width: var(--border-size-s);
+  border-style: solid;
+  padding: var(--space-base);
+  color: inherit;
+  box-shadow: var(--shadow-none);
 }
 
 .alert .alert-icon,
 .alert .alert-icon svg,
 .alert .icon {
-    fill: currentColor;
-    color: currentColor;
+  fill: currentColor;
+  color: currentColor;
 }
 
 .alert.alert-success {
-    background-color: var(--color-success-light);
-    border-color: var(--color-success);
-    color: var(--color-text-positive);
+  background-color: var(--color-success-light);
+  border-color: var(--color-success);
+  color: var(--color-text-positive);
 }
-
 .alert.alert-error {
-    background-color: var(--color-error-light);
-    border-color: var(--color-error);
-    color: var(--color-text-danger);
+  background-color: var(--color-error-light);
+  border-color: var(--color-error);
+  color: var(--color-text-danger);
 }
-
 .alert.alert-warning {
-    background-color: var(--color-warning-light);
-    border-color: var(--color-warning);
-    color: var(--color-text-warning);
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning);
+  color: var(--color-text-warning);
 }
-
 .alert.alert-info {
-    background-color: var(--color-info-light);
-    border-color: var(--color-info);
-    color: var(--color-text-brand);
+  background-color: var(--color-info-light);
+  border-color: var(--color-info);
+  color: var(--color-text-brand);
 }
 
 .is-rtl .alert-icon {
-    margin-left: var(--space-base);
-    margin-right: var(--space-none);
+  margin-left: var(--space-base);
+  margin-right: var(--space-none);
 }
 
 /* ---- 4.2. Card ---- */
@@ -1470,6 +1549,22 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 /* ---- 4.3. Submenu ---- */
 .layout-side .app-menu-links .osui-submenu .osui-submenu__header {
   font-size: var(--font-size-base);
+}
+
+/* ---- 4.4. Tabs ---- */
+.osui-tabs__content-item {
+  padding-top: var(--space-none);
+}
+
+/* ---- 4.5. Pagination ---- */
+.pagination-container {
+  --color-neutral-4: var(--rnt-primary-300);   /* inactive border */
+  --color-neutral-8: var(--rnt-neutral-900);   /* numbers + arrows */
+  --color-primary:   var(--rnt-primary-500);   /* active border */
+}
+.pagination-container .pagination-button.is--active {
+  background-color: var(--rnt-primary-200);    /* active fill */
+  color: var(--rnt-neutral-900);               /* active text */
 }
 
 
@@ -1487,351 +1582,207 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 .text-muted  { color: var(--color-text-secondary); }
 .text-subtle { color: var(--color-text-tertiary); }
 
+/* Inline SVG (OS UI Utilities.InlineSVG) */
+.osui-inline-svg {
+  display: inline-flex;
+  align-items: center;
+}
+[data-block*="Utilities.InlineSVG"] {
+  display: contents;
+}
+
 
 /*! --------------------------------------------------------------------------- */
 /*! 6. CUSTOM R&T COMPONENTS                                                    */
 /*! --------------------------------------------------------------------------- */
 
-/* ---- rnt-tint (Badge, Tag, Card tint wrapper) ---- */
+/* ---- 6.1. rnt-tint — painted Badge / Tag / Card tint wrapper ---- */
+/* Paints background/border/text directly. (A separate variable-only tint
+   contract used by rnt-quick-link lives in §6.7.) */
 .rnt-tint {
-  background-color: var(--color-background-neutral-tertiary); 
-  border: var(--border-size-s) solid var(--color-border-neutral-secondary); 
-  color: var(--color-text-neutral); 
+  background-color: var(--color-background-neutral-tertiary);
+  border: var(--border-size-s) solid var(--color-border-neutral-secondary);
+  color: var(--color-text-neutral);
 }
-
 .rnt-tint .icon,
 .rnt-tint .icon svg,
 .rnt-tint svg {
   fill: currentColor;
   color: currentColor;
 }
-
 .rnt-tint--positive {
   background-color: var(--color-background-positive-tertiary);
   border-color:     var(--color-border-positive-secondary);
   color:            var(--color-text-positive);
 }
-
 .rnt-tint--warning {
   background-color: var(--color-background-warning-tertiary);
   border-color:     var(--color-border-warning-secondary);
   color:            var(--color-text-warning);
 }
-
 .rnt-tint--danger {
   background-color: var(--color-background-danger-tertiary);
   border-color:     var(--color-border-danger-secondary);
   color:            var(--color-text-danger);
 }
-
 .rnt-tint--info {
   background-color: var(--color-background-brand-tertiary);
   border-color:     var(--color-border-brand-secondary);
   color:            var(--color-text-brand);
 }
-
 .rnt-tint--neutral {
   background-color: var(--color-background-neutral-tertiary);
   border-color:     var(--color-border-neutral-secondary);
   color:            var(--color-text-neutral);
 }
-
 .rnt-tint--cdmx {
   background-color: var(--color-background-cdmx-secondary);
   border-color:     var(--color-border-cdmx-tertiary);
   color:            var(--color-text-cdmx);
 }
-
 .rnt-tint--ddm {
   background-color: var(--color-background-ddm-secondary);
   border-color:     var(--color-border-ddm-tertiary);
   color:            var(--color-text-ddm);
 }
-
 .rnt-tint--rtid {
   background-color: var(--color-background-rtid-secondary);
   border-color:     var(--color-border-rtid-tertiary);
   color:            var(--color-text-rtid);
 }
-
 .rnt-tint--funding {
   background-color: var(--color-background-funding-secondary);
   border-color:     var(--color-border-funding-secondary);
   color:            var(--color-text-funding);
 }
 
-/* =========================================================================
-   A.  ROW LAYOUT  — no background on .icon-label itself
-   ========================================================================= */
+/* OS UI Tag — fully-rounded pill (third-party widget radius override) */
+.tag {
+  border-radius: var(--border-radius-pill) !important;
+}
+
+
+/* ---- 6.2. Menu icon-label (custom menu row composition) ---- */
+/* A. Row layout — no background on .icon-label itself */
 .icon-label {
-    align-items: center;
-    border-radius: var(--border-radius-rounded);     /* 8px */
-    display: flex;
-    gap: var(--rnt-space-0);
-    width: 100%;
-    min-height: 36px;
+  align-items: center;
+  border-radius: var(--border-radius-rounded);   /* 8px */
+  display: flex;
+  gap: var(--rnt-space-0);
+  width: 100%;
+  min-height: var(--rnt-menu-item-size);
 }
-
 .icon-label__icon {
-    align-items: center;
-    border-radius: var(--border-radius-soft);        /* 4px */
-    display: flex;
-    flex-shrink: 0;
-    height: 36px;
-    width: 36px;
-    box-sizing: border-box;
-    justify-content: center;
-    padding: var(--rnt-space-200);                   /* 8px */
+  align-items: center;
+  border-radius: var(--border-radius-soft);      /* 4px */
+  display: flex;
+  flex-shrink: 0;
+  height: var(--rnt-menu-item-size);
+  width: var(--rnt-menu-item-size);
+  box-sizing: border-box;
+  justify-content: center;
+  padding: var(--rnt-space-200);                 /* 8px */
 }
-
 .icon-label__text {
-    align-items: center;
-    color: var(--color-text-brand);                  /* #2a4a66 */
-    display: flex;
-    flex: 1 0 0;
-    font-size: var(--font-size-base);                /* 16px */
-    font-weight: var(--font-semi-bold);              /* 600 */
-    line-height: 1.4;
-    white-space: nowrap;
+  align-items: center;
+  color: var(--color-text-brand);                /* #2a4a66 */
+  display: flex;
+  flex: 1 0 0;
+  font-size: var(--font-size-base);              /* 16px */
+  font-weight: var(--font-semi-bold);            /* 600 */
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
-/* =========================================================================
-   A2. EXPANDABLE HEADER layout (chevron sibling of .icon-label)
-   ========================================================================= */
+/* A2. Expandable header layout (chevron sibling of .icon-label) */
 .osui-submenu__header {
-    align-items: center;
-    border-radius: var(--border-radius-rounded);     /* 8px */
-    min-height: 36px;
-    padding: 0;
+  align-items: center;
+  border-radius: var(--border-radius-rounded);   /* 8px */
+  min-height: var(--rnt-menu-item-size);
+  padding: 0;
 }
 .osui-submenu__header__item { align-items: center; }
 .osui-submenu__header__icon {
-    align-items: center;
-    display: flex;
-    flex-shrink: 0;
-    font-size: 20px;
-    height: 36px;
-    width: 36px;
-    margin: 0;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  font-size: var(--font-size-h5);                /* 20px */
+  height: var(--rnt-menu-item-size);
+  width: var(--rnt-menu-item-size);
+  margin: 0;
+  justify-content: center;
 }
 
-/* =========================================================================
-   B.  ICON COLORS  — inactive = #5A7F9E, active = #2a4a66 (semantic tokens)
-   Scoped under .app-menu-links to beat OSUI's default icon color.
-   ========================================================================= */
-/* Inactive (default) */
+/* B. Icon colors — inactive = brand-secondary, active = brand. */
 .app-menu-links .icon-label .icon-label__icon .icon,
 .osui-submenu__header__icon {
-    color: var(--color-icon-brand-secondary);        /* #5A7F9E (= --rnt-primary-600) */
-    font-size: 20px;
-    height: 20px;
-    width: 20px;
-    left: -10px;
-}
-/* Collapse toggle icon — also lighter when inactive */
-.app-menu-control .icon {
-    color: var(--color-icon-brand-secondary);        /* #5A7F9E */
-    font-size: var(--font-size-h5);
-}
-
-/* Active (current link / open expandable) → brand */
-.app-menu-links a.active .icon-label .icon-label__icon .icon,
-.app-menu-links .osui-submenu.active > .osui-submenu__header .icon-label__icon .icon,
-.app-menu-links .osui-submenu--is-open > .osui-submenu__header .osui-submenu__header__icon {
-    color: var(--color-icon-brand);                  /* #2a4a66 */
-}
-
-/* =========================================================================
-   C.  BACKGROUND  — on the LINK and the HEADER, never on .icon-label
-   ========================================================================= */
-/* Hover */
-a:not(.active):hover .icon-label,
-.osui-submenu:not(.osui-submenu--is-open) > .osui-submenu__header:hover {
-    background-color: var(--color-background-brand-secondary);
-}
-/* Active / open */
-a.active .icon-label,
-.osui-submenu--is-open > .osui-submenu__header {
-    background-color: var(--color-background-brand-secondary-hover);  /* #ccddea */
-}
-
-/* =========================================================================
-   D.  COLLAPSED STATE  (ancestor hook = .layout.menu-collapsed)
-   ========================================================================= */
-.layout.menu-collapsed .icon-label__text,
-.layout.menu-collapsed .osui-submenu__header__icon {
-    display: none;
-}
-.layout.menu-collapsed .icon-label {
-    justify-content: center;
-    width: auto;
-}
-.layout.menu-collapsed .app-menu-links {
-    align-items: center;
-}
-.layout.menu-collapsed .icon-label__icon {     /* keep 1:1 square */
-    height: 36px;
-    width: 36px;
-    flex-shrink: 0;
-}
-.layout.menu-collapsed .osui-submenu__header {
-    padding: 0;
-    justify-content: center;
-}
-
-/* =========================================================================
-   E.  SECTION + reduced motion
-   ========================================================================= */
-.app-menu-links {
-    border-bottom: var(--border-size-s) solid var(--color-border-default);
-    display: flex;
-    flex-direction: column;
-    gap: var(--rnt-space-400);                        /* 16px */
-    padding: var(--rnt-space-400) var(--rnt-space-300); /* 16px 12px */
-}
-@media (prefers-reduced-motion: reduce) {
-    .aside-navigation { transition: none; }
-}
-
-.layout-side .app-menu-links a,
-.menu-visible .app-menu-links a,
-.layout-side .app-menu-links .osui-submenu .osui-submenu__header {
-    padding: var(--space-none);
-}
-
-.layout-side .app-menu-links .osui-submenu__items {
-    padding: var(--space-none);
-}
-
-.layout-side .app-menu-links .osui-submenu__items a {
-    padding: var(--space-xs) var(--space-s);
-    padding-left: calc(var(--space-xl) + var(--space-xs));
-    height: 36px;
-    margin-top: var(--space-s);
-    display: flex;
-    align-items: center;
-}
-
-.menu-collapsed .app-menu-links > a {
-    width: 36px;
-    display: flex;
-    justify-content: center;
-}
-
-
-.header .ThemeGrid_Container {
-      padding: var(--space-none) var(--space-xxl);
-}
-.content-bottom .footer.ThemeGrid_Container {
-      padding: var(--space-s) var(--space-xxl);
-}
-
-
-    .osui-submenu__header__icon::before {
-      width: 8px !important;
-      height: 8px !important;
-      border-bottom-color: var(--color-icon-brand-secondary) !important;
-      border-left-color: var(--color-icon-brand-secondary) !important;
-      border-bottom-width: 2px !important;
-      border-left-width: 2px !important;
-      border-bottom-style: solid !important;
-      border-left-style: solid !important;
-    }
-  
-
-.card.padding-none .table {
-  border-left: none;
-  border-right: none;
-}
-
-footer a + a::before {
-    content: "|";
-    display: inline-block;
-    width: var(--space-xl);
-    text-align: center;
-    color: var(--color-neutral-0);
-}
-
-.app-menu-control .icon.fa-angle-right {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  box-sizing: border-box;
-  transition: background-color 0.15s ease;
-}
-.app-menu-control:hover .icon.fa-angle-right {
-  background-color: var(--color-background-brand-secondary);
-}
-
-[data-block*="Utilities.InlineSVG"] {
-  display: contents;
+  color: var(--color-icon-brand-secondary);      /* #5a7f9e */
+  font-size: var(--font-size-h5);                /* 20px */
+  height: 20px;
+  width: 20px;
+  left: -10px;
 }
 .app-menu-links .icon-label .icon-label__icon .osui-inline-svg {
-    color: var(--color-icon-brand-secondary);
+  color: var(--color-icon-brand-secondary);
 }
-
+.app-menu-links a.active .icon-label .icon-label__icon .icon,
+.app-menu-links .osui-submenu.active > .osui-submenu__header .icon-label__icon .icon,
+.app-menu-links .osui-submenu--is-open > .osui-submenu__header .osui-submenu__header__icon,
 .app-menu-links a.active .icon-label .icon-label__icon .osui-inline-svg,
-.app-menu-links .osui-submenu.active > .osui-submenu__header .icon-label__icon .osui-inline-svg,
-.app-menu-links .osui-submenu--is-open > .osui-submenu__header .osui-submenu__header__icon {
-  color: var(--color-icon-brand);
+.app-menu-links .osui-submenu.active > .osui-submenu__header .icon-label__icon .osui-inline-svg {
+  color: var(--color-icon-brand);                /* #2a4a66 */
 }
 
-.main-content.ThemeGrid_Container {
-  width: 100% !important;
-  max-width: none !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  justify-self: stretch !important;
-  padding-left: 32px !important;
-  box-sizing: border-box !important;
-}
-.main-content.ThemeGrid_Container > .content-breadcrumbs,
-.main-content.ThemeGrid_Container > .content-top,
-.main-content.ThemeGrid_Container > .content-middle {
-  max-width: 1376px;   /* original 1440 minus left+right padding */
-  margin-left: auto !important;
-  margin-right: auto !important;
+/* Chevron glyph (override OS UI submenu arrow pseudo-element) */
+.osui-submenu__header__icon::before {
+  width: 8px !important;
+  height: 8px !important;
+  border-bottom-color: var(--color-icon-brand-secondary) !important;
+  border-left-color: var(--color-icon-brand-secondary) !important;
+  border-bottom-width: var(--border-size-m) !important;
+  border-left-width: var(--border-size-m) !important;
+  border-bottom-style: solid !important;
+  border-left-style: solid !important;
 }
 
-.osui-tabs__content-item {
-    padding-top: var(--space-none);
+/* C. Background — on the LINK and the HEADER, never on .icon-label */
+a:not(.active):hover .icon-label,
+.osui-submenu:not(.osui-submenu--is-open) > .osui-submenu__header:hover {
+  background-color: var(--color-background-brand-secondary);
+}
+a.active .icon-label,
+.osui-submenu--is-open > .osui-submenu__header {
+  background-color: var(--color-background-brand-secondary-hover);   /* #ccddea */
 }
 
-.osui-inline-svg {
-    display: inline-flex;
-    align-items: center;
+/* D. Collapsed state (ancestor hook = .layout.menu-collapsed) */
+.layout.menu-collapsed .icon-label__text,
+.layout.menu-collapsed .osui-submenu__header__icon {
+  display: none;
+}
+.layout.menu-collapsed .icon-label {
+  justify-content: center;
+  width: auto;
+}
+.layout.menu-collapsed .app-menu-links {
+  align-items: center;
+}
+.layout.menu-collapsed .icon-label__icon {
+  height: var(--rnt-menu-item-size);
+  width: var(--rnt-menu-item-size);
+  flex-shrink: 0;
+}
+.layout.menu-collapsed .osui-submenu__header {
+  padding: 0;
+  justify-content: center;
 }
 
-.pagination-container {
-  --color-neutral-4: var(--rnt-primary-300);   /* inactive border  ~ #CED4DA */
-  --color-neutral-8: var(--rnt-neutral-900);   /* numbers + arrows = #1E1E1E */
-  --color-primary:  var(--rnt-primary-500);    /* active border    = #7F9FB8 */
-}
-.pagination-container .pagination-button.is--active {
-  background-color: var(--rnt-primary-200);    /* active fill       = #E6EEF5 */
-  color: var(--rnt-neutral-900);               /* active text       = #1E1E1E */
-}
 
-.btn {
-    position: relative;   /* contain the absolutely-positioned span */
-}
-
-.btn-animation {
-    position: absolute;
-    inset: 0;             /* cover the whole button */
-    pointer-events: none;
-}
-
-/* ===== RNT Branding Overrides — Profile Info Step ===== */
-
+/* ---- 6.3. Form labels, helper text & radio group ---- */
 /* Helper / description paragraph within a native Card */
 .osui-card-sectioned .osui-card-sectioned__content p,
-.card p {
+.card p,
+.rnt-card-section__content p {
   color: var(--color-text-secondary);
   font-family: var(--font-family-body);
   font-weight: var(--font-regular);
@@ -1845,213 +1796,45 @@ label {
   font-weight: var(--font-semi-bold);
 }
 
-/* Required asterisk (Overrides native OSUI Mandatory state) */
+/* Required asterisk (overrides native OSUI Mandatory state) */
 label.mandatory::after {
   color: var(--color-text-danger-tertiary);
-  margin-left: var(--space-xs); /* Replaced custom --rnt-space-100 */
+  margin-left: var(--space-xs);
   font-weight: var(--font-bold);
 }
 
-
-/* Field labels */
-label {
-  color: var(--color-text-default);
-  font-family: var(--font-family-body);
-  font-weight: var(--font-semi-bold);
-}
-
-/* Required asterisk (Overrides native OSUI Mandatory state) */
-label.mandatory::after {
-  color: var(--color-text-danger-tertiary);
-  margin-left: var(--space-xs); /* Replaced custom --rnt-space-100 */
-  font-weight: var(--font-bold);
-}
-
-  /* ============================================================
-     0) PREVIEW SHIM  —  DO NOT COPY INTO OUTSYSTEMS
-        Token values mirrored from rnt-connect-theme so section 1
-        resolves standalone. In OutSystems the Theme supplies these.
-     ============================================================ */
-  :root {
-    --color-neutral-0:#ffffff; --color-neutral-1:#f5f5f5; --color-neutral-3:#d9d9d9;
-    --color-neutral-4:#b3b3b3; --color-neutral-5:#757575; --color-neutral-6:#444444;
-    --color-neutral-9:#1e1e1e;
- 
-    --color-border-brand:#2a4a66;          /* 9.2:1 on #fff */
-    --color-focus-outline:#2a4a66;
-    --color-error:#c00f0c;                 /* 6.33:1 on #fff — AA text */
- 
-    --color-text-default:var(--color-neutral-9);
-    --color-text-secondary:var(--color-neutral-5);
-    --color-text-disabled:var(--color-neutral-4);
-    --color-background-default:var(--color-neutral-0);
-    --color-background-secondary:var(--color-neutral-1);
- 
-    --border-radius-soft:4px; --border-size-s:1px; --border-size-m:2px;
-    --space-xs:4px; --space-s:8px; --space-base:16px; --space-m:16px; --space-xl:40px;
-    --font-size-xs:12px; --font-size-s:14px; --font-size-base:16px;
-    --font-medium:500; --font-bold:700;
-    --animation-duration:180ms; --animation-function:ease;
-  }
- 
- 
-  /* ============================================================
-     1) THEME PATCH  →  COPY INTO rnt-connect-theme §3.1
-        Full input styling, applied on OS UI default classes.
-        AA-safe; matches the mockup palette except the two flagged
-        values (see section 2).
-     ============================================================ */
- 
-  /* 1. Base (default + filled) */
-  .form-control[data-input],
-  .form-control[data-textarea] {
-    background-color: var(--color-background-default);
-    border: var(--border-size-s) solid var(--color-neutral-5); /* AA-safe resting; mockup #d9d9d9 fails 1.4.11 */
-    border-radius: var(--border-radius-soft);                  /* 4px */
-    color: var(--color-text-default);                          /* #1e1e1e — filled value */
-    font-size: var(--font-size-base);
-    transition: border-color var(--animation-duration) var(--animation-function),
-                box-shadow   var(--animation-duration) var(--animation-function);
-  }
-  .form-control[data-input]   { min-height: 40px; padding: var(--space-s) var(--space-base); }
-  .form-control[data-textarea]{ min-height: 96px; padding: var(--space-base); resize: vertical; }
- 
-  /* 2. Placeholder */
-  .form-control[data-input]::placeholder,
-  .form-control[data-textarea]::placeholder {
-    color: var(--color-text-secondary);                        /* #757575 */
-    opacity: 1;
-  }
- 
-  /* 3. Hover */
-  .form-control[data-input]:hover:not([disabled]):not(.not-valid),
-  .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
-    border-color: var(--color-neutral-6);                      /* #444444 */
-  }
- 
-  /* 4. Focus — brand border + 2px brand ring, no reflow (SC 2.4.7/2.4.11/2.4.13) */
-  .form-control[data-input]:focus,
-  .form-control[data-textarea]:focus {
-    border-color: var(--color-border-brand);                   /* #2a4a66 */
-    box-shadow: none; outline: none;
-  }
-  .form-control[data-input]:focus-visible,
-  .form-control[data-textarea]:focus-visible {
-    outline: var(--border-size-m) solid var(--color-focus-outline);
-    outline-offset: var(--border-size-m);
-  }
- 
-  /* 5. Disabled — border #d9d9d9 (controls are exempt from 1.4.11) */
-  .form-control[data-input][disabled],
-  .form-control[data-textarea][disabled] {
-    background-color: var(--color-background-secondary);       /* #f5f5f5 */
-    border-color: var(--color-neutral-3);                      /* #d9d9d9 */
-    color: var(--color-text-disabled);                         /* #b3b3b3 */
-    cursor: not-allowed;
-  }
-  .form-control[data-input][disabled]::placeholder,
-  .form-control[data-textarea][disabled]::placeholder { color: var(--color-text-disabled); }
- 
-  /* 6. Error (.not-valid) — one unified danger token for border/ring/message */
-  .form-control[data-input].not-valid,
-  .form-control[data-textarea].not-valid {
-    border-color: var(--color-error);                          /* #c00f0c · 6.33:1 */
-  }
-  .form-control[data-input].not-valid:focus-visible,
-  .form-control[data-textarea].not-valid:focus-visible { outline-color: var(--color-error); }
-  .form-control[data-input].not-valid + span.validation-message,
-  .form-control[data-textarea].not-valid + span.validation-message {
-    color: var(--color-error);
-    font-size: var(--font-size-xs);
-  }
- 
-  /* 7. Sizes */
-  .form-control[data-input].input-small { min-height: 32px; padding: var(--space-xs) var(--space-s); font-size: var(--font-size-s); }
-  .form-control[data-input].input-large { min-height: 48px; font-size: var(--font-size-base); }
- 
-  /* 8. Leading / trailing icon tone (Input Icon / Search pattern).
-        OS UI default is neutral-7; mockup = #757575 (4.61:1, >3:1 non-text). */
-  .input-with-icon .input-with-icon-content-icon,
-  .input-with-icon .input-with-icon-content-icon a { color: var(--color-neutral-5); }
-  .input-with-icon .input-with-icon-content-icon.search-actions:hover { color: var(--color-neutral-6); }
- 
-  /* 9. Error-state trailing status icon → danger token */
-  .input-with-icon:has(.form-control[data-input].not-valid) .input-with-icon-content-icon.search-actions {
-    color: var(--color-error);
-  }
- 
-  /* 10. Mandatory marker (platform-inserted span) */
-  .MandatoryLabel { color: var(--color-error); }
- 
-  @media (prefers-reduced-motion: reduce) {
-    .form-control[data-input], .form-control[data-textarea] { transition: none; }
-  }
- 
- 
-  /* ============================================================
-     2) ⚠ NON-COMPLIANT OVERRIDE  (opt-in — commented out)
-        Adopts the mockup's LITERAL palette. SHIPS BELOW WCAG 2.2 AA:
-          • resting/filled border #d9d9d9 = 1.41:1  -> fails SC 1.4.11
-          • error red #ec221f       = 4.36:1 text   -> fails SC 1.4.3
-        Enable ONLY if design consciously accepts these regressions.
-     ============================================================ */
-  /*
-  .form-control[data-input], .form-control[data-textarea] { border-color: var(--color-neutral-3); }
-  .form-control[data-input]:hover:not([disabled]):not(.not-valid),
-  .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) { border-color: var(--color-neutral-5); }
-  .form-control[data-input].not-valid, .form-control[data-textarea].not-valid { border-color:#ec221f; }
-  .form-control[data-input].not-valid + span.validation-message { color:#ec221f; }
-  .input-with-icon:has(.form-control[data-input].not-valid) .input-with-icon-content-icon.search-actions,
-  .MandatoryLabel { color:#ec221f; }
-  */
- 
- 
-/* Validation message (Native OSUI class) */
-span.validation-message {
-  display: block;
-  color: var(--color-text-danger-tertiary);
-  font-family: var(--font-family-body);
-  font-weight: var(--font-medium);
-  margin-top: var(--space-s); /* Replaced custom --rnt-space-150 */
-}
-
-/* ===== SSO / MFA Radio Group (Native OSUI widgets) ===== */
+/* SSO / MFA radio group (native OSUI widgets) */
 .radio-group.OSFillParent {
   display: flex;
   align-items: center;
 }
-
 .radio-group label[for] {
   font-weight: var(--font-medium);
   color: var(--color-text-default);
   cursor: pointer;
-  margin-left: var(--space-s); /* Replaced custom --rnt-space-200 */
+  margin-left: var(--space-s);
 }
-
 .radio-button {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
+  width: 20px;                       /* control size; no token in icon scale */
   height: 20px;
   margin: 0;
   flex: 0 0 auto;
-  border: 1.5px solid var(--color-border-secondary);
+  border: 1.5px solid var(--color-border-secondary);   /* 1.5px: between size-s/m, no token */
   border-radius: var(--border-radius-circle);
   background-color: var(--color-background-default);
   cursor: pointer;
   position: relative;
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
-
 .radio-button:hover:not([disabled]) {
   border-color: var(--color-border-brand);
 }
-
 .radio-button:checked {
   border-color: var(--color-border-brand);
   background-color: var(--color-background-brand);
 }
-
 .radio-button:checked::after {
   content: "";
   position: absolute;
@@ -2063,21 +1846,636 @@ span.validation-message {
   border-radius: var(--border-radius-circle);
   background-color: var(--color-background-default);
 }
-
 .radio-button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--color-background-brand-secondary);
 }
 
-/* Helper / description paragraph */
-.rnt-card-section__content p {
-  color: var(--color-text-secondary);
-  font-family: var(--font-family-body);
-  font-weight: var(--font-regular);
-  line-height: 1.5;
+
+/* ---- 6.4. Dropdown Tags (OS UI virtual-select / vscomp widget) ----
+   Third-party widget: !important is required to beat vscomp's own inline/late
+   styles. The dropbox panel is appended to <body>, so its rules are NOT scoped
+   under .osui-dropdown-tags — they target .vscomp-dropbox-wrapper.show-value-as-tags. */
+
+/* Clear-icon (X) strokes — recolor to brand */
+.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
+.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  background-color: var(--rnt-primary-800);     /* #2a4a66 */
+}
+
+/* Resting border */
+.osui-dropdown-tags .vscomp-toggle-button {
+  border-color: var(--rnt-neutral-300);         /* #d9d9d9 */
+}
+
+/* Selected option checkmark color */
+.osui-dropdown-tags .vscomp-option.selected .checkbox-icon::after {
+  border-color: var(--rnt-primary-100);         /* #f3f7fa tick */
+}
+
+/* Pill */
+.vscomp-wrapper.show-value-as-tags .vscomp-value-tag {
+  background-color: var(--rnt-primary-300);     /* #ccddea */
+  color: var(--rnt-neutral-900);                /* #1e1e1e */
+  border-radius: var(--border-radius-pill);
+  display: inline-flex;
+  align-items: center;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-content {
+  color: var(--rnt-neutral-900);                /* #1e1e1e */
+}
+
+/* Neutralize OS UI's dark circle clear button + rebuild the X from two strokes */
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon {
+  background-color: transparent !important;
+  border: none !important;
+  position: relative;
+  width: 12px;                                   /* icon geometry */
+  height: 12px;
+  overflow: visible;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1.6px;                                 /* stroke weight */
+  background-color: var(--rnt-primary-800);      /* #2a4a66 */
+  border-radius: 1px;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Disabled state */
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
+  padding: var(--rnt-space-150) var(--rnt-space-300);   /* 6px 12px */
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-toggle-button {
+  background-color: var(--rnt-neutral-100) !important;          /* #f5f5f5 */
+  border: var(--border-size-s) solid var(--rnt-neutral-300) !important;
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-wrapper {
+  opacity: 1 !important;                         /* restore full opacity for exact pill colors */
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
+  background-color: var(--rnt-primary-300) !important;   /* #ccddea */
+  color: var(--rnt-primary-500) !important;              /* #7f9fb8 */
+  opacity: 1 !important;
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-content {
+  color: var(--rnt-primary-500) !important;              /* #7f9fb8 */
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-clear-button {
+  display: none !important;
+}
+
+/* Placeholder + toggle arrow */
+.vscomp-wrapper:not(.has-value) .vscomp-value { color: var(--rnt-neutral-500); }
+.vscomp-toggle-button:after { color: var(--rnt-neutral-500); }
+
+/* Search field divider */
+.vscomp-search-container {
+  border-bottom: var(--border-size-s) solid var(--rnt-neutral-300) !important;   /* #d9d9d9 */
+}
+
+/* Dropbox panel (body-appended) */
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-dropbox {
+  background-color: var(--rnt-white-1000) !important;          /* #ffffff */
+  border: var(--border-size-s) solid var(--rnt-neutral-300) !important;
+  border-radius: var(--border-radius-soft) !important;
+  box-shadow:
+    0 1px 4px 0 var(--rnt-black-100),            /* ~5%  */
+    0 1px 4px 0 var(--rnt-black-200) !important; /* ~10% */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .vscomp-option-text {
+  color: var(--rnt-neutral-900) !important;      /* #1e1e1e */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option {
+  background-color: var(--rnt-white-1000) !important;
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .checkbox-icon {
+  background-color: var(--rnt-white-1000) !important;
+  border: var(--border-size-s) solid var(--rnt-neutral-300) !important;
+  border-radius: var(--border-radius-soft) !important;
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected {
+  background-color: var(--rnt-primary-100) !important;         /* #f3f7fa */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected .checkbox-icon {
+  background-color: var(--rnt-primary-800) !important;         /* #2a4a66 */
+  border-color: var(--rnt-primary-800) !important;
 }
 
 
+/* ---- 6.5. rnt-icon-button (Escalation L3 — Button via ExtendedClass) ----
+   Component config tokens only. Brand/shape come from §0. (Removed the two
+   preview-shim :root blocks that previously shipped here; they redeclared
+   theme tokens — including --space-xl:40px, --animation-duration:180ms and
+   --animation-function:ease — which silently overrode §0 globally.) */
+:root {
+  /* WCAG 2.5.8 primary target size (no brand token for 44px) */
+  --rnt-icon-button-size:      44px;
+  /* Figma glyph box was 20px (not in the icon scale); default to nearest token */
+  --rnt-icon-button-icon-size: var(--rnt-icon-s);    /* 24px */
+  --rnt-icon-button-gap:       var(--rnt-space-200); /* 8px  */
+}
+
+.rnt-icon-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rnt-icon-button-gap);
+  inline-size: var(--rnt-icon-button-size);
+  block-size: var(--rnt-icon-button-size);
+  border: var(--border-size-s) solid var(--color-border-brand-secondary);  /* ~3.93:1 SC 1.4.11 */
+  border-radius: var(--border-radius-pill);
+  color: var(--color-icon-brand);              /* #2a4a66 glyph · ~9.25:1 */
+  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+}
+.rnt-icon-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--rnt-icon-button-icon-size);
+  block-size: var(--rnt-icon-button-icon-size);
+  flex: 0 0 auto;
+}
+.rnt-icon-button__icon > svg,
+.rnt-icon-button__icon > img,
+.rnt-icon-button__icon > i {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+  font-size: var(--rnt-icon-button-icon-size);
+  line-height: 1;
+}
+.rnt-icon-button:hover {
+  border-color: var(--color-border-brand);
+  background-color: color-mix(in srgb, var(--color-border-brand) 8%, transparent);
+}
+.rnt-icon-button:focus-visible {
+  outline: var(--border-size-m) solid var(--color-border-brand);
+  outline-offset: var(--border-size-m);
+}
+.rnt-icon-button:active {
+  background-color: color-mix(in srgb, var(--color-border-brand) 16%, transparent);
+}
+.rnt-icon-button:disabled,
+.rnt-icon-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.rnt-icon-button--filled {
+  background-color: var(--color-background-brand);
+  border-color: var(--color-border-brand);
+  color: var(--color-icon-brand-on-brand);     /* #f3f7fa on #2a4a66 · ~9.0:1 */
+}
+.rnt-icon-button--filled:hover {
+  background-color: color-mix(in srgb, var(--color-background-brand) 88%, #000);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rnt-icon-button { transition: none; }
+}
+
+
+/* ---- 6.6. rnt-announcement (L4 custom Block) ----
+   Self-contained: component-scoped tokens alias R&T semantic tokens with
+   Figma fallbacks so the card renders before the Theme loads. */
+.rnt-announcement {
+  --rnt-ann-bg:            var(--color-neutral-0, #ffffff);
+  --rnt-ann-bg-hover:      var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-ann-bg-pressed:    var(--color-background-brand-secondary, #e3edf4);
+  --rnt-ann-bg-active:     var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-ann-border:        var(--color-border-default, #d1d5db);
+  --rnt-ann-border-active: var(--rnt-primary-800, #2a4a66);
+  --rnt-ann-radius:        var(--border-radius-rounded, 12px);
+  --rnt-ann-shadow:        var(--shadow-s, 0 1px 3px rgba(16, 24, 40, 0.1));
+  --rnt-ann-pad:           var(--space-m, 16px);
+  --rnt-ann-gap:           var(--space-s, 8px);
+  --rnt-ann-flag:          var(--color-background-danger, #e5484d);
+  --rnt-ann-flag-size:     10px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--rnt-ann-gap);
+  padding: var(--rnt-ann-pad);
+  background-color: var(--rnt-ann-bg);
+  border: var(--border-size-s) solid var(--rnt-ann-border);
+  border-radius: var(--rnt-ann-radius);
+  box-shadow: var(--rnt-ann-shadow);
+  transition:
+    background-color var(--animation-duration, 0.2s) var(--animation-function, ease),
+    border-color     var(--animation-duration, 0.2s) var(--animation-function, ease),
+    box-shadow       var(--animation-duration, 0.2s) var(--animation-function, ease);
+}
+.rnt-announcement__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rnt-ann-gap);
+}
+.rnt-announcement__action {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rnt-announcement__action::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--rnt-ann-radius);
+}
+.rnt-announcement__title {
+  display: block;
+  font-size: var(--font-size-base, 1.125rem);
+  font-weight: var(--font-semi-bold, 600);
+  line-height: var(--line-height-tight, 1.3);
+}
+.rnt-announcement__flag {
+  flex: 0 0 auto;
+  width: var(--rnt-ann-flag-size);
+  height: var(--rnt-ann-flag-size);
+  margin-top: var(--space-xs, 4px);
+  border-radius: var(--border-radius-circle, 50%);
+  background-color: var(--rnt-ann-flag);
+}
+.rnt-announcement__pills {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rnt-ann-gap);
+}
+.rnt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.rnt-announcement:hover {
+  background-color: var(--rnt-ann-bg-hover);
+}
+.rnt-announcement:has(.rnt-announcement__action:active) {
+  background-color: var(--rnt-ann-bg-pressed);
+  box-shadow: none;
+}
+.rnt-announcement--is-active {
+  background-color: var(--rnt-ann-bg-active);
+  border-color: var(--rnt-ann-border-active);
+  border-width: var(--border-size-s);
+}
+.rnt-announcement:has(.rnt-announcement__action:focus-visible) {
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
+}
+.rnt-announcement__action:focus-visible {
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rnt-announcement { transition: none; }
+}
+
+
+/* ---- 6.7. rnt-quick-link (L4 custom Block) ----
+   Consolidated single definition (the original had the block declared three
+   times — base, tint-aware re-alias, and a label line-height patch — now
+   merged here with the tint-contract reading last, as it did via cascade).
+
+   FLAG: the alias chain references --color-background-default-default,
+   --color-text-default-default and --color-border-default-default, which are
+   NOT defined in §0 (note the doubled "-default"); they resolve to the Figma
+   fallback literals. Recommend repointing these to the real theme tokens
+   (--color-background-default / --color-text-default / --color-border-default)
+   once the visual delta is confirmed. Left intact here to preserve current
+   rendering. */
+
+/* Tint contract: variable-only ladder consumed by rnt-quick-link.
+   (Distinct from the painted §6.1 .rnt-tint wrapper — same class names,
+   different mechanism.) Sources --rnt-color-* (not yet in the palette) with
+   Figma fallbacks; ⚠ = placeholder fallback to replace with real palette. */
+.rnt-tint--positive {
+  --rnt-tint-surface:       var(--rnt-color-positive-50,  #EEF7F1);
+  --rnt-tint-surface-hover: var(--rnt-color-positive-100, #CCE8D6);
+  --rnt-tint-border:        var(--rnt-color-positive-100, #CCE8D6);
+  --rnt-tint-border-strong: var(--rnt-color-positive-500, #2E8B57);
+  --rnt-tint-text:          var(--rnt-color-positive-900, #123D22);
+}
+.rnt-tint--warning {
+  --rnt-tint-surface:       var(--rnt-color-warning-50,  #FEF8EB);
+  --rnt-tint-surface-hover: var(--rnt-color-warning-100, #FBE8BE);
+  --rnt-tint-border:        var(--rnt-color-warning-100, #FBE8BE);
+  --rnt-tint-border-strong: var(--rnt-color-warning-500, #C77C00);
+  --rnt-tint-text:          var(--rnt-color-warning-900, #5A3A00);
+}
+.rnt-tint--danger {
+  --rnt-tint-surface:       var(--rnt-color-danger-50,  #FDF1F0);
+  --rnt-tint-surface-hover: var(--rnt-color-danger-100, #F7D1CD);
+  --rnt-tint-border:        var(--rnt-color-danger-100, #F7D1CD);
+  --rnt-tint-border-strong: var(--rnt-color-danger-500, #C8372A);
+  --rnt-tint-text:          var(--rnt-color-danger-900, #5E140C);
+}
+.rnt-tint--info {
+  --rnt-tint-surface:       var(--rnt-color-info-50,  #F3F7FB);
+  --rnt-tint-surface-hover: var(--rnt-color-info-100, #CBDCEC);
+  --rnt-tint-border:        var(--rnt-color-info-100, #CBDCEC);
+  --rnt-tint-border-strong: var(--rnt-color-info-300, #6E98C1);
+  --rnt-tint-text:          var(--rnt-color-info-900, #1D354C);
+}
+.rnt-tint--neutral {
+  --rnt-tint-surface:       var(--rnt-color-neutral-50,  #F5F7F8);
+  --rnt-tint-surface-hover: var(--rnt-color-neutral-100, #DDE3E8);
+  --rnt-tint-border:        var(--rnt-color-neutral-100, #DDE3E8);
+  --rnt-tint-border-strong: var(--rnt-color-neutral-500, #6B7B8A);
+  --rnt-tint-text:          var(--rnt-color-neutral-900, #243038);
+}
+.rnt-tint--cdmx {
+  --rnt-tint-surface:       var(--rnt-color-cdmx-50,  #FEF6F0);
+  --rnt-tint-surface-hover: var(--rnt-color-cdmx-100, #FBD9BE);
+  --rnt-tint-border:        var(--rnt-color-cdmx-100, #FBD9BE);
+  --rnt-tint-border-strong: var(--rnt-color-cdmx-400, #F28938);
+  --rnt-tint-text:          var(--rnt-color-cdmx-900, #6C3003);
+}
+.rnt-tint--ddm {
+  --rnt-tint-surface:       var(--rnt-color-ddm-50,  #EEF4FC);
+  --rnt-tint-surface-hover: var(--rnt-color-ddm-100, #C7DCF6);
+  --rnt-tint-border:        var(--rnt-color-ddm-100, #C7DCF6);
+  --rnt-tint-border-strong: var(--rnt-color-ddm-500, #2D6FD0);
+  --rnt-tint-text:          var(--rnt-color-ddm-900, #10294F);
+}
+.rnt-tint--rtid {
+  --rnt-tint-surface:       var(--rnt-color-rtid-50,  #EBF8F8);
+  --rnt-tint-surface-hover: var(--rnt-color-rtid-100, #C2EBEA);
+  --rnt-tint-border:        var(--rnt-color-rtid-100, #C2EBEA);
+  --rnt-tint-border-strong: var(--rnt-color-rtid-500, #1A9B9B);
+  --rnt-tint-text:          var(--rnt-color-rtid-900, #0A3D3D);
+}
+.rnt-tint--funding {
+  --rnt-tint-surface:       var(--rnt-color-funding-50,  #EEF2FB);
+  --rnt-tint-surface-hover: var(--rnt-color-funding-100, #CBD8F2);
+  --rnt-tint-border:        var(--rnt-color-funding-100, #CBD8F2);
+  --rnt-tint-border-strong: var(--rnt-color-funding-500, #3A5BC7);
+  --rnt-tint-text:          var(--rnt-color-funding-900, #16224A);
+}
+
+.rnt-quick-link {
+  /* component tokens <- tint contract <- semantic alias <- Figma fallback */
+  --rnt-quick-link-bg:         var(--rnt-tint-surface,       var(--color-background-default-default, #ffffff));
+  --rnt-quick-link-bg-hover:   var(--rnt-tint-surface-hover, var(--color-background-brand-tertiary,  #f3f7fa));
+  --rnt-quick-link-bg-pressed: var(--rnt-tint-border-strong, var(--color-background-brand-secondary, #ccddea));
+  --rnt-quick-link-fg:         var(--rnt-tint-text,          var(--color-text-default-default,        #1d354c));
+  --rnt-quick-link-border:     var(--rnt-tint-border,        var(--color-border-default-default,      #d9d9d9));
+  --rnt-quick-link-min-height: 80px;
+  --rnt-quick-link-affordance: 40px;
+  --rnt-quick-link-icon:       16px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m, 16px);
+  width: 100%;
+  min-height: var(--rnt-quick-link-min-height);
+  padding: var(--space-m, 16px) var(--space-l, 24px);
+  text-align: left;
+  cursor: pointer;
+
+  font: inherit;
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-regular, 400);
+  line-height: 1.4;
+
+  color: var(--rnt-quick-link-fg);
+  background-color: var(--rnt-quick-link-bg);
+  border: var(--border-size-s) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-rounded, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+
+  transition: background-color 150ms var(--animation-function, ease),
+              box-shadow 150ms var(--animation-function, ease);
+}
+.rnt-quick-link__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+  line-height: 1.25;
+}
+.rnt-quick-link__affordance {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rnt-quick-link-affordance);
+  height: var(--rnt-quick-link-affordance);
+  border: var(--border-size-s) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-circle, 50%);
+  color: inherit;
+}
+.rnt-quick-link__icon {
+  display: block;
+  width: var(--rnt-quick-link-icon);
+  height: var(--rnt-quick-link-icon);
+}
+.rnt-quick-link:hover  { background-color: var(--rnt-quick-link-bg-hover); }
+.rnt-quick-link:active { background-color: var(--rnt-quick-link-bg-pressed); }
+.rnt-quick-link:focus-visible {
+  outline: var(--border-size-m) solid var(--color-focus-outline, #1d354c);
+  outline-offset: var(--border-size-m);
+}
+
+/* Modifier: Size = Large */
+.rnt-quick-link--medium {
+  gap: var(--space-m, 16px);
+  padding: var(--space-xxl) var(--space-xl);
+}
+.rnt-quick-link--medium .rnt-quick-link__label {
+  font-size: var(--font-size-h3, 1.75rem);
+  font-weight: var(--font-semi-bold);
+  line-height: 1.2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rnt-quick-link { transition: none; }
+}
+
+
+/* ---- 6.8. rnt-card-section (L4 custom Block — structural shell) ---- */
+.rnt-card-section {
+  --rnt-card-section-bg:      var(--color-background-default-default, #ffffff);
+  --rnt-card-section-border:  var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-divider: var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-fg:      var(--color-text-default-default, #1d354c);
+  --rnt-card-section-rail:       280px;
+  --rnt-card-section-min-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: var(--rnt-card-section-min-height);
+  color: var(--rnt-card-section-fg);
+  background-color: var(--rnt-card-section-bg);
+  border: var(--border-size-s) solid var(--rnt-card-section-border);
+  border-radius: var(--border-radius-soft, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+  overflow: hidden;
+}
+.rnt-card-section__main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+.rnt-card-section__panel { min-width: 0; }
+.rnt-card-section__panel--left {
+  flex: 0 0 var(--rnt-card-section-rail);
+  padding: var(--space-l, 24px);
+  border-right: var(--border-size-s) solid var(--rnt-card-section-divider);
+}
+.rnt-card-section__panel--right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl, 32px);
+  gap: var(--space-m, 16px);
+}
+.rnt-card-section__title { flex: 0 0 auto; }
+.rnt-card-section__content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.rnt-card-section__footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-s, 8px);
+  padding: var(--space-m, 16px) var(--space-xl, 32px);
+  border-top: var(--border-size-s) solid var(--rnt-card-section-divider);
+}
+.rnt-card-section--rail-end .rnt-card-section__main {
+  flex-direction: row-reverse;
+}
+.rnt-card-section--rail-end .rnt-card-section__panel--left {
+  border-right: 0;
+  border-left: var(--border-size-s) solid var(--rnt-card-section-divider);
+}
+@media (max-width: 768px) {
+  .rnt-card-section__main,
+  .rnt-card-section--rail-end .rnt-card-section__main {
+    flex-direction: column;
+  }
+  .rnt-card-section__panel--left {
+    flex: 0 0 auto;
+    border-right: 0;
+    border-bottom: var(--border-size-s) solid var(--rnt-card-section-divider);
+  }
+  .rnt-card-section--rail-end .rnt-card-section__panel--left {
+    border-left: 0;
+    border-bottom: var(--border-size-s) solid var(--rnt-card-section-divider);
+  }
+}
+
+
+/* ---- 6.9. rnt-step-item (L4 custom Block — step / status list item) ----
+   Consolidated: the --is-past node + checkmark (previously declared apart,
+   above the Dropdown Tags block) is merged in with the --is-active / --is-next
+   modifiers. Checkmark stroke color recolored from the literal rgb(0,153,81)
+   to var(--rnt-green-600) (same #009951). */
+.rnt-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs, 8px);
+}
+.rnt-step-item {
+  --rnt-step-item-node-bg:         var(--color-background-default-default, #ffffff);
+  --rnt-step-item-label-fg:        var(--color-text-neutral, #303030);
+  --rnt-step-item-label-fg-active: var(--color-text-brand, #2a4a66);
+  --rnt-step-item-ring-past:       var(--color-border-positive-secondary, #009951);
+  --rnt-step-item-glyph-past:      var(--color-text-positive, #02542d);
+  --rnt-step-item-fill-active:     var(--color-background-brand, #2a4a66);
+  --rnt-step-item-glyph-active:    var(--color-background-default-default, #ffffff);
+  --rnt-step-item-ring-next:       var(--color-border-neutral-secondary, #767676);
+  --rnt-step-item-glyph-next:      var(--color-text-neutral, #303030);
+  --rnt-step-item-node-size:       8px;
+  --rnt-step-item-node-ring:       var(--border-size-m);
+  --rnt-step-item-icon:            16px;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-m, 16px);
+  margin: 0;
+  padding: var(--space-s, 12px) 0;
+  font: inherit;
+  font-size: var(--font-size-base, 1rem);
+  line-height: 1.4;
+  transition: color 150ms var(--animation-function, ease);
+}
+.rnt-step-item__node {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--rnt-step-item-node-size);
+  min-height: var(--rnt-step-item-node-size);
+  border-radius: var(--border-radius-circle, 50%);
+  background-color: var(--rnt-step-item-node-bg);
+  border: var(--rnt-step-item-node-ring) solid var(--rnt-step-item-ring-next);
+  color: var(--rnt-step-item-glyph-next);
+  transition: background-color 150ms var(--animation-function, ease),
+              border-color     150ms var(--animation-function, ease),
+              color            150ms var(--animation-function, ease);
+}
+.rnt-step-item__node .icon,
+.rnt-step-item__node .icon svg,
+.rnt-step-item__node svg {
+  display: block;
+  width: var(--rnt-step-item-icon);
+  height: var(--rnt-step-item-icon);
+  fill: currentColor;
+  color: currentColor;
+}
+.rnt-step-item__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+  color: var(--rnt-step-item-label-fg);
+  font-weight: var(--font-regular, 400);
+}
+
+/* PAST — completed: white node, green ring, dark-green check (drawn glyph) */
 .rnt-step-item--is-past .rnt-step-item__node {
   width: 8px;
   height: 18px;
@@ -2093,1070 +2491,39 @@ span.validation-message {
   top: 47%;
   width: 6px;
   height: 11px;
-  border: solid rgb(0, 153, 81);
-  border-width: 0 2.5px 2.5px 0;
+  border: solid var(--rnt-green-600);          /* #009951 (was literal rgb) */
+  border-width: 0 2.5px 2.5px 0;               /* checkmark geometry — no token */
   transform: translate(-50%, -50%) rotate(45deg);
   box-sizing: border-box;
 }
-
-Dropdown Tags
-
-
-/* X / clear icon — must target the pseudo-element bars, not color */
-.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
-.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  background-color: var(--rnt-primary-800);   /* #2A4A66 X */
-}
-
-/* Resting border — only add this if you truly want #D9D9D9 (current is #757575) */
-.osui-dropdown-tags .vscomp-toggle-button {
-  border-color: var(--rnt-neutral-300);       /* #D9D9D9 */
-}
-
-/* Checkbox fill is already #2A4A66 natively — override NOT required.
-   Only the checkmark color needs changing: */
-.osui-dropdown-tags .vscomp-option.selected .checkbox-icon::after {
-  border-color: var(--rnt-primary-100);       /* #F3F7FA tick */
-}
-
-/* === Dropdown Tags pill — match SVG design === */
-.vscomp-wrapper.show-value-as-tags .vscomp-value-tag {
-  background-color: var(--rnt-primary-300);   /* #CCDDEA */
-  color: var(--rnt-neutral-900);              /* #1E1E1E */
-  border-radius: 13px;                         /* fully-rounded pill */
-  display: inline-flex;
-  align-items: center;
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-content {
-  color: var(--rnt-neutral-900);              /* #1E1E1E */
-}
-
-/* Neutralize OutSystems' dark circle button + icon fill */
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button {
-  background-color: transparent !important;
-  border-radius: 0 !important;
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon {
-  background-color: transparent !important;
-  border: none !important;
-  position: relative;
-  width: 12px;
-  height: 12px;
-  overflow: visible;
-}
-
-/* Rebuild the X from two #2A4A66 strokes with rounded caps */
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 12px;
-  height: 1.6px;
-  background-color: var(--rnt-primary-800);   /* #2A4A66 */
-  border-radius: 1px;                          /* rounded line caps */
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
-  padding: 6px 10px 6px 10px;
-}
-
-/* === Dropdown Tags — DISABLED state (match SVG) === */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-toggle-button {
-  background-color: var(--rnt-neutral-100) !important;   /* #F5F5F5 */
-  border: 1px solid var(--rnt-neutral-300) !important;   /* #D9D9D9 */
-}
-/* Restore full opacity so pill colors are exact, not muted by the default 0.7 */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-wrapper {
-  opacity: 1 !important;
-}
-/* Disabled tags: keep #CCDDEA pill, text -> #7F9FB8 */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
-  background-color: var(--rnt-primary-300) !important;   /* #CCDDEA */
-  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
-  opacity: 1 !important;
-}
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-content {
-  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
-}
-/* No X icon on disabled tags (per SVG) */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-clear-button {
-  display: none !important;
-}
-
-.vscomp-wrapper:not(.has-value) .vscomp-value {
-    color: var(--rnt-neutral-500);
-  }
-
-  .vscomp-toggle-button:after {
-    color: var(--rnt-neutral-500);
-  }
-
-
-/* === Dropdown Tags — DROPBOX / options (match SVG) ===
-   NOTE: the dropbox panel is appended to <body>, so these rules are NOT
-   scoped under .osui-dropdown-tags. They target the tags-variant dropbox
-   via .vscomp-dropbox-wrapper.show-value-as-tags. */
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-dropbox {
-  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
-  border: 1px solid var(--rnt-neutral-300) !important;  /* #D9D9D9 */
-  border-radius: 4px !important;
-}
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .vscomp-option-text {
-  color: var(--rnt-neutral-900) !important;             /* #1E1E1E */
-}
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option {
-  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
-}
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .checkbox-icon {
-  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
-  border: 1px solid var(--rnt-neutral-300) !important;  /* #D9D9D9 */
-  border-radius: 4px !important;
-}
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected {
-  background-color: var(--rnt-primary-100) !important;  /* #F3F7FA */
-}
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected .checkbox-icon {
-  background-color: var(--rnt-primary-800) !important;  /* #2A4A66 */
-  border-color: var(--rnt-primary-800) !important;
-}
-
-/* X / clear icon — must target the pseudo-element bars, not color */
-.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
-.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  background-color: var(--rnt-primary-800);   /* #2A4A66 X */
-}
-
-/* Resting border — only add this if you truly want #D9D9D9 (current is #757575) */
-.osui-dropdown-tags .vscomp-toggle-button {
-  border-color: var(--rnt-neutral-300);       /* #D9D9D9 */
-}
-
-/* Checkbox fill is already #2A4A66 natively — override NOT required.
-   Only the checkmark color needs changing: */
-.osui-dropdown-tags .vscomp-option.selected .checkbox-icon::after {
-  border-color: var(--rnt-primary-100);       /* #F3F7FA tick */
-}
-
-/* === Dropdown Tags pill — match SVG design === */
-.vscomp-wrapper.show-value-as-tags .vscomp-value-tag {
-  background-color: var(--rnt-primary-300);   /* #CCDDEA */
-  color: var(--rnt-neutral-900);              /* #1E1E1E */
-  border-radius: 13px;                         /* fully-rounded pill */
-  display: inline-flex;
-  align-items: center;
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-content {
-  color: var(--rnt-neutral-900);              /* #1E1E1E */
-}
-
-/* Neutralize OutSystems' dark circle button + icon fill */
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button {
-  background-color: transparent !important;
-  border-radius: 0 !important;
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon {
-  background-color: transparent !important;
-  border: none !important;
-  position: relative;
-  width: 12px;
-  height: 12px;
-  overflow: visible;
-}
-
-/* Rebuild the X from two #2A4A66 strokes with rounded caps */
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 12px;
-  height: 1.6px;
-  background-color: var(--rnt-primary-800);   /* #2A4A66 */
-  border-radius: 1px;                          /* rounded line caps */
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
-  padding: 6px 10px 6px 10px;
-}
-
-/* === Dropdown Tags — DISABLED state (match SVG) === */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-toggle-button {
-  background-color: var(--rnt-neutral-100) !important;   /* #F5F5F5 */
-  border: 1px solid var(--rnt-neutral-300) !important;   /* #D9D9D9 */
-}
-/* Restore full opacity so pill colors are exact, not muted by the default 0.7 */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-wrapper {
-  opacity: 1 !important;
-}
-/* Disabled tags: keep #CCDDEA pill, text -> #7F9FB8 */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
-  background-color: var(--rnt-primary-300) !important;   /* #CCDDEA */
-  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
-  opacity: 1 !important;
-}
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-content {
-  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
-}
-/* No X icon on disabled tags (per SVG) */
-.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-clear-button {
-  display: none !important;
-}
-
-.vscomp-search-container {
-  
-  border-bottom: 1px solid var(--rnt-neutral-300) !important;   /* #D9D9D9 */
-}
-
-/* === Dropdown Tags dropbox — drop shadow (match Figma) ===
-   Two stacked Drop Shadow/200 layers: Black/100 @5% + Black/200 @10% */
-.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-dropbox {
-  box-shadow:
-    0 1px 4px 0 var(--rnt-black-100),   /* #0c0c0d0d ~5%  */
-    0 1px 4px 0 var(--rnt-black-200)     /* #0c0c0d1a ~10% */
-    !important;
-}
-
-.rnt-badge .badge {
-    font-size: var(--font-size-base);
-    border-radius: var(--border-radius-circle);
-}
-
-  :root {
-    --rnt-primary-100: #f3f7fa;
-    --rnt-primary-600: #5a7f9e;
-    --rnt-primary-800: #2a4a66;
-
-    --color-border-brand:           var(--rnt-primary-800); /* #2a4a66 */
-    --color-border-brand-secondary: var(--rnt-primary-600); /* #5a7f9e */
-    --color-icon-brand:             var(--rnt-primary-800); /* #2a4a66 */
-    --color-icon-brand-on-brand:    var(--rnt-primary-100); /* #f3f7fa */
-    --color-background-brand:       var(--rnt-primary-800); /* #2a4a66 */
-
-    --border-radius-pill: 9999px;
-    --border-size-s:      1px;
-    --rnt-space-200:      8px;
-    --rnt-icon-s:         24px;
-  }
-
-  /* ============================================================
-     1) COMPONENT CONFIG  →  paste into Block CSS or Theme CSS
-        Component-local knobs only. Brand/shape come from the theme.
-     ============================================================ */
-  :root {
-    /* ⚠ FLAG: no theme token for 44px — this is the WCAG 2.5.8 primary
-       target size (>=44 preferred), not a brand value. Kept as a literal. */
-    --rnt-icon-button-size:      44px;
-
-    /* ⚠ FLAG: Figma glyph box was 20px, which is NOT in the theme icon scale
-       (--rnt-icon-s 24 / -m 32 / -l 40). Defaulted to the nearest token, 24px.
-       If design insists on 20px, override this one line with a literal. */
-    --rnt-icon-button-icon-size: var(--rnt-icon-s);   /* 24px */
-
-    --rnt-icon-button-gap:       var(--rnt-space-200); /* 8px — theme spacing primitive */
-  }
-
-
-  /* Block */
-  .rnt-icon-button {
-    /* reset the native <button> */
-    appearance: none;
-    -webkit-appearance: none;
-    margin: 0;
-    padding: 0;
-    font: inherit;
-    background-color: transparent;
-    cursor: pointer;
-
-    /* layout — centers the icon; gap supports an optional label too */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--rnt-icon-button-gap);
-
-    /* size — guarantees a >=24px target (WCAG 2.5.8) */
-    inline-size: var(--rnt-icon-button-size);
-    block-size: var(--rnt-icon-button-size);
-
-    /* shape */
-    border: var(--border-size-s) solid var(--color-border-brand-secondary);
-    border-radius: var(--border-radius-pill);
-    /* #5a7f9e border on #fff ~ 3.93:1 — passes 3:1 non-text contrast (SC 1.4.11) */
-
-    /* glyph inherits this via currentColor */
-    color: var(--color-icon-brand);
-    /* #2a4a66 glyph on #fff ~ 9.25:1 — passes both 3:1 non-text and 4.5:1 text */
-
-    transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
-  }
-
-  /* Element — the icon placeholder slot */
-  .rnt-icon-button__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: var(--rnt-icon-button-icon-size);
-    block-size: var(--rnt-icon-button-icon-size);
-    flex: 0 0 auto;
-  }
-  .rnt-icon-button__icon > svg,
-  .rnt-icon-button__icon > img,
-  .rnt-icon-button__icon > i {        /* <i> = OutSystems Icon widget renders an <i> */
-    inline-size: 100%;
-    block-size: 100%;
-    display: block;
-    font-size: var(--rnt-icon-button-icon-size); /* for icon-font glyphs */
-    line-height: 1;
-  }
-
-  /* Hover — darken border to brand + faint brand fill (color-mix on the token) */
-  .rnt-icon-button:hover {
-    border-color: var(--color-border-brand);
-    background-color: color-mix(in srgb, var(--color-border-brand) 8%, transparent);
-  }
-
-  /* Focus — visible, unobscured, >=2px (SC 2.4.7 / 2.4.11 / 2.4.13).
-     Uses the brand token (>=3:1). Swap to your theme focus token
-     (--color-focus-outline) if you want global focus consistency. */
-  .rnt-icon-button:focus-visible {
-    outline: var(--border-size-m, 2px) solid var(--color-border-brand);
-    outline-offset: var(--border-size-m, 2px);
-  }
-
-  /* Active / pressed */
-  .rnt-icon-button:active {
-    background-color: color-mix(in srgb, var(--color-border-brand) 16%, transparent);
-  }
-
-  /* Disabled — works for native :disabled and aria-disabled toggle blocks */
-  .rnt-icon-button:disabled,
-  .rnt-icon-button[aria-disabled='true'] {
-    cursor: not-allowed;
-    opacity: 0.45;
-  }
-
-  /* Modifier — optional solid/filled variant */
-  .rnt-icon-button--filled {
-    background-color: var(--color-background-brand);
-    border-color: var(--color-border-brand);
-    color: var(--color-icon-brand-on-brand); /* #f3f7fa glyph on #2a4a66 ~ 9.0:1 */
-  }
-  .rnt-icon-button--filled:hover {
-    background-color: color-mix(in srgb, var(--color-background-brand) 88%, #000);
-  }
-
-  /* Respect reduced motion (SC 2.3.3) */
-  @media (prefers-reduced-motion: reduce) {
-    .rnt-icon-button { transition: none; }
-  }
-
-
-/*! =========================================================================== */
-/*! COMPONENT — rnt-announcement  (Announcement Card)                            */
-/*!   Escalation: L4 — custom Block (semantic HTML + BEM CSS).                   */
-/*!   Not an OS UI pattern wrapper and not a Web Component (mirrors the          */
-/*!   RNT Quick Link Card build).                                                */
-/*!                                                                              */
-/*!   Layout: a selectable card used in a feed. Title + a red "flag" dot         */
-/*!   (top-right) + a pills row. PILLS ARE NOT STYLED HERE — they are native     */
-/*!   OS UI Tags (with rnt-tint variants) dropped into the Block's Pills         */
-/*!   Placeholder, so no .tag CSS is restated.                                   */
-/*!                                                                              */
-/*!   Clickability: the whole card is one large target via the stretched-link    */
-/*!   pattern — the title lives in a real <button>, whose ::after overlays the    */
-/*!   card. Pills sit ABOVE the overlay (z-index) so, if they are ever made      */
-/*!   interactive, they remain independently operable without being nested       */
-/*!   inside the button (which would be invalid HTML).                           */
-/*!                                                                              */
-/*!   States: default · :hover (brand-tertiary tint) · :active = pressed         */
-/*!   (momentary) · --is-active = selected/current (persistent navy border,      */
-/*!   aria-pressed synced) · :focus-visible (OS UI focus token).                 */
-/*!                                                                              */
-/*!   100% token-driven. Component-scoped tokens alias R&T semantic tokens with  */
-/*!   Figma-derived fallbacks so the card renders even before the Theme loads;   */
-/*!   the Theme's :root values always win. Manrope inherited from OS UI body.    */
-/*!                                                                              */
-/*!   A11y (WCAG 2.2 AA): title text on every state bg >=4.5:1 (inherits OS UI   */
-/*!   body color on light fills); selected border >=3:1 UI (SC 1.4.11); whole    */
-/*!   card is a single large target (SC 2.5.8); flag meaning carried by visually */
-/*!   -hidden text, not color alone (SC 1.4.1); focus ring via                   */
-/*!   --color-focus-outline (SC 2.4.7/2.4.13); reduced motion respected.         */
-/*! =========================================================================== */
-
-/* ---- Component-scoped token aliases (semantic R&T tokens + safe fallbacks) -- */
-.rnt-announcement {
-  --rnt-ann-bg:            var(--color-neutral-0, #ffffff);
-  --rnt-ann-bg-hover:      var(--color-background-brand-tertiary, #f3f7fa);
-  --rnt-ann-bg-pressed:    var(--color-background-brand-secondary, #e3edf4);
-  --rnt-ann-bg-active:     var(--color-background-brand-tertiary, #f3f7fa);
-  --rnt-ann-border:        var(--color-border-default, #d1d5db);
-  --rnt-ann-border-active: var(--rnt-primary-800, #2a4a66);   /* 8.59:1 on white · >=3:1 UI */
-  --rnt-ann-radius:        var(--border-radius-rounded, 12px);
-  --rnt-ann-shadow:        var(--shadow-s, 0 1px 3px rgba(16, 24, 40, 0.1));
-  --rnt-ann-pad:           var(--space-m, 16px);
-  --rnt-ann-gap:           var(--space-s, 8px);
-  --rnt-ann-flag:          var(--color-background-danger, #e5484d);
-  --rnt-ann-flag-size:     10px;
-
-  position: relative;            /* anchor for the stretched-link ::after + flag */
-  display: flex;
-  flex-direction: column;
-  gap: var(--rnt-ann-gap);
-  padding: var(--rnt-ann-pad);
-  background-color: var(--rnt-ann-bg);
-  border: var(--border-size-s, 1px) solid var(--rnt-ann-border);
-  border-radius: var(--rnt-ann-radius);
-  box-shadow: var(--rnt-ann-shadow);
-  transition:
-    background-color var(--animation-duration, 0.2s) var(--animation-function, ease),
-    border-color     var(--animation-duration, 0.2s) var(--animation-function, ease),
-    box-shadow       var(--animation-duration, 0.2s) var(--animation-function, ease);
-}
-
-/* ---- Header row: title (in the action button) + flag dot ------------------- */
-.rnt-announcement__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--rnt-ann-gap);
-}
-
-/* ---- Action: the stretched-link button. Visually just the title; its ::after
-        makes the whole card clickable. No own background/border. ------------- */
-.rnt-announcement__action {
-  /* strip native button chrome — these are not OS UI defaults, they neutralise
-     the UA button styling so the title reads as plain card text */
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.rnt-announcement__action::after {
-  content: "";
-  position: absolute;
-  inset: 0;                      /* cover the entire card */
-  border-radius: var(--rnt-ann-radius);
-}
-
-.rnt-announcement__title {
-  display: block;
-  font-size: var(--font-size-base, 1.125rem);
-  font-weight: var(--font-semi-bold, 600);
-  line-height: var(--line-height-tight, 1.3);
-  /* color intentionally inherited from OS UI body text — not restated */
-}
-
-/* ---- Flag: decorative red dot, top-right. Meaning is exposed via the
-        visually-hidden text inside the action button, not by this dot. ------- */
-.rnt-announcement__flag {
-  flex: 0 0 auto;
-  width: var(--rnt-ann-flag-size);
-  height: var(--rnt-ann-flag-size);
-  margin-top: var(--space-xs, 4px);
-  border-radius: var(--border-radius-circle, 50%);
-  background-color: var(--rnt-ann-flag);
-}
-
-/* ---- Pills row: native OS UI Tags dropped via the Pills placeholder.
-        Raised above the stretched ::after so interactive tags stay operable. - */
-.rnt-announcement__pills {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--rnt-ann-gap);
-}
-
-/* ---- Visually-hidden utility (custom; OS UI ships no universal equivalent) -- */
-.rnt-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* ==========================================================================
-   Interaction states
-   ========================================================================== */
-
-/* hover — brand-tertiary tint (matches Figma hover) */
-.rnt-announcement:hover {
-  background-color: var(--rnt-ann-bg-hover);
-}
-
-/* pressed — momentary, while the action is actively pressed. Slightly deeper
-   tint + flattened shadow for tactile feedback. */
-.rnt-announcement:has(.rnt-announcement__action:active) {
-  background-color: var(--rnt-ann-bg-pressed);
-  box-shadow: none;
-}
-
-/* selected / current — persistent. Navy border + tint. Driven by IsActive
-   input (adds the modifier) with aria-pressed="true" on the action. */
-.rnt-announcement--is-active {
-  background-color: var(--rnt-ann-bg-active);
-  border-color: var(--rnt-ann-border-active);
-  border-width: var(--border-size-s, 1px);
-}
-
-/* focus-visible — ring drawn around the whole card when the action is
-   keyboard-focused. Uses the OS UI focus token (re-themed via :root, not here). */
-.rnt-announcement:has(.rnt-announcement__action:focus-visible) {
-  outline: var(--border-size-m, 2px) solid var(--color-focus-outline, #2563eb);
-  outline-offset: 2px;
-}
-/* Fallback for engines without :has() — ring on the button itself */
-.rnt-announcement__action:focus-visible {
-  outline: var(--border-size-m, 2px) solid var(--color-focus-outline, #2563eb);
-  outline-offset: 2px;
-}
-
-/* ==========================================================================
-   Reduced motion (SC 2.3.3 / respectful default)
-   ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .rnt-announcement {
-    transition: none;
-  }
-}
-.tag {
-    border-radius: 100px!important;
-}
-
-/*! =========================================================================== */
-/*! COMPONENT — rnt-quick-link  (Quick Link Card)                                */
-/*!   Escalation: L4 — custom Block (semantic <button> + BEM CSS + vanilla JS).  */
-/*!   Not an OS UI pattern wrapper and not a Web Component (per request).         */
-/*!                                                                              */
-/*!   States: default · :hover · :active (pressed). No persistent/selected       */
-/*!   state — the darker fill is momentary press feedback only.                  */
-/*!                                                                              */
-/*!   100% token-driven. Component-scoped tokens alias R&T semantic tokens with  */
-/*!   Figma-derived fallbacks so it renders even before the Theme loads; the     */
-/*!   Theme's :root values always win. Manrope inherited from OS UI body.        */
-/*!                                                                              */
-/*!   A11y (WCAG 2.2 AA): text/bg >=4.5:1 in all 3 states; single large target   */
-/*!   (whole card, >=253x80) so SC 2.5.8 is satisfied with room to spare; focus  */
-/*!   ring via OS UI focus token; reduced motion respected. Ratios noted inline. */
-/*! =========================================================================== */
-
-/* ---- Block ---- */
-.rnt-quick-link {
-  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
-  --rnt-quick-link-bg:         var(--color-background-default-default, #ffffff);
-  --rnt-quick-link-bg-hover:   var(--color-background-brand-tertiary, #f3f7fa);
-  --rnt-quick-link-bg-pressed: var(--color-background-brand-secondary, #ccddea);
-  --rnt-quick-link-fg:         var(--color-text-default-default, #1d354c);
-  --rnt-quick-link-border:     var(--color-border-default-default, #d9d9d9);
-  /* geometry (component-local; not part of the global scale) */
-  --rnt-quick-link-min-height: 80px;
-  --rnt-quick-link-affordance: 40px;  /* arrow disc — decorative, inside the target */
-  --rnt-quick-link-icon:       16px;
-
-  /* reset native button chrome, keep it a real <button> */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: flex;
-  align-items: center;
-  gap: var(--space-m, 16px);
-  width: 100%;
-  min-height: var(--rnt-quick-link-min-height);
-  padding: var(--space-m, 16px) var(--space-l, 24px);
-  text-align: left;
-  cursor: pointer;
-
-  /* type — Manrope comes from OS UI body via `inherit`; only deltas restated */
-  font: inherit;
-  font-size: var(--font-size-base, 1rem);     /* 16px */
-  font-weight: var(--font-weight-regular, 400);
-  line-height: 1.4;
-
-  /* surface */
-  color: var(--rnt-quick-link-fg);            /* #1d354c on #ffffff -> 12.6:1 AA */
-  background-color: var(--rnt-quick-link-bg);
-  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
-  border-radius: var(--border-radius-rounded, 8px);
-  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
-
-  transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
-              box-shadow var(--animation-duration-fast, 150ms) var(--animation-function, ease);
-}
-
-/* ---- Elements ---- */
-.rnt-quick-link__label {
-  flex: 1 1 auto;
-  min-width: 0;
-  word-break: break-word;
-}
-
-.rnt-quick-link__affordance {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--rnt-quick-link-affordance);
-  height: var(--rnt-quick-link-affordance);
-  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
-  border-radius: var(--border-radius-circle, 50%);
-  color: inherit;          /* icon tracks the text color */
-}
-
-.rnt-quick-link__icon {
-  display: block;
-  width: var(--rnt-quick-link-icon);
-  height: var(--rnt-quick-link-icon);
-}
-
-/* ---- Pseudo-state interactions (order: hover, then active wins on press) ---- */
-.rnt-quick-link:hover {
-  background-color: var(--rnt-quick-link-bg-hover);     /* #1d354c on #f3f7fa -> 11.4:1 AA */
-}
-
-/* pressed — held down via pointer or keyboard (Space); momentary, no toggle */
-.rnt-quick-link:active {
-  background-color: var(--rnt-quick-link-bg-pressed);   /* #1d354c on #ccddea -> 8.8:1 AA */
-}
-
-/* SC 2.4.7 / 2.4.11 / 2.4.13 — visible, >=2px, >=3:1 focus ring */
-.rnt-quick-link:focus-visible {
-  outline: 2px solid var(--color-focus-outline, #1d354c);  /* >=3:1 on all 3 bg states */
-  outline-offset: 2px;
-}
-
-/* SC 2.3.3 — honor reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .rnt-quick-link {
-    transition: none;
-  }
-}
-
-/* ============================================
-   Component: Quick Link (card)
-   Pattern: Custom Block
-   Location: Block CSS (component) + Theme CSS (tint tokens / :root)
-   Escalation Level: L2 (custom Block styling)
-   Tokens consumed: --rnt-color-{blue|orange}-{50,100,300,400,700,900},
-                    --space-s/m/l, --font-size-h3/h5, --border-radius-soft
-   Size input: default | large  →  appends .rnt-quick-link--medium
-   ============================================ */
-
-
-/* ---- Elements ---- */
-.rnt-quick-link__label {
-  line-height: 1.25;                 /* = --rnt-quick-link-text */
-}
-
-
-/* ---- Modifier: Size = Large ---- */
-.rnt-quick-link--medium {
-  gap: var(--space-m, 16px);
-  padding: var(--space-xxl) var(--space-xl);
-}
-.rnt-quick-link--medium .rnt-quick-link__label {
-  font-size: var(--font-size-h3, 1.75rem);   /* bigger text */
-  font-weight: var(--font-semi-bold);
-  line-height: 1.2;
-}
-/* ---- Modifiers: Tint (set the local color ladder) ---- */
-/* ============================================
-   rnt-tint — shared tint contract (Theme CSS / :root scope)
-   One modifier per RntTintColor record. Variables only — no painting.
-   Ladder: surface · surface-hover · border · border-strong · text
-   Token group keyed to record Identifier (--rnt-color-<id>-*).
-   Fallback hexes: ✓ = from Figma sample · ⚠ = placeholder, replace w/ real palette
-   ============================================ */
-
-/* ---- Semantic family (IsBusinessFamily = No) ---- */
-.rnt-tint--positive {                                          /* Green ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-positive-50,  #EEF7F1);
-  --rnt-tint-surface-hover:  var(--rnt-color-positive-100, #CCE8D6);
-  --rnt-tint-border:         var(--rnt-color-positive-100, #CCE8D6);
-  --rnt-tint-border-strong:  var(--rnt-color-positive-500, #2E8B57);
-  --rnt-tint-text:           var(--rnt-color-positive-900, #123D22);
-}
-.rnt-tint--warning {                                           /* Amber ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-warning-50,  #FEF8EB);
-  --rnt-tint-surface-hover:  var(--rnt-color-warning-100, #FBE8BE);
-  --rnt-tint-border:         var(--rnt-color-warning-100, #FBE8BE);
-  --rnt-tint-border-strong:  var(--rnt-color-warning-500, #C77C00);
-  --rnt-tint-text:           var(--rnt-color-warning-900, #5A3A00);
-}
-.rnt-tint--danger {                                            /* Red ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-danger-50,  #FDF1F0);
-  --rnt-tint-surface-hover:  var(--rnt-color-danger-100, #F7D1CD);
-  --rnt-tint-border:         var(--rnt-color-danger-100, #F7D1CD);
-  --rnt-tint-border-strong:  var(--rnt-color-danger-500, #C8372A);
-  --rnt-tint-text:           var(--rnt-color-danger-900, #5E140C);
-}
-.rnt-tint--info {                                              /* Navy ✓ */
-  --rnt-tint-surface:        var(--rnt-color-info-50,  #F3F7FB);
-  --rnt-tint-surface-hover:  var(--rnt-color-info-100, #CBDCEC);
-  --rnt-tint-border:         var(--rnt-color-info-100, #CBDCEC);
-  --rnt-tint-border-strong:  var(--rnt-color-info-300, #6E98C1);
-  --rnt-tint-text:           var(--rnt-color-info-900, #1D354C);
-}
-.rnt-tint--neutral {                                           /* Slate ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-neutral-50,  #F5F7F8);
-  --rnt-tint-surface-hover:  var(--rnt-color-neutral-100, #DDE3E8);
-  --rnt-tint-border:         var(--rnt-color-neutral-100, #DDE3E8);
-  --rnt-tint-border-strong:  var(--rnt-color-neutral-500, #6B7B8A);
-  --rnt-tint-text:           var(--rnt-color-neutral-900, #243038);
-}
-
-/* ---- Business / program family (IsBusinessFamily = Yes) ---- */
-.rnt-tint--cdmx {                                              /* Orange ✓ */
-  --rnt-tint-surface:        var(--rnt-color-cdmx-50,  #FEF6F0);
-  --rnt-tint-surface-hover:  var(--rnt-color-cdmx-100, #FBD9BE);
-  --rnt-tint-border:         var(--rnt-color-cdmx-100, #FBD9BE);
-  --rnt-tint-border-strong:  var(--rnt-color-cdmx-400, #F28938);
-  --rnt-tint-text:           var(--rnt-color-cdmx-900, #6C3003);
-}
-.rnt-tint--ddm {                                               /* Blue ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-ddm-50,  #EEF4FC);
-  --rnt-tint-surface-hover:  var(--rnt-color-ddm-100, #C7DCF6);
-  --rnt-tint-border:         var(--rnt-color-ddm-100, #C7DCF6);
-  --rnt-tint-border-strong:  var(--rnt-color-ddm-500, #2D6FD0);
-  --rnt-tint-text:           var(--rnt-color-ddm-900, #10294F);
-}
-.rnt-tint--rtid {                                              /* Cyan/Teal ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-rtid-50,  #EBF8F8);
-  --rnt-tint-surface-hover:  var(--rnt-color-rtid-100, #C2EBEA);
-  --rnt-tint-border:         var(--rnt-color-rtid-100, #C2EBEA);
-  --rnt-tint-border-strong:  var(--rnt-color-rtid-500, #1A9B9B);
-  --rnt-tint-text:           var(--rnt-color-rtid-900, #0A3D3D);
-}
-.rnt-tint--funding {                                           /* Blue ⚠ */
-  --rnt-tint-surface:        var(--rnt-color-funding-50,  #EEF2FB);
-  --rnt-tint-surface-hover:  var(--rnt-color-funding-100, #CBD8F2);
-  --rnt-tint-border:         var(--rnt-color-funding-100, #CBD8F2);
-  --rnt-tint-border-strong:  var(--rnt-color-funding-500, #3A5BC7);
-  --rnt-tint-text:           var(--rnt-color-funding-900, #16224A);
-}
-
-.rnt-quick-link {
-  /* component tokens <- tint contract (when a rnt-tint--* class is present)
-     <- R&T semantic alias <- Figma fallback */
-  --rnt-quick-link-bg:         var(--rnt-tint-surface,       var(--color-background-default-default, #ffffff));
-  --rnt-quick-link-bg-hover:   var(--rnt-tint-surface-hover, var(--color-background-brand-tertiary,  #f3f7fa));
-  --rnt-quick-link-bg-pressed: var(--rnt-tint-border-strong, var(--color-background-brand-secondary, #ccddea));
-  --rnt-quick-link-fg:         var(--rnt-tint-text,          var(--color-text-default-default,        #1d354c));
-  --rnt-quick-link-border:     var(--rnt-tint-border,        var(--color-border-default-default,      #d9d9d9));
-
-  /* geometry (unchanged) */
-  --rnt-quick-link-min-height: 80px;
-  --rnt-quick-link-affordance: 40px;
-  --rnt-quick-link-icon:       16px;
-
-  /* paint reads ONLY component tokens — same as your original */
-  min-height:       var(--rnt-quick-link-min-height);
-  background-color: var(--rnt-quick-link-bg);
-  color:            var(--rnt-quick-link-fg);
-  border: 1px solid var(--rnt-quick-link-border);
-}
-
-.rnt-quick-link:hover  { background-color: var(--rnt-quick-link-bg-hover); }
-.rnt-quick-link:active { background-color: var(--rnt-quick-link-bg-pressed); }
-
-.rnt-quick-link:focus-visible {
-  outline: 2px solid var(--rnt-quick-link-fg);
-  outline-offset: 2px;
-}
-
-/* ---- Motion ---- */
-@media (prefers-reduced-motion: reduce) {
-  .rnt-quick-link { transition: none; }
-}
-
-/*! =========================================================================== */
-/*! COMPONENT — rnt-card-section  (split layout card: rail · panel · footer)      */
-/*!   Escalation: L4 — custom Block (semantic layout + named Placeholders + BEM). */
-/*!   Pure structural shell. No JS, no interactive chrome of its own — the rail,  */
-/*!   title, body and actions are all Placeholders the consumer fills, so their   */
-/*!   own widgets (Buttons, nav, headings) carry the focus/keyboard/ARIA.         */
-/*!                                                                              */
-/*!   Layout: __main is a flex row (left rail + right panel) that grows; __footer */
-/*!   is a full-width band pinned beneath it. Stacks to a single column at the    */
-/*!   small breakpoint (SC 1.4.10 reflow). 100% token-driven; component tokens    */
-/*!   alias R&T semantic tokens with Figma-derived fallbacks so it renders before */
-/*!   the Theme loads — Theme :root always wins. Manrope inherited from OS UI.    */
-/*!                                                                              */
-/*!   A11y (WCAG 2.2 AA): shell adds no contrast-bearing controls; the 1px        */
-/*!   divider/outline are decorative (panels are separated by layout, not colour  */
-/*!   alone) so SC 1.4.11 is N/A to them. Region naming optional via the Block's  */
-/*!   RegionLabel input -> aria-label. Consumer-supplied actions must meet the    */
-/*!   >=24px (44px primary) target — OS UI Button satisfies this by default.      */
-/*! =========================================================================== */
-
-/* ---- Block ---- */
-.rnt-card-section {
-  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
-  --rnt-card-section-bg:        var(--color-background-default-default, #ffffff);
-  --rnt-card-section-border:    var(--color-border-default-default, #d9d9d9);
-  --rnt-card-section-divider:   var(--color-border-default-default, #d9d9d9);
-  --rnt-card-section-fg:        var(--color-text-default-default, #1d354c);
-  /* geometry (component-local; not part of the global scale) */
-  --rnt-card-section-rail:       280px;  /* left panel width on >= medium */
-  --rnt-card-section-min-height: 360px;  /* override to 100% inside a fixed-height modal */
-
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: var(--rnt-card-section-min-height);
-
-  color: var(--rnt-card-section-fg);             /* inherits Manrope from OS UI body */
-  background-color: var(--rnt-card-section-bg);
-  border: var(--border-size-s, 1px) solid var(--rnt-card-section-border);
-  border-radius: var(--border-radius-soft, 8px);
-  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
-  overflow: hidden;                              /* clip child borders to the radius */
-}
-
-/* ---- Elements ---- */
-
-/* Row holding the two panels; grows so the footer can pin to the bottom */
-.rnt-card-section__main {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: stretch;
-  min-height: 0;            /* allow children to scroll instead of overflowing */
-}
-
-/* Shared panel padding */
-.rnt-card-section__panel {
-  min-width: 0;             /* let long content wrap instead of forcing overflow */
-}
-
-/* Left rail — fixed width, vertical divider on its trailing edge */
-.rnt-card-section__panel--left {
-  flex: 0 0 var(--rnt-card-section-rail);
-  padding: var(--space-l, 24px);
-  border-right: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
-}
-
-/* Right panel — fills remaining width, stacks title over body */
-.rnt-card-section__panel--right {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-xl, 32px);
-  gap: var(--space-m, 16px);
-}
-
-/* Title slot (sectioning header — NOT a banner landmark inside <section>) */
-.rnt-card-section__title {
-  flex: 0 0 auto;
-}
-
-/* Body slot — takes the remaining height; scrolls if content is tall */
-.rnt-card-section__content {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* Full-width action band (sectioning footer — NOT a contentinfo landmark) */
-.rnt-card-section__footer {
-  flex: 0 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;          /* actions sit at the trailing edge */
-  gap: var(--space-s, 8px);
-  padding: var(--space-m, 16px) var(--space-xl, 32px);
-  border-top: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
-}
-
-/* ---- Modifier: rail on the right instead of the left ---- */
-.rnt-card-section--rail-end .rnt-card-section__main {
-  flex-direction: row-reverse;
-}
-.rnt-card-section--rail-end .rnt-card-section__panel--left {
-  border-right: 0;
-  border-left: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
-}
-
-/* ---- Reflow: stack to one column on small viewports (SC 1.4.10) ---- */
-@media (max-width: 768px) {
-  .rnt-card-section__main,
-  .rnt-card-section--rail-end .rnt-card-section__main {
-    flex-direction: column;
-  }
-  .rnt-card-section__panel--left {
-    flex: 0 0 auto;
-    border-right: 0;
-    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
-  }
-  .rnt-card-section--rail-end .rnt-card-section__panel--left {
-    border-left: 0;
-    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
-  }
-}
-
-/*! =========================================================================== */
-/*! COMPONENT — rnt-step-item  (Step / status list item)                         */
-/*!   Escalation: L4 — custom Block (semantic <li> + BEM CSS, no JS).            */
-/*!   Two OS UI Placeholders (Icon, Label) -> Block, NOT a Web Component:        */
-/*!   placeholders don't compose with Shadow DOM, and state is presentational    */
-/*!   only (driven by the Status input parameter, a StepStatus Static Entity).   */
-/*!                                                                              */
-/*!   Status -> root BEM modifier:                                              */
-/*!     --is-past    white node + green ring + dark-green check                  */
-/*!     --is-active  solid navy fill + white glyph + emphasized label            */
-/*!     --is-next    white node + gray ring + muted glyph                        */
-/*!   States differ by fill-vs-ring + hue + icon shape, so status is never       */
-/*!   conveyed by color alone (SC 1.4.1).                                        */
-/*!                                                                              */
-/*!   100% token-driven. Component tokens alias R&T semantic tokens with         */
-/*!   Figma-derived fallbacks so it renders before the Theme loads; the Theme's  */
-/*!   :root values always win. Manrope inherited from OS UI body.                */
-/*!                                                                              */
-/*!   A11y (WCAG 2.2 AA): every label >=4.5:1, every node ring/glyph >=3:1       */
-/*!   (SC 1.4.3 / 1.4.11). Active step carries aria-current="step" (set on the   */
-/*!   Block). Non-interactive, so no focus ring needed; reduced motion honored.  */
-/*! =========================================================================== */
-
-/* ---- Optional list wrapper: render instances inside <ol class="rnt-step-list"> ---- */
-.rnt-step-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs, 8px);
-}
-
-/* ---- Block ---- */
-.rnt-step-item {
-  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
-  --rnt-step-item-node-bg:        var(--color-background-default-default, #ffffff);
-  --rnt-step-item-label-fg:       var(--color-text-neutral, #303030);      /* muted — 10.28:1 AA */
-  --rnt-step-item-label-fg-active:var(--color-text-brand, #2a4a66);        /* 8.59:1 AA */
-
-  /* per-status node treatments */
-  --rnt-step-item-ring-past:      var(--color-border-positive-secondary, #009951); /* 3.54:1 UI */
-  --rnt-step-item-glyph-past:     var(--color-text-positive, #02542d);             /* 8.69:1 AA */
-  --rnt-step-item-fill-active:    var(--color-background-brand, #2a4a66);          /* node fill   */
-  --rnt-step-item-glyph-active:   var(--color-background-default-default, #ffffff);/* white on navy 8.59:1 */
-  --rnt-step-item-ring-next:      var(--color-border-neutral-secondary, #767676);  /* 3.54:1 UI */
-  --rnt-step-item-glyph-next:     var(--color-text-neutral, #303030);              /* 10.28:1 AA */
-
-  /* geometry (component-local; not part of the global scale) */
-  --rnt-step-item-node-size:      8px;   /* >=24px even though non-interactive */
-  --rnt-step-item-node-ring:      2px;
-  --rnt-step-item-icon:           16px;
-
-  display: flex;
-  align-items: center;
-  gap: var(--space-m, 16px);
-  margin: 0;
-  padding: var(--space-s, 12px) 0;
-
-  /* type — Manrope comes from OS UI body via `inherit`; only deltas restated */
-  font: inherit;
-  font-size: var(--font-size-base, 1rem);     /* 16px */
-  line-height: 1.4;
-
-  transition: color var(--animation-duration-fast, 150ms) var(--animation-function, ease);
-}
-
-/* ---- Elements ---- */
-
-/* The circular node on the rail. Holds the Icon placeholder. */
-.rnt-step-item__node {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--rnt-step-item-node-size);
-  min-height: var(--rnt-step-item-node-size);
-  border-radius: var(--border-radius-circle, 50%);
-  background-color: var(--rnt-step-item-node-bg);
-  /* default = "next" treatment; modifiers below override per status */
-  border: var(--rnt-step-item-node-ring) solid var(--rnt-step-item-ring-next);
-  color: var(--rnt-step-item-glyph-next);   /* placeholder icon inherits via currentColor */
-  transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
-              border-color     var(--animation-duration-fast, 150ms) var(--animation-function, ease),
-              color            var(--animation-duration-fast, 150ms) var(--animation-function, ease);
-}
-
-/* Icon placeholder contents track the node's color (check / numeral / glyph) */
-.rnt-step-item__node .icon,
-.rnt-step-item__node .icon svg,
-.rnt-step-item__node svg {
-  display: block;
-  width: var(--rnt-step-item-icon);
-  height: var(--rnt-step-item-icon);
-  fill: currentColor;
-  color: currentColor;
-}
-
-.rnt-step-item__label {
-  flex: 1 1 auto;
-  min-width: 0;
-  word-break: break-word;
-  color: var(--rnt-step-item-label-fg);            /* muted default — 10.28:1 AA */
-  font-weight: var(--font-weight-regular, 400);
-}
-
-/* ---- Modifiers (status) ---- */
-
-/* PAST — completed: white node, green ring, dark-green check */
-
 
 /* ACTIVE — current: solid navy fill, white glyph, emphasized label */
 .rnt-step-item--is-active .rnt-step-item__node {
   background-color: var(--rnt-step-item-fill-active);
   border-color: var(--rnt-step-item-fill-active);
-  color: var(--rnt-step-item-glyph-active);        /* white on #2a4a66 — 8.59:1 AA */
+  color: var(--rnt-step-item-glyph-active);
 }
 .rnt-step-item--is-active .rnt-step-item__label {
-  color: var(--rnt-step-item-label-fg-active);     /* #2a4a66 on #fff — 8.59:1 AA */
-  font-weight: var(--font-weight-semibold, 600);
+  color: var(--rnt-step-item-label-fg-active);
+  font-weight: var(--font-semi-bold, 600);
 }
 
-/* NEXT — upcoming: white node, gray ring, muted glyph (matches the base) */
+/* NEXT — upcoming: white node, gray ring, muted glyph */
 .rnt-step-item--is-next .rnt-step-item__node {
   background-color: var(--rnt-step-item-ring-next);
-  border-color: var(--rnt-step-item-ring-next);    /* #767676 on #fff — 3.54:1 UI */
+  border-color: var(--rnt-step-item-ring-next);
   color: var(--rnt-step-item-glyph-next);
 }
-
-/* ---- Lighter muted-label option (matches Figma #757575 exactly) ----
-   The Figma muted gray passes at a tight 4.60:1. If you prefer that lighter
-   look over the #303030 default, set this once in the Theme :root (token-only,
-   no class restatement):
-     :root { --color-text-neutral: #757575; }   (* 4.60:1 AA — borderline *)
-   ------------------------------------------------------------------------- */
-
-/* SC 2.3.3 — honor reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .rnt-step-item,
   .rnt-step-item__node {
     transition: none;
   }
+}
+
+
+/* ---- 6.10. rnt-badge ---- */
+.rnt-badge .badge {
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius-circle);
 }
