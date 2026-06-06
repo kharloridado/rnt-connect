@@ -1852,47 +1852,160 @@ label.mandatory::after {
   font-weight: var(--font-bold);
 }
 
-/* ===== Inputs (Native OSUI form-control) ===== */
-.form-control[data-input] {
-  background-color: var(--color-background-default);
-  border: var(--border-size-s) solid var(--color-border-default);
-  border-radius: var(--border-radius-rounded);
+
+/* Field labels */
+label {
   color: var(--color-text-default);
   font-family: var(--font-family-body);
-  height: 40px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-weight: var(--font-semi-bold);
 }
 
-.form-control[data-input]::placeholder {
-  color: var(--color-text-tertiary);
+/* Required asterisk (Overrides native OSUI Mandatory state) */
+label.mandatory::after {
+  color: var(--color-text-danger-tertiary);
+  margin-left: var(--space-xs); /* Replaced custom --rnt-space-100 */
+  font-weight: var(--font-bold);
 }
 
-.form-control[data-input]:hover:not([disabled]):not(.not-valid) {
-  border-color: var(--color-border-secondary);
-}
-
-.form-control[data-input]:focus:not([disabled]):not(.not-valid),
-.form-control[data-input]:focus-visible:not([disabled]):not(.not-valid) {
-  outline: none;
-  border-color: var(--color-border-brand);
-  box-shadow: 0 0 0 3px var(--color-background-brand-secondary);
-}
-
-/* Leading icon (Using native OSUI Input with Icon pattern) */
-.osui-input-with-icon .osui-icon {
-  color: var(--color-icon-secondary);
-}
-
-/* ===== Input Error State ===== */
-.form-control[data-input].not-valid {
-  border-color: var(--color-text-danger-tertiary);
-}
-
-.form-control[data-input].not-valid:focus,
-.form-control[data-input].not-valid:focus-visible {
-  box-shadow: 0 0 0 3px var(--color-background-danger-tertiary);
-}
-
+  /* ============================================================
+     0) PREVIEW SHIM  —  DO NOT COPY INTO OUTSYSTEMS
+        Token values mirrored from rnt-connect-theme so section 1
+        resolves standalone. In OutSystems the Theme supplies these.
+     ============================================================ */
+  :root {
+    --color-neutral-0:#ffffff; --color-neutral-1:#f5f5f5; --color-neutral-3:#d9d9d9;
+    --color-neutral-4:#b3b3b3; --color-neutral-5:#757575; --color-neutral-6:#444444;
+    --color-neutral-9:#1e1e1e;
+ 
+    --color-border-brand:#2a4a66;          /* 9.2:1 on #fff */
+    --color-focus-outline:#2a4a66;
+    --color-error:#c00f0c;                 /* 6.33:1 on #fff — AA text */
+ 
+    --color-text-default:var(--color-neutral-9);
+    --color-text-secondary:var(--color-neutral-5);
+    --color-text-disabled:var(--color-neutral-4);
+    --color-background-default:var(--color-neutral-0);
+    --color-background-secondary:var(--color-neutral-1);
+ 
+    --border-radius-soft:4px; --border-size-s:1px; --border-size-m:2px;
+    --space-xs:4px; --space-s:8px; --space-base:16px; --space-m:16px; --space-xl:40px;
+    --font-size-xs:12px; --font-size-s:14px; --font-size-base:16px;
+    --font-medium:500; --font-bold:700;
+    --animation-duration:180ms; --animation-function:ease;
+  }
+ 
+ 
+  /* ============================================================
+     1) THEME PATCH  →  COPY INTO rnt-connect-theme §3.1
+        Full input styling, applied on OS UI default classes.
+        AA-safe; matches the mockup palette except the two flagged
+        values (see section 2).
+     ============================================================ */
+ 
+  /* 1. Base (default + filled) */
+  .form-control[data-input],
+  .form-control[data-textarea] {
+    background-color: var(--color-background-default);
+    border: var(--border-size-s) solid var(--color-neutral-5); /* AA-safe resting; mockup #d9d9d9 fails 1.4.11 */
+    border-radius: var(--border-radius-soft);                  /* 4px */
+    color: var(--color-text-default);                          /* #1e1e1e — filled value */
+    font-size: var(--font-size-base);
+    transition: border-color var(--animation-duration) var(--animation-function),
+                box-shadow   var(--animation-duration) var(--animation-function);
+  }
+  .form-control[data-input]   { min-height: 40px; padding: var(--space-s) var(--space-base); }
+  .form-control[data-textarea]{ min-height: 96px; padding: var(--space-base); resize: vertical; }
+ 
+  /* 2. Placeholder */
+  .form-control[data-input]::placeholder,
+  .form-control[data-textarea]::placeholder {
+    color: var(--color-text-secondary);                        /* #757575 */
+    opacity: 1;
+  }
+ 
+  /* 3. Hover */
+  .form-control[data-input]:hover:not([disabled]):not(.not-valid),
+  .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
+    border-color: var(--color-neutral-6);                      /* #444444 */
+  }
+ 
+  /* 4. Focus — brand border + 2px brand ring, no reflow (SC 2.4.7/2.4.11/2.4.13) */
+  .form-control[data-input]:focus,
+  .form-control[data-textarea]:focus {
+    border-color: var(--color-border-brand);                   /* #2a4a66 */
+    box-shadow: none; outline: none;
+  }
+  .form-control[data-input]:focus-visible,
+  .form-control[data-textarea]:focus-visible {
+    outline: var(--border-size-m) solid var(--color-focus-outline);
+    outline-offset: var(--border-size-m);
+  }
+ 
+  /* 5. Disabled — border #d9d9d9 (controls are exempt from 1.4.11) */
+  .form-control[data-input][disabled],
+  .form-control[data-textarea][disabled] {
+    background-color: var(--color-background-secondary);       /* #f5f5f5 */
+    border-color: var(--color-neutral-3);                      /* #d9d9d9 */
+    color: var(--color-text-disabled);                         /* #b3b3b3 */
+    cursor: not-allowed;
+  }
+  .form-control[data-input][disabled]::placeholder,
+  .form-control[data-textarea][disabled]::placeholder { color: var(--color-text-disabled); }
+ 
+  /* 6. Error (.not-valid) — one unified danger token for border/ring/message */
+  .form-control[data-input].not-valid,
+  .form-control[data-textarea].not-valid {
+    border-color: var(--color-error);                          /* #c00f0c · 6.33:1 */
+  }
+  .form-control[data-input].not-valid:focus-visible,
+  .form-control[data-textarea].not-valid:focus-visible { outline-color: var(--color-error); }
+  .form-control[data-input].not-valid + span.validation-message,
+  .form-control[data-textarea].not-valid + span.validation-message {
+    color: var(--color-error);
+    font-size: var(--font-size-xs);
+  }
+ 
+  /* 7. Sizes */
+  .form-control[data-input].input-small { min-height: 32px; padding: var(--space-xs) var(--space-s); font-size: var(--font-size-s); }
+  .form-control[data-input].input-large { min-height: 48px; font-size: var(--font-size-base); }
+ 
+  /* 8. Leading / trailing icon tone (Input Icon / Search pattern).
+        OS UI default is neutral-7; mockup = #757575 (4.61:1, >3:1 non-text). */
+  .input-with-icon .input-with-icon-content-icon,
+  .input-with-icon .input-with-icon-content-icon a { color: var(--color-neutral-5); }
+  .input-with-icon .input-with-icon-content-icon.search-actions:hover { color: var(--color-neutral-6); }
+ 
+  /* 9. Error-state trailing status icon → danger token */
+  .input-with-icon:has(.form-control[data-input].not-valid) .input-with-icon-content-icon.search-actions {
+    color: var(--color-error);
+  }
+ 
+  /* 10. Mandatory marker (platform-inserted span) */
+  .MandatoryLabel { color: var(--color-error); }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .form-control[data-input], .form-control[data-textarea] { transition: none; }
+  }
+ 
+ 
+  /* ============================================================
+     2) ⚠ NON-COMPLIANT OVERRIDE  (opt-in — commented out)
+        Adopts the mockup's LITERAL palette. SHIPS BELOW WCAG 2.2 AA:
+          • resting/filled border #d9d9d9 = 1.41:1  -> fails SC 1.4.11
+          • error red #ec221f       = 4.36:1 text   -> fails SC 1.4.3
+        Enable ONLY if design consciously accepts these regressions.
+     ============================================================ */
+  /*
+  .form-control[data-input], .form-control[data-textarea] { border-color: var(--color-neutral-3); }
+  .form-control[data-input]:hover:not([disabled]):not(.not-valid),
+  .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) { border-color: var(--color-neutral-5); }
+  .form-control[data-input].not-valid, .form-control[data-textarea].not-valid { border-color:#ec221f; }
+  .form-control[data-input].not-valid + span.validation-message { color:#ec221f; }
+  .input-with-icon:has(.form-control[data-input].not-valid) .input-with-icon-content-icon.search-actions,
+  .MandatoryLabel { color:#ec221f; }
+  */
+ 
+ 
 /* Validation message (Native OSUI class) */
 span.validation-message {
   display: block;
