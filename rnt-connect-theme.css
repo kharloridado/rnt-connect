@@ -2198,3 +2198,136 @@ Dropdown Tags
   .vscomp-toggle-button:after {
     color: var(--rnt-neutral-500);
   }
+
+
+/* === Dropdown Tags — DROPBOX / options (match SVG) ===
+   NOTE: the dropbox panel is appended to <body>, so these rules are NOT
+   scoped under .osui-dropdown-tags. They target the tags-variant dropbox
+   via .vscomp-dropbox-wrapper.show-value-as-tags. */
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-dropbox {
+  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
+  border: 1px solid var(--rnt-neutral-300) !important;  /* #D9D9D9 */
+  border-radius: 4px !important;
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .vscomp-option-text {
+  color: var(--rnt-neutral-900) !important;             /* #1E1E1E */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option {
+  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option .checkbox-icon {
+  background-color: var(--rnt-white-1000) !important;   /* #FFFFFF */
+  border: 1px solid var(--rnt-neutral-300) !important;  /* #D9D9D9 */
+  border-radius: 4px !important;
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected {
+  background-color: var(--rnt-primary-100) !important;  /* #F3F7FA */
+}
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected .checkbox-icon {
+  background-color: var(--rnt-primary-800) !important;  /* #2A4A66 */
+  border-color: var(--rnt-primary-800) !important;
+}
+
+/* X / clear icon — must target the pseudo-element bars, not color */
+.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
+.osui-dropdown-tags .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  background-color: var(--rnt-primary-800);   /* #2A4A66 X */
+}
+
+/* Resting border — only add this if you truly want #D9D9D9 (current is #757575) */
+.osui-dropdown-tags .vscomp-toggle-button {
+  border-color: var(--rnt-neutral-300);       /* #D9D9D9 */
+}
+
+/* Checkbox fill is already #2A4A66 natively — override NOT required.
+   Only the checkmark color needs changing: */
+.osui-dropdown-tags .vscomp-option.selected .checkbox-icon::after {
+  border-color: var(--rnt-primary-100);       /* #F3F7FA tick */
+}
+
+/* === Dropdown Tags pill — match SVG design === */
+.vscomp-wrapper.show-value-as-tags .vscomp-value-tag {
+  background-color: var(--rnt-primary-300);   /* #CCDDEA */
+  color: var(--rnt-neutral-900);              /* #1E1E1E */
+  border-radius: 13px;                         /* fully-rounded pill */
+  display: inline-flex;
+  align-items: center;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-content {
+  color: var(--rnt-neutral-900);              /* #1E1E1E */
+}
+
+/* Neutralize OutSystems' dark circle button + icon fill */
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon {
+  background-color: transparent !important;
+  border: none !important;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  overflow: visible;
+}
+
+/* Rebuild the X from two #2A4A66 strokes with rounded caps */
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before,
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1.6px;
+  background-color: var(--rnt-primary-800);   /* #2A4A66 */
+  border-radius: 1px;                          /* rounded line caps */
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.osui-dropdown-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
+  padding: 6px 10px 6px 10px;
+}
+
+/* === Dropdown Tags — DISABLED state (match SVG) === */
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-toggle-button {
+  background-color: var(--rnt-neutral-100) !important;   /* #F5F5F5 */
+  border: 1px solid var(--rnt-neutral-300) !important;   /* #D9D9D9 */
+}
+/* Restore full opacity so pill colors are exact, not muted by the default 0.7 */
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-wrapper {
+  opacity: 1 !important;
+}
+/* Disabled tags: keep #CCDDEA pill, text -> #7F9FB8 */
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag {
+  background-color: var(--rnt-primary-300) !important;   /* #CCDDEA */
+  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
+  opacity: 1 !important;
+}
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-content {
+  color: var(--rnt-primary-500) !important;              /* #7F9FB8 */
+}
+/* No X icon on disabled tags (per SVG) */
+.osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-clear-button {
+  display: none !important;
+}
+
+.vscomp-search-container {
+  
+  border-bottom: 1px solid var(--rnt-neutral-300) !important;   /* #D9D9D9 */
+}
+
+/* === Dropdown Tags dropbox — drop shadow (match Figma) ===
+   Two stacked Drop Shadow/200 layers: Black/100 @5% + Black/200 @10% */
+.vscomp-dropbox-wrapper.show-value-as-tags .vscomp-dropbox {
+  box-shadow:
+    0 1px 4px 0 var(--rnt-black-100),   /* #0c0c0d0d ~5%  */
+    0 1px 4px 0 var(--rnt-black-200)     /* #0c0c0d1a ~10% */
+    !important;
+}
+
