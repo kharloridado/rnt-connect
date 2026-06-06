@@ -755,7 +755,7 @@
 html,
 body {
   font-family: var(--font-family-body);
-  -servicestudio-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2331,3 +2331,832 @@ Dropdown Tags
     !important;
 }
 
+.rnt-badge .badge {
+    font-size: var(--font-size-base);
+    border-radius: var(--border-radius-circle);
+}
+
+  :root {
+    --rnt-primary-100: #f3f7fa;
+    --rnt-primary-600: #5a7f9e;
+    --rnt-primary-800: #2a4a66;
+
+    --color-border-brand:           var(--rnt-primary-800); /* #2a4a66 */
+    --color-border-brand-secondary: var(--rnt-primary-600); /* #5a7f9e */
+    --color-icon-brand:             var(--rnt-primary-800); /* #2a4a66 */
+    --color-icon-brand-on-brand:    var(--rnt-primary-100); /* #f3f7fa */
+    --color-background-brand:       var(--rnt-primary-800); /* #2a4a66 */
+
+    --border-radius-pill: 9999px;
+    --border-size-s:      1px;
+    --rnt-space-200:      8px;
+    --rnt-icon-s:         24px;
+  }
+
+  /* ============================================================
+     1) COMPONENT CONFIG  →  paste into Block CSS or Theme CSS
+        Component-local knobs only. Brand/shape come from the theme.
+     ============================================================ */
+  :root {
+    /* ⚠ FLAG: no theme token for 44px — this is the WCAG 2.5.8 primary
+       target size (>=44 preferred), not a brand value. Kept as a literal. */
+    --rnt-icon-button-size:      44px;
+
+    /* ⚠ FLAG: Figma glyph box was 20px, which is NOT in the theme icon scale
+       (--rnt-icon-s 24 / -m 32 / -l 40). Defaulted to the nearest token, 24px.
+       If design insists on 20px, override this one line with a literal. */
+    --rnt-icon-button-icon-size: var(--rnt-icon-s);   /* 24px */
+
+    --rnt-icon-button-gap:       var(--rnt-space-200); /* 8px — theme spacing primitive */
+  }
+
+
+  /* Block */
+  .rnt-icon-button {
+    /* reset the native <button> */
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    background-color: transparent;
+    cursor: pointer;
+
+    /* layout — centers the icon; gap supports an optional label too */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rnt-icon-button-gap);
+
+    /* size — guarantees a >=24px target (WCAG 2.5.8) */
+    inline-size: var(--rnt-icon-button-size);
+    block-size: var(--rnt-icon-button-size);
+
+    /* shape */
+    border: var(--border-size-s) solid var(--color-border-brand-secondary);
+    border-radius: var(--border-radius-pill);
+    /* #5a7f9e border on #fff ~ 3.93:1 — passes 3:1 non-text contrast (SC 1.4.11) */
+
+    /* glyph inherits this via currentColor */
+    color: var(--color-icon-brand);
+    /* #2a4a66 glyph on #fff ~ 9.25:1 — passes both 3:1 non-text and 4.5:1 text */
+
+    transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+  }
+
+  /* Element — the icon placeholder slot */
+  .rnt-icon-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--rnt-icon-button-icon-size);
+    block-size: var(--rnt-icon-button-icon-size);
+    flex: 0 0 auto;
+  }
+  .rnt-icon-button__icon > svg,
+  .rnt-icon-button__icon > img,
+  .rnt-icon-button__icon > i {        /* <i> = OutSystems Icon widget renders an <i> */
+    inline-size: 100%;
+    block-size: 100%;
+    display: block;
+    font-size: var(--rnt-icon-button-icon-size); /* for icon-font glyphs */
+    line-height: 1;
+  }
+
+  /* Hover — darken border to brand + faint brand fill (color-mix on the token) */
+  .rnt-icon-button:hover {
+    border-color: var(--color-border-brand);
+    background-color: color-mix(in srgb, var(--color-border-brand) 8%, transparent);
+  }
+
+  /* Focus — visible, unobscured, >=2px (SC 2.4.7 / 2.4.11 / 2.4.13).
+     Uses the brand token (>=3:1). Swap to your theme focus token
+     (--color-focus-outline) if you want global focus consistency. */
+  .rnt-icon-button:focus-visible {
+    outline: var(--border-size-m, 2px) solid var(--color-border-brand);
+    outline-offset: var(--border-size-m, 2px);
+  }
+
+  /* Active / pressed */
+  .rnt-icon-button:active {
+    background-color: color-mix(in srgb, var(--color-border-brand) 16%, transparent);
+  }
+
+  /* Disabled — works for native :disabled and aria-disabled toggle blocks */
+  .rnt-icon-button:disabled,
+  .rnt-icon-button[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  /* Modifier — optional solid/filled variant */
+  .rnt-icon-button--filled {
+    background-color: var(--color-background-brand);
+    border-color: var(--color-border-brand);
+    color: var(--color-icon-brand-on-brand); /* #f3f7fa glyph on #2a4a66 ~ 9.0:1 */
+  }
+  .rnt-icon-button--filled:hover {
+    background-color: color-mix(in srgb, var(--color-background-brand) 88%, #000);
+  }
+
+  /* Respect reduced motion (SC 2.3.3) */
+  @media (prefers-reduced-motion: reduce) {
+    .rnt-icon-button { transition: none; }
+  }
+
+
+/*! =========================================================================== */
+/*! COMPONENT — rnt-announcement  (Announcement Card)                            */
+/*!   Escalation: L4 — custom Block (semantic HTML + BEM CSS).                   */
+/*!   Not an OS UI pattern wrapper and not a Web Component (mirrors the          */
+/*!   RNT Quick Link Card build).                                                */
+/*!                                                                              */
+/*!   Layout: a selectable card used in a feed. Title + a red "flag" dot         */
+/*!   (top-right) + a pills row. PILLS ARE NOT STYLED HERE — they are native     */
+/*!   OS UI Tags (with rnt-tint variants) dropped into the Block's Pills         */
+/*!   Placeholder, so no .tag CSS is restated.                                   */
+/*!                                                                              */
+/*!   Clickability: the whole card is one large target via the stretched-link    */
+/*!   pattern — the title lives in a real <button>, whose ::after overlays the    */
+/*!   card. Pills sit ABOVE the overlay (z-index) so, if they are ever made      */
+/*!   interactive, they remain independently operable without being nested       */
+/*!   inside the button (which would be invalid HTML).                           */
+/*!                                                                              */
+/*!   States: default · :hover (brand-tertiary tint) · :active = pressed         */
+/*!   (momentary) · --is-active = selected/current (persistent navy border,      */
+/*!   aria-pressed synced) · :focus-visible (OS UI focus token).                 */
+/*!                                                                              */
+/*!   100% token-driven. Component-scoped tokens alias R&T semantic tokens with  */
+/*!   Figma-derived fallbacks so the card renders even before the Theme loads;   */
+/*!   the Theme's :root values always win. Manrope inherited from OS UI body.    */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): title text on every state bg >=4.5:1 (inherits OS UI   */
+/*!   body color on light fills); selected border >=3:1 UI (SC 1.4.11); whole    */
+/*!   card is a single large target (SC 2.5.8); flag meaning carried by visually */
+/*!   -hidden text, not color alone (SC 1.4.1); focus ring via                   */
+/*!   --color-focus-outline (SC 2.4.7/2.4.13); reduced motion respected.         */
+/*! =========================================================================== */
+
+/* ---- Component-scoped token aliases (semantic R&T tokens + safe fallbacks) -- */
+.rnt-announcement {
+  --rnt-ann-bg:            var(--color-neutral-0, #ffffff);
+  --rnt-ann-bg-hover:      var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-ann-bg-pressed:    var(--color-background-brand-secondary, #e3edf4);
+  --rnt-ann-bg-active:     var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-ann-border:        var(--color-border-default, #d1d5db);
+  --rnt-ann-border-active: var(--rnt-primary-800, #2a4a66);   /* 8.59:1 on white · >=3:1 UI */
+  --rnt-ann-radius:        var(--border-radius-rounded, 12px);
+  --rnt-ann-shadow:        var(--shadow-s, 0 1px 3px rgba(16, 24, 40, 0.1));
+  --rnt-ann-pad:           var(--space-m, 16px);
+  --rnt-ann-gap:           var(--space-s, 8px);
+  --rnt-ann-flag:          var(--color-background-danger, #e5484d);
+  --rnt-ann-flag-size:     10px;
+
+  position: relative;            /* anchor for the stretched-link ::after + flag */
+  display: flex;
+  flex-direction: column;
+  gap: var(--rnt-ann-gap);
+  padding: var(--rnt-ann-pad);
+  background-color: var(--rnt-ann-bg);
+  border: var(--border-size-s, 1px) solid var(--rnt-ann-border);
+  border-radius: var(--rnt-ann-radius);
+  box-shadow: var(--rnt-ann-shadow);
+  transition:
+    background-color var(--animation-duration, 0.2s) var(--animation-function, ease),
+    border-color     var(--animation-duration, 0.2s) var(--animation-function, ease),
+    box-shadow       var(--animation-duration, 0.2s) var(--animation-function, ease);
+}
+
+/* ---- Header row: title (in the action button) + flag dot ------------------- */
+.rnt-announcement__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rnt-ann-gap);
+}
+
+/* ---- Action: the stretched-link button. Visually just the title; its ::after
+        makes the whole card clickable. No own background/border. ------------- */
+.rnt-announcement__action {
+  /* strip native button chrome — these are not OS UI defaults, they neutralise
+     the UA button styling so the title reads as plain card text */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rnt-announcement__action::after {
+  content: "";
+  position: absolute;
+  inset: 0;                      /* cover the entire card */
+  border-radius: var(--rnt-ann-radius);
+}
+
+.rnt-announcement__title {
+  display: block;
+  font-size: var(--font-size-base, 1.125rem);
+  font-weight: var(--font-semi-bold, 600);
+  line-height: var(--line-height-tight, 1.3);
+  /* color intentionally inherited from OS UI body text — not restated */
+}
+
+/* ---- Flag: decorative red dot, top-right. Meaning is exposed via the
+        visually-hidden text inside the action button, not by this dot. ------- */
+.rnt-announcement__flag {
+  flex: 0 0 auto;
+  width: var(--rnt-ann-flag-size);
+  height: var(--rnt-ann-flag-size);
+  margin-top: var(--space-xs, 4px);
+  border-radius: var(--border-radius-circle, 50%);
+  background-color: var(--rnt-ann-flag);
+}
+
+/* ---- Pills row: native OS UI Tags dropped via the Pills placeholder.
+        Raised above the stretched ::after so interactive tags stay operable. - */
+.rnt-announcement__pills {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rnt-ann-gap);
+}
+
+/* ---- Visually-hidden utility (custom; OS UI ships no universal equivalent) -- */
+.rnt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Interaction states
+   ========================================================================== */
+
+/* hover — brand-tertiary tint (matches Figma hover) */
+.rnt-announcement:hover {
+  background-color: var(--rnt-ann-bg-hover);
+}
+
+/* pressed — momentary, while the action is actively pressed. Slightly deeper
+   tint + flattened shadow for tactile feedback. */
+.rnt-announcement:has(.rnt-announcement__action:active) {
+  background-color: var(--rnt-ann-bg-pressed);
+  box-shadow: none;
+}
+
+/* selected / current — persistent. Navy border + tint. Driven by IsActive
+   input (adds the modifier) with aria-pressed="true" on the action. */
+.rnt-announcement--is-active {
+  background-color: var(--rnt-ann-bg-active);
+  border-color: var(--rnt-ann-border-active);
+  border-width: var(--border-size-s, 1px);
+}
+
+/* focus-visible — ring drawn around the whole card when the action is
+   keyboard-focused. Uses the OS UI focus token (re-themed via :root, not here). */
+.rnt-announcement:has(.rnt-announcement__action:focus-visible) {
+  outline: var(--border-size-m, 2px) solid var(--color-focus-outline, #2563eb);
+  outline-offset: 2px;
+}
+/* Fallback for engines without :has() — ring on the button itself */
+.rnt-announcement__action:focus-visible {
+  outline: var(--border-size-m, 2px) solid var(--color-focus-outline, #2563eb);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Reduced motion (SC 2.3.3 / respectful default)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .rnt-announcement {
+    transition: none;
+  }
+}
+.tag {
+    border-radius: 100px!important;
+}
+
+/*! =========================================================================== */
+/*! COMPONENT — rnt-quick-link  (Quick Link Card)                                */
+/*!   Escalation: L4 — custom Block (semantic <button> + BEM CSS + vanilla JS).  */
+/*!   Not an OS UI pattern wrapper and not a Web Component (per request).         */
+/*!                                                                              */
+/*!   States: default · :hover · :active (pressed). No persistent/selected       */
+/*!   state — the darker fill is momentary press feedback only.                  */
+/*!                                                                              */
+/*!   100% token-driven. Component-scoped tokens alias R&T semantic tokens with  */
+/*!   Figma-derived fallbacks so it renders even before the Theme loads; the     */
+/*!   Theme's :root values always win. Manrope inherited from OS UI body.        */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): text/bg >=4.5:1 in all 3 states; single large target   */
+/*!   (whole card, >=253x80) so SC 2.5.8 is satisfied with room to spare; focus  */
+/*!   ring via OS UI focus token; reduced motion respected. Ratios noted inline. */
+/*! =========================================================================== */
+
+/* ---- Block ---- */
+.rnt-quick-link {
+  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
+  --rnt-quick-link-bg:         var(--color-background-default-default, #ffffff);
+  --rnt-quick-link-bg-hover:   var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-quick-link-bg-pressed: var(--color-background-brand-secondary, #ccddea);
+  --rnt-quick-link-fg:         var(--color-text-default-default, #1d354c);
+  --rnt-quick-link-border:     var(--color-border-default-default, #d9d9d9);
+  /* geometry (component-local; not part of the global scale) */
+  --rnt-quick-link-min-height: 80px;
+  --rnt-quick-link-affordance: 40px;  /* arrow disc — decorative, inside the target */
+  --rnt-quick-link-icon:       16px;
+
+  /* reset native button chrome, keep it a real <button> */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m, 16px);
+  width: 100%;
+  min-height: var(--rnt-quick-link-min-height);
+  padding: var(--space-m, 16px) var(--space-l, 24px);
+  text-align: left;
+  cursor: pointer;
+
+  /* type — Manrope comes from OS UI body via `inherit`; only deltas restated */
+  font: inherit;
+  font-size: var(--font-size-base, 1rem);     /* 16px */
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.4;
+
+  /* surface */
+  color: var(--rnt-quick-link-fg);            /* #1d354c on #ffffff -> 12.6:1 AA */
+  background-color: var(--rnt-quick-link-bg);
+  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-rounded, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+
+  transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
+              box-shadow var(--animation-duration-fast, 150ms) var(--animation-function, ease);
+}
+
+/* ---- Elements ---- */
+.rnt-quick-link__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.rnt-quick-link__affordance {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rnt-quick-link-affordance);
+  height: var(--rnt-quick-link-affordance);
+  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-circle, 50%);
+  color: inherit;          /* icon tracks the text color */
+}
+
+.rnt-quick-link__icon {
+  display: block;
+  width: var(--rnt-quick-link-icon);
+  height: var(--rnt-quick-link-icon);
+}
+
+/* ---- Pseudo-state interactions (order: hover, then active wins on press) ---- */
+.rnt-quick-link:hover {
+  background-color: var(--rnt-quick-link-bg-hover);     /* #1d354c on #f3f7fa -> 11.4:1 AA */
+}
+
+/* pressed — held down via pointer or keyboard (Space); momentary, no toggle */
+.rnt-quick-link:active {
+  background-color: var(--rnt-quick-link-bg-pressed);   /* #1d354c on #ccddea -> 8.8:1 AA */
+}
+
+/* SC 2.4.7 / 2.4.11 / 2.4.13 — visible, >=2px, >=3:1 focus ring */
+.rnt-quick-link:focus-visible {
+  outline: 2px solid var(--color-focus-outline, #1d354c);  /* >=3:1 on all 3 bg states */
+  outline-offset: 2px;
+}
+
+/* SC 2.3.3 — honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .rnt-quick-link {
+    transition: none;
+  }
+}
+
+/* ============================================
+   Component: Quick Link (card)
+   Pattern: Custom Block
+   Location: Block CSS (component) + Theme CSS (tint tokens / :root)
+   Escalation Level: L2 (custom Block styling)
+   Tokens consumed: --rnt-color-{blue|orange}-{50,100,300,400,700,900},
+                    --space-s/m/l, --font-size-h3/h5, --border-radius-soft
+   Size input: default | large  →  appends .rnt-quick-link--medium
+   ============================================ */
+
+
+/* ---- Elements ---- */
+.rnt-quick-link__label {
+  line-height: 1.25;                 /* = --rnt-quick-link-text */
+}
+
+
+/* ---- Modifier: Size = Large ---- */
+.rnt-quick-link--medium {
+  gap: var(--space-m, 16px);
+  padding: var(--space-xxl) var(--space-xl);
+}
+.rnt-quick-link--medium .rnt-quick-link__label {
+  font-size: var(--font-size-h3, 1.75rem);   /* bigger text */
+  font-weight: var(--font-semi-bold);
+  line-height: 1.2;
+}
+/* ---- Modifiers: Tint (set the local color ladder) ---- */
+/* ============================================
+   rnt-tint — shared tint contract (Theme CSS / :root scope)
+   One modifier per RntTintColor record. Variables only — no painting.
+   Ladder: surface · surface-hover · border · border-strong · text
+   Token group keyed to record Identifier (--rnt-color-<id>-*).
+   Fallback hexes: ✓ = from Figma sample · ⚠ = placeholder, replace w/ real palette
+   ============================================ */
+
+/* ---- Semantic family (IsBusinessFamily = No) ---- */
+.rnt-tint--positive {                                          /* Green ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-positive-50,  #EEF7F1);
+  --rnt-tint-surface-hover:  var(--rnt-color-positive-100, #CCE8D6);
+  --rnt-tint-border:         var(--rnt-color-positive-100, #CCE8D6);
+  --rnt-tint-border-strong:  var(--rnt-color-positive-500, #2E8B57);
+  --rnt-tint-text:           var(--rnt-color-positive-900, #123D22);
+}
+.rnt-tint--warning {                                           /* Amber ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-warning-50,  #FEF8EB);
+  --rnt-tint-surface-hover:  var(--rnt-color-warning-100, #FBE8BE);
+  --rnt-tint-border:         var(--rnt-color-warning-100, #FBE8BE);
+  --rnt-tint-border-strong:  var(--rnt-color-warning-500, #C77C00);
+  --rnt-tint-text:           var(--rnt-color-warning-900, #5A3A00);
+}
+.rnt-tint--danger {                                            /* Red ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-danger-50,  #FDF1F0);
+  --rnt-tint-surface-hover:  var(--rnt-color-danger-100, #F7D1CD);
+  --rnt-tint-border:         var(--rnt-color-danger-100, #F7D1CD);
+  --rnt-tint-border-strong:  var(--rnt-color-danger-500, #C8372A);
+  --rnt-tint-text:           var(--rnt-color-danger-900, #5E140C);
+}
+.rnt-tint--info {                                              /* Navy ✓ */
+  --rnt-tint-surface:        var(--rnt-color-info-50,  #F3F7FB);
+  --rnt-tint-surface-hover:  var(--rnt-color-info-100, #CBDCEC);
+  --rnt-tint-border:         var(--rnt-color-info-100, #CBDCEC);
+  --rnt-tint-border-strong:  var(--rnt-color-info-300, #6E98C1);
+  --rnt-tint-text:           var(--rnt-color-info-900, #1D354C);
+}
+.rnt-tint--neutral {                                           /* Slate ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-neutral-50,  #F5F7F8);
+  --rnt-tint-surface-hover:  var(--rnt-color-neutral-100, #DDE3E8);
+  --rnt-tint-border:         var(--rnt-color-neutral-100, #DDE3E8);
+  --rnt-tint-border-strong:  var(--rnt-color-neutral-500, #6B7B8A);
+  --rnt-tint-text:           var(--rnt-color-neutral-900, #243038);
+}
+
+/* ---- Business / program family (IsBusinessFamily = Yes) ---- */
+.rnt-tint--cdmx {                                              /* Orange ✓ */
+  --rnt-tint-surface:        var(--rnt-color-cdmx-50,  #FEF6F0);
+  --rnt-tint-surface-hover:  var(--rnt-color-cdmx-100, #FBD9BE);
+  --rnt-tint-border:         var(--rnt-color-cdmx-100, #FBD9BE);
+  --rnt-tint-border-strong:  var(--rnt-color-cdmx-400, #F28938);
+  --rnt-tint-text:           var(--rnt-color-cdmx-900, #6C3003);
+}
+.rnt-tint--ddm {                                               /* Blue ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-ddm-50,  #EEF4FC);
+  --rnt-tint-surface-hover:  var(--rnt-color-ddm-100, #C7DCF6);
+  --rnt-tint-border:         var(--rnt-color-ddm-100, #C7DCF6);
+  --rnt-tint-border-strong:  var(--rnt-color-ddm-500, #2D6FD0);
+  --rnt-tint-text:           var(--rnt-color-ddm-900, #10294F);
+}
+.rnt-tint--rtid {                                              /* Cyan/Teal ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-rtid-50,  #EBF8F8);
+  --rnt-tint-surface-hover:  var(--rnt-color-rtid-100, #C2EBEA);
+  --rnt-tint-border:         var(--rnt-color-rtid-100, #C2EBEA);
+  --rnt-tint-border-strong:  var(--rnt-color-rtid-500, #1A9B9B);
+  --rnt-tint-text:           var(--rnt-color-rtid-900, #0A3D3D);
+}
+.rnt-tint--funding {                                           /* Blue ⚠ */
+  --rnt-tint-surface:        var(--rnt-color-funding-50,  #EEF2FB);
+  --rnt-tint-surface-hover:  var(--rnt-color-funding-100, #CBD8F2);
+  --rnt-tint-border:         var(--rnt-color-funding-100, #CBD8F2);
+  --rnt-tint-border-strong:  var(--rnt-color-funding-500, #3A5BC7);
+  --rnt-tint-text:           var(--rnt-color-funding-900, #16224A);
+}
+
+.rnt-quick-link {
+  /* component tokens <- tint contract (when a rnt-tint--* class is present)
+     <- R&T semantic alias <- Figma fallback */
+  --rnt-quick-link-bg:         var(--rnt-tint-surface,       var(--color-background-default-default, #ffffff));
+  --rnt-quick-link-bg-hover:   var(--rnt-tint-surface-hover, var(--color-background-brand-tertiary,  #f3f7fa));
+  --rnt-quick-link-bg-pressed: var(--rnt-tint-border-strong, var(--color-background-brand-secondary, #ccddea));
+  --rnt-quick-link-fg:         var(--rnt-tint-text,          var(--color-text-default-default,        #1d354c));
+  --rnt-quick-link-border:     var(--rnt-tint-border,        var(--color-border-default-default,      #d9d9d9));
+
+  /* geometry (unchanged) */
+  --rnt-quick-link-min-height: 80px;
+  --rnt-quick-link-affordance: 40px;
+  --rnt-quick-link-icon:       16px;
+
+  /* paint reads ONLY component tokens — same as your original */
+  min-height:       var(--rnt-quick-link-min-height);
+  background-color: var(--rnt-quick-link-bg);
+  color:            var(--rnt-quick-link-fg);
+  border: 1px solid var(--rnt-quick-link-border);
+}
+
+.rnt-quick-link:hover  { background-color: var(--rnt-quick-link-bg-hover); }
+.rnt-quick-link:active { background-color: var(--rnt-quick-link-bg-pressed); }
+
+.rnt-quick-link:focus-visible {
+  outline: 2px solid var(--rnt-quick-link-fg);
+  outline-offset: 2px;
+}
+
+/* ---- Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .rnt-quick-link { transition: none; }
+}
+
+/*! =========================================================================== */
+/*! COMPONENT — rnt-card-section  (split layout card: rail · panel · footer)      */
+/*!   Escalation: L4 — custom Block (semantic layout + named Placeholders + BEM). */
+/*!   Pure structural shell. No JS, no interactive chrome of its own — the rail,  */
+/*!   title, body and actions are all Placeholders the consumer fills, so their   */
+/*!   own widgets (Buttons, nav, headings) carry the focus/keyboard/ARIA.         */
+/*!                                                                              */
+/*!   Layout: __main is a flex row (left rail + right panel) that grows; __footer */
+/*!   is a full-width band pinned beneath it. Stacks to a single column at the    */
+/*!   small breakpoint (SC 1.4.10 reflow). 100% token-driven; component tokens    */
+/*!   alias R&T semantic tokens with Figma-derived fallbacks so it renders before */
+/*!   the Theme loads — Theme :root always wins. Manrope inherited from OS UI.    */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): shell adds no contrast-bearing controls; the 1px        */
+/*!   divider/outline are decorative (panels are separated by layout, not colour  */
+/*!   alone) so SC 1.4.11 is N/A to them. Region naming optional via the Block's  */
+/*!   RegionLabel input -> aria-label. Consumer-supplied actions must meet the    */
+/*!   >=24px (44px primary) target — OS UI Button satisfies this by default.      */
+/*! =========================================================================== */
+
+/* ---- Block ---- */
+.rnt-card-section {
+  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
+  --rnt-card-section-bg:        var(--color-background-default-default, #ffffff);
+  --rnt-card-section-border:    var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-divider:   var(--color-border-default-default, #d9d9d9);
+  --rnt-card-section-fg:        var(--color-text-default-default, #1d354c);
+  /* geometry (component-local; not part of the global scale) */
+  --rnt-card-section-rail:       280px;  /* left panel width on >= medium */
+  --rnt-card-section-min-height: 360px;  /* override to 100% inside a fixed-height modal */
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: var(--rnt-card-section-min-height);
+
+  color: var(--rnt-card-section-fg);             /* inherits Manrope from OS UI body */
+  background-color: var(--rnt-card-section-bg);
+  border: var(--border-size-s, 1px) solid var(--rnt-card-section-border);
+  border-radius: var(--border-radius-soft, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+  overflow: hidden;                              /* clip child borders to the radius */
+}
+
+/* ---- Elements ---- */
+
+/* Row holding the two panels; grows so the footer can pin to the bottom */
+.rnt-card-section__main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;            /* allow children to scroll instead of overflowing */
+}
+
+/* Shared panel padding */
+.rnt-card-section__panel {
+  min-width: 0;             /* let long content wrap instead of forcing overflow */
+}
+
+/* Left rail — fixed width, vertical divider on its trailing edge */
+.rnt-card-section__panel--left {
+  flex: 0 0 var(--rnt-card-section-rail);
+  padding: var(--space-l, 24px);
+  border-right: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* Right panel — fills remaining width, stacks title over body */
+.rnt-card-section__panel--right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl, 32px);
+  gap: var(--space-m, 16px);
+}
+
+/* Title slot (sectioning header — NOT a banner landmark inside <section>) */
+.rnt-card-section__title {
+  flex: 0 0 auto;
+}
+
+/* Body slot — takes the remaining height; scrolls if content is tall */
+.rnt-card-section__content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Full-width action band (sectioning footer — NOT a contentinfo landmark) */
+.rnt-card-section__footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;          /* actions sit at the trailing edge */
+  gap: var(--space-s, 8px);
+  padding: var(--space-m, 16px) var(--space-xl, 32px);
+  border-top: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* ---- Modifier: rail on the right instead of the left ---- */
+.rnt-card-section--rail-end .rnt-card-section__main {
+  flex-direction: row-reverse;
+}
+.rnt-card-section--rail-end .rnt-card-section__panel--left {
+  border-right: 0;
+  border-left: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+}
+
+/* ---- Reflow: stack to one column on small viewports (SC 1.4.10) ---- */
+@media (max-width: 768px) {
+  .rnt-card-section__main,
+  .rnt-card-section--rail-end .rnt-card-section__main {
+    flex-direction: column;
+  }
+  .rnt-card-section__panel--left {
+    flex: 0 0 auto;
+    border-right: 0;
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+  }
+  .rnt-card-section--rail-end .rnt-card-section__panel--left {
+    border-left: 0;
+    border-bottom: var(--border-size-s, 1px) solid var(--rnt-card-section-divider);
+  }
+}
+
+/*! =========================================================================== */
+/*! COMPONENT — rnt-step-item  (Step / status list item)                         */
+/*!   Escalation: L4 — custom Block (semantic <li> + BEM CSS, no JS).            */
+/*!   Two OS UI Placeholders (Icon, Label) -> Block, NOT a Web Component:        */
+/*!   placeholders don't compose with Shadow DOM, and state is presentational    */
+/*!   only (driven by the Status input parameter, a StepStatus Static Entity).   */
+/*!                                                                              */
+/*!   Status -> root BEM modifier:                                              */
+/*!     --is-past    white node + green ring + dark-green check                  */
+/*!     --is-active  solid navy fill + white glyph + emphasized label            */
+/*!     --is-next    white node + gray ring + muted glyph                        */
+/*!   States differ by fill-vs-ring + hue + icon shape, so status is never       */
+/*!   conveyed by color alone (SC 1.4.1).                                        */
+/*!                                                                              */
+/*!   100% token-driven. Component tokens alias R&T semantic tokens with         */
+/*!   Figma-derived fallbacks so it renders before the Theme loads; the Theme's  */
+/*!   :root values always win. Manrope inherited from OS UI body.                */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): every label >=4.5:1, every node ring/glyph >=3:1       */
+/*!   (SC 1.4.3 / 1.4.11). Active step carries aria-current="step" (set on the   */
+/*!   Block). Non-interactive, so no focus ring needed; reduced motion honored.  */
+/*! =========================================================================== */
+
+/* ---- Optional list wrapper: render instances inside <ol class="rnt-step-list"> ---- */
+.rnt-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs, 8px);
+}
+
+/* ---- Block ---- */
+.rnt-step-item {
+  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
+  --rnt-step-item-node-bg:        var(--color-background-default-default, #ffffff);
+  --rnt-step-item-label-fg:       var(--color-text-neutral, #303030);      /* muted — 10.28:1 AA */
+  --rnt-step-item-label-fg-active:var(--color-text-brand, #2a4a66);        /* 8.59:1 AA */
+
+  /* per-status node treatments */
+  --rnt-step-item-ring-past:      var(--color-border-positive-secondary, #009951); /* 3.54:1 UI */
+  --rnt-step-item-glyph-past:     var(--color-text-positive, #02542d);             /* 8.69:1 AA */
+  --rnt-step-item-fill-active:    var(--color-background-brand, #2a4a66);          /* node fill   */
+  --rnt-step-item-glyph-active:   var(--color-background-default-default, #ffffff);/* white on navy 8.59:1 */
+  --rnt-step-item-ring-next:      var(--color-border-neutral-secondary, #767676);  /* 3.54:1 UI */
+  --rnt-step-item-glyph-next:     var(--color-text-neutral, #303030);              /* 10.28:1 AA */
+
+  /* geometry (component-local; not part of the global scale) */
+  --rnt-step-item-node-size:      8px;   /* >=24px even though non-interactive */
+  --rnt-step-item-node-ring:      2px;
+  --rnt-step-item-icon:           16px;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-m, 16px);
+  margin: 0;
+  padding: var(--space-s, 12px) 0;
+
+  /* type — Manrope comes from OS UI body via `inherit`; only deltas restated */
+  font: inherit;
+  font-size: var(--font-size-base, 1rem);     /* 16px */
+  line-height: 1.4;
+
+  transition: color var(--animation-duration-fast, 150ms) var(--animation-function, ease);
+}
+
+/* ---- Elements ---- */
+
+/* The circular node on the rail. Holds the Icon placeholder. */
+.rnt-step-item__node {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--rnt-step-item-node-size);
+  min-height: var(--rnt-step-item-node-size);
+  border-radius: var(--border-radius-circle, 50%);
+  background-color: var(--rnt-step-item-node-bg);
+  /* default = "next" treatment; modifiers below override per status */
+  border: var(--rnt-step-item-node-ring) solid var(--rnt-step-item-ring-next);
+  color: var(--rnt-step-item-glyph-next);   /* placeholder icon inherits via currentColor */
+  transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
+              border-color     var(--animation-duration-fast, 150ms) var(--animation-function, ease),
+              color            var(--animation-duration-fast, 150ms) var(--animation-function, ease);
+}
+
+/* Icon placeholder contents track the node's color (check / numeral / glyph) */
+.rnt-step-item__node .icon,
+.rnt-step-item__node .icon svg,
+.rnt-step-item__node svg {
+  display: block;
+  width: var(--rnt-step-item-icon);
+  height: var(--rnt-step-item-icon);
+  fill: currentColor;
+  color: currentColor;
+}
+
+.rnt-step-item__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+  color: var(--rnt-step-item-label-fg);            /* muted default — 10.28:1 AA */
+  font-weight: var(--font-weight-regular, 400);
+}
+
+/* ---- Modifiers (status) ---- */
+
+/* PAST — completed: white node, green ring, dark-green check */
+
+
+/* ACTIVE — current: solid navy fill, white glyph, emphasized label */
+.rnt-step-item--is-active .rnt-step-item__node {
+  background-color: var(--rnt-step-item-fill-active);
+  border-color: var(--rnt-step-item-fill-active);
+  color: var(--rnt-step-item-glyph-active);        /* white on #2a4a66 — 8.59:1 AA */
+}
+.rnt-step-item--is-active .rnt-step-item__label {
+  color: var(--rnt-step-item-label-fg-active);     /* #2a4a66 on #fff — 8.59:1 AA */
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+/* NEXT — upcoming: white node, gray ring, muted glyph (matches the base) */
+.rnt-step-item--is-next .rnt-step-item__node {
+  background-color: var(--rnt-step-item-ring-next);
+  border-color: var(--rnt-step-item-ring-next);    /* #767676 on #fff — 3.54:1 UI */
+  color: var(--rnt-step-item-glyph-next);
+}
+
+/* ---- Lighter muted-label option (matches Figma #757575 exactly) ----
+   The Figma muted gray passes at a tight 4.60:1. If you prefer that lighter
+   look over the #303030 default, set this once in the Theme :root (token-only,
+   no class restatement):
+     :root { --color-text-neutral: #757575; }   (* 4.60:1 AA — borderline *)
+   ------------------------------------------------------------------------- */
+
+/* SC 2.3.3 — honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .rnt-step-item,
+  .rnt-step-item__node {
+    transition: none;
+  }
+}
