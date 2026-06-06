@@ -2190,3 +2190,11 @@ Dropdown Tags
 .osui-dropdown-tags.vscomp-ele[disabled] .vscomp-value-tag .vscomp-value-tag-clear-button {
   display: none !important;
 }
+
+.vscomp-wrapper:not(.has-value) .vscomp-value {
+    color: var(--rnt-neutral-500);
+  }
+
+  .vscomp-toggle-button:after {
+    color: var(--rnt-neutral-500);
+  }
