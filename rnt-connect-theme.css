@@ -2070,7 +2070,7 @@ span.validation-message {
 }
 
 /* Helper / description paragraph */
-.rnt-card-section__content > p {
+.rnt-card-section__content p {
   color: var(--color-text-secondary);
   font-family: var(--font-family-body);
   font-weight: var(--font-regular);
