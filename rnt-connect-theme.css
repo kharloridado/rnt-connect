@@ -2076,3 +2076,25 @@ span.validation-message {
   font-weight: var(--font-regular);
   line-height: 1.5;
 }
+
+
+.rnt-step-item--is-past .rnt-step-item__node {
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  position: relative;
+  box-sizing: border-box;
+}
+.rnt-step-item--is-past .rnt-step-item__node::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 6px;
+  height: 11px;
+  border: solid rgb(0, 153, 81);
+  border-width: 0 2.5px 2.5px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-sizing: border-box;
+}
