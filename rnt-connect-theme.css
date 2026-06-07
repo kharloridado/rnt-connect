@@ -745,6 +745,7 @@
 /*! --------------------------------------------------------------------------- */
 html,
 body {
+  color: var(--color-text-default);
   font-family: var(--font-family-body);
   font-size: var(--font-size-base);
 }
