@@ -2527,3 +2527,64 @@ label.mandatory::after {
   font-size: var(--font-size-base);
   border-radius: var(--border-radius-circle);
 }
+
+/* ============================================================================
+   Component:  rnt-blank-slate  (carded empty-state surface)
+   Pattern:    OS UI Blank Slate (.blank-slate) — additive carded variant
+   Location:   Theme CSS — applied via ExtendedClass="blank-slate rnt-blank-slate"
+   Escalation: L3 — ExtendedClass + scoped element overrides on a stock pattern
+   Tokens:     --color-background-secondary, --color-border-default,
+               --color-text-neutral-secondary, --border-radius-rounded,
+               --border-size-s, --space-xl / -l / -m / -none
+   A11y (WCAG 2.2 AA): container edge is decorative (SC 1.4.11 N/A); description
+   text re-pointed to an AA-safe token — see FLAG 3.
+   ============================================================================ */
+
+/* ---- Block: carded surface (applied alongside stock .blank-slate) ---- */
+.rnt-blank-slate {
+  /* component tokens -> R&T semantic aliases (fallback = in-theme value) */
+  --rnt-blank-slate-surface:    var(--color-background-secondary, #f5f5f5);  /* FLAG 1 */
+  --rnt-blank-slate-border:     var(--color-border-default, #d9d9d9);
+  --rnt-blank-slate-radius:     var(--border-radius-rounded, 8px);
+  --rnt-blank-slate-pad-block:  var(--space-xl, 32px);                       /* FLAG 2: --space-xl is 32px, not 40px */
+  --rnt-blank-slate-pad-inline: var(--space-l, 24px);
+  --rnt-blank-slate-gap:        var(--space-m, 16px);   /* rhythm: action / title / description */
+  --rnt-blank-slate-min-height: 320px;                  /* component geometry; no global token */
+
+  /* surface — additive; stock .blank-slate is transparent & borderless */
+  background-color: var(--rnt-blank-slate-surface);
+  border: var(--border-size-s, 1px) solid var(--rnt-blank-slate-border);
+  /* decorative container edge, NOT a control affordance -> SC 1.4.11 (3:1) N/A */
+  border-radius: var(--rnt-blank-slate-radius);
+
+  /* layout — compose with stock flex column: center + height + rhythm */
+  justify-content: center;          /* stock uses space-around; center reads better in a fixed card */
+  gap: var(--rnt-blank-slate-gap);
+  min-height: var(--rnt-blank-slate-min-height);
+  padding: var(--rnt-blank-slate-pad-block) var(--rnt-blank-slate-pad-inline);
+}
+
+/* ---- Elements: tune the stock slots inside the carded context ---- */
+
+/* FLAG 3 — AA fix. The original used var(--color-text-secondary), which resolves
+   to #757575 in this theme (4.06:1 on #f5f5f5 -> FAILS body-text 4.5:1). The
+   #5e5e5e fallback never applied because the token IS defined. Re-pointed to
+   --color-text-neutral-secondary (#5a5a5a · ~6.4:1 -> AA pass) to match the
+   author's stated intent and to inherit the dark-mode override. */
+.rnt-blank-slate .blank-slate-description {
+  color: var(--color-text-neutral-secondary, #5a5a5a);
+}
+
+/* Spacing is owned by the block's flex `gap`; drop the stock slot paddings
+   so they don't double up inside the panel. */
+.rnt-blank-slate .blank-slate-description,
+.rnt-blank-slate .blank-slate-actions {
+  padding: var(--space-none, 0);
+}
+
+/* ---- Modifier: action above title/description (matches the supplied mockup) ----
+   Stock placeholder order is Icon -> Title -> Content -> Actions. Omit this
+   modifier to keep the conventional title-first reading order. */
+.rnt-blank-slate--actions-top .blank-slate-actions {
+  order: -1;
+}
