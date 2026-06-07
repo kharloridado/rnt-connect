@@ -1557,6 +1557,10 @@ div.feedback-message.feedback-message-info .feedback-message-close {
   padding-top: var(--space-none);
 }
 
+.osui-tabs--is-horizontal .osui-tabs__content {
+    border-top: var(--border-size-s) solid var(--color-border-default);
+}
+
 /* ---- 4.5. Pagination ---- */
 .pagination-container {
   --color-neutral-4: var(--rnt-primary-300);   /* inactive border */
