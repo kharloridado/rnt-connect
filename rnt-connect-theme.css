@@ -2640,5 +2640,5 @@ label.mandatory::after {
 .sticky-col-table-wrapper thead th:first-child,
 .sticky-col-table-wrapper thead th:last-child {
   z-index: 3;
-  background: var(--color-background-header);       /* match your header background */
+  background: var(--color-background-secondary);       /* match your header background */
 }
