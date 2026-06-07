@@ -337,7 +337,8 @@
   --max-width: 1200px;
 
   /* App-shell layout primitives (added: replaces magic numbers in §2) */
-  --rnt-header-size:          56px;  /* fixed header height                  */
+  --rnt-header-size:          64px;  /* fixed header height                  */
+  --header-size:          var(--rnt-header-size);  /* fixed header height     */
   --rnt-footer-size:          37px;  /* fixed footer height                  */
   --rnt-menu-collapsed-size:  64px;  /* side menu width when collapsed       */
   --rnt-menu-item-size:       36px;  /* menu row / icon square               */
