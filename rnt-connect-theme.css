@@ -2676,3 +2676,18 @@ label.mandatory::after {
     outline-offset: var(--border-size-m);
     box-shadow: none;
 }
+
+.filter-popover.popover {
+    width: 660px !important;
+    max-width: 660px !important;
+}
+.filter-popover .popover-bottom {
+    width: 100%;
+    max-width: 660px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4);
+    padding: 16px;
+}
