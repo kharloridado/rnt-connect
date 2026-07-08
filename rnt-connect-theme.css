@@ -2028,7 +2028,7 @@ label.mandatory::after {
   --rnt-ann-bg-pressed:    var(--color-background-brand-secondary, #e3edf4);
   --rnt-ann-bg-active:     var(--color-background-brand-tertiary, #f3f7fa);
   --rnt-ann-border:        var(--color-border-default, #d1d5db);
-  --rnt-ann-border-active: var(--rnt-primary-800, #2a4a66);
+  --rnt-ann-border-active: var(--rnt-primary-600, #5A7F9E);
   --rnt-ann-radius:        var(--border-radius-rounded, 12px);
   --rnt-ann-shadow:        var(--shadow-s, 0 1px 3px rgba(16, 24, 40, 0.1));
   --rnt-ann-pad:           var(--space-m, 16px);
@@ -2113,9 +2113,8 @@ label.mandatory::after {
   box-shadow: none;
 }
 .rnt-announcement--is-active {
-  background-color: var(--rnt-ann-bg-active);
-  border-color: var(--rnt-ann-border-active);
-  border-width: var(--border-size-s);
+  --rnt-ann-bg: var(--rnt-primary-200);
+  --rnt-ann-border: var(--rnt-primary-600);
 }
 .rnt-announcement:has(.rnt-announcement__action:focus-visible) {
   outline: var(--border-size-m) solid var(--color-focus-outline);
