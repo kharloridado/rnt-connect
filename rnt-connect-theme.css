@@ -2731,3 +2731,15 @@ label.mandatory::after {
   margin: 0;
   pointer-events: none;
 }
+
+.card {
+    border-radius: var(--border-radius-large);
+}
+
+.card-title {
+    padding: var(--space-l) var(--space-l) var(--space-none) var(--space-l);
+}
+
+.card-content {
+    padding: var(--space-l);
+}
