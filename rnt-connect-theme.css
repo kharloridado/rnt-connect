@@ -1776,9 +1776,12 @@ a:not(.active):hover .icon-label,
 .osui-submenu:not(.osui-submenu--is-open) > .osui-submenu__header:hover {
   background-color: var(--color-background-brand-secondary);
 }
-a.active .icon-label,
-.osui-submenu--is-open > .osui-submenu__header {
+a.active .icon-label {
   background-color: var(--color-background-brand-secondary-hover);   /* #ccddea */
+}
+
+.osui-submenu--is-open > .osui-submenu__header {
+    background-color: var(--rnt-primary-100);
 }
 
 /* D. Collapsed state (ancestor hook = .layout.menu-collapsed) */
