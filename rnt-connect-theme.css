@@ -993,6 +993,9 @@ footer {
   margin-top: var(--space-s);
   display: flex;
   align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .menu-collapsed .app-menu-links > a {
