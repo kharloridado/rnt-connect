@@ -2126,10 +2126,6 @@ label.mandatory::after {
   box-shadow: none;
 }
 .rnt-announcement--is-active {
-  --rnt-ann-bg: var();
-  --rnt-ann-bg: var();
-  --rnt-ann-bg: var(-);
-  --rnt-ann-bg: var(--);
   --rnt-ann-bg: var(--rnt-primary-200);
   --rnt-ann-border: var(--rnt-primary-600);
 }
