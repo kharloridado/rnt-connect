@@ -207,6 +207,11 @@
   --rnt-funding-900: #04254f;
   --rnt-funding-primary: #0853af;
   --rnt-funding-secondary: #143656;
+  /* info — partial ramp; only the steps the Info tag consumes.
+     Distinct from --rnt-blue-*: less saturated (blue-600 is #3271d7). */
+  --rnt-info-200: #e3ebf9;
+  --rnt-info-600: #4270d0;
+  --rnt-info-700: #3860b4;
   /* purple */
   --rnt-purple-eyeshadow: #ca6cea;
   --rnt-purple-blush: #a42add;
@@ -346,6 +351,7 @@
   /* ========================================================= */
   /* SEMANTIC COLOR ROLES (light) — framework + components      */
   /* ========================================================= */
+  --color-background-alert-tertiary: var(--rnt-red-100);
   --color-background-brand: var(--rnt-primary-800);
   --color-background-brand-hover: var(--rnt-primary-900);
   --color-background-brand-secondary: var(--rnt-primary-200);
@@ -366,19 +372,24 @@
   --color-background-danger-tertiary-hover: var(--rnt-red-200);
   --color-background-ddm: var(--rnt-ddm-100);
   --color-background-ddm-hover: var(--rnt-ddm-200);
-  --color-background-ddm-secondary: var(--rnt-ddm-200);
-  --color-background-ddm-secondary-hover: var(--rnt-ddm-300);
+  /* -secondary/-secondary-hover were one step dark vs cdmx/rtid/funding, which
+     put ramp-100/-200 here. Realigned so the ddm tint matches its siblings. */
+  --color-background-ddm-secondary: var(--rnt-ddm-100);
+  --color-background-ddm-secondary-hover: var(--rnt-ddm-200);
   --color-background-ddm-tertiary: var(--rnt-ddm-300);
   --color-background-ddm-tertiary-hover: var(--rnt-ddm-400);
   --color-background-default: var(--rnt-white-1000);
   --color-background-default-hover: var(--rnt-neutral-100);
   --color-background-disabled: var(--rnt-neutral-300);
+  --color-background-feature-tertiary: var(--rnt-secondary-100);
   --color-background-funding: var(--rnt-white-1000);
   --color-background-funding-default-hover: var(--rnt-funding-100);
   --color-background-funding-secondary: var(--rnt-funding-100);
   --color-background-funding-secondary-hover: var(--rnt-funding-200);
   --color-background-funding-tertiary: var(--rnt-funding-300);
   --color-background-funding-tertiary-hover: var(--rnt-funding-400);
+  --color-background-info-tertiary: var(--rnt-info-200);
+  --color-background-maintenance-tertiary: var(--rnt-yellow-200);
   --color-background-neutral: var(--rnt-slate-700);
   --color-background-neutral-hover: var(--rnt-slate-800);
   --color-background-neutral-secondary: var(--rnt-slate-300);
@@ -391,6 +402,7 @@
   --color-background-positive-secondary-hover: var(--rnt-green-300);
   --color-background-positive-tertiary: var(--rnt-green-100);
   --color-background-positive-tertiary-hover: var(--rnt-green-200);
+  --color-background-promo-tertiary: var(--rnt-green-200);
   --color-background-rtid: var(--rnt-white-1000);
   --color-background-rtid-default-hover: var(--rnt-rtid-100);
   --color-background-rtid-secondary: var(--rnt-rtid-100);
@@ -411,6 +423,7 @@
   --color-background-warning-secondary-hover: var(--rnt-yellow-300);
   --color-background-warning-tertiary: var(--rnt-yellow-100);
   --color-background-warning-tertiary-hover: var(--rnt-yellow-200);
+  --color-text-alert: var(--rnt-red-600);
   --color-text-brand: var(--rnt-primary-800);
   --color-text-brand-on-brand: var(--rnt-primary-100);
   --color-text-brand-on-brand-secondary: var(--rnt-primary-900);
@@ -432,9 +445,12 @@
   --color-text-default: var(--rnt-neutral-900);
   --color-text-disabled: var(--rnt-neutral-400);
   --color-text-disabled-on-disabled: var(--rnt-neutral-400);
+  --color-text-feature: var(--rnt-secondary-800);
   --color-text-funding: var(--rnt-funding-900);
   --color-text-funding-secondary: var(--rnt-funding-500);
   --color-text-funding-tertiary: var(--rnt-funding-400);
+  --color-text-info: var(--rnt-info-700);
+  --color-text-maintenance: var(--rnt-yellow-700);
   --color-text-neutral: var(--rnt-slate-900);
   --color-text-neutral-on-neutral: var(--rnt-slate-100);
   --color-text-neutral-on-neutral-secondary: var(--rnt-slate-900);
@@ -447,6 +463,7 @@
   --color-text-positive-on-positive-tertiary: var(--rnt-green-800);
   --color-text-positive-secondary: var(--rnt-green-600);
   --color-text-positive-tertiary: var(--rnt-green-500);
+  --color-text-promo: var(--rnt-green-800);
   --color-text-rtid: var(--rnt-rtid-900);
   --color-text-rtid-secondary: var(--rnt-rtid-500);
   --color-text-rtid-tertiary: var(--rnt-rtid-400);
@@ -460,6 +477,7 @@
   --color-text-warning-on-warning-tertiary: var(--rnt-yellow-900);
   --color-text-warning-secondary: var(--rnt-yellow-700);
   --color-text-warning-tertiary: var(--rnt-yellow-600);
+  --color-border-alert-secondary: var(--rnt-red-500);
   --color-border-brand: var(--rnt-primary-800);
   --color-border-brand-secondary: var(--rnt-primary-600);
   --color-border-brand-tertiary: var(--rnt-primary-500);
@@ -474,15 +492,19 @@
   --color-border-ddm-tertiary: var(--rnt-ddm-700);
   --color-border-default: var(--rnt-neutral-300);
   --color-border-disabled: var(--rnt-neutral-400);
+  --color-border-feature-secondary: var(--rnt-secondary-600);
   --color-border-funding: var(--rnt-funding-300);
   --color-border-funding-secondary: var(--rnt-funding-500);
   --color-border-funding-tertiary: var(--rnt-funding-700);
+  --color-border-info-secondary: var(--rnt-info-600);
+  --color-border-maintenance-secondary: var(--rnt-yellow-500);
   --color-border-neutral: var(--rnt-slate-900);
   --color-border-neutral-secondary: var(--rnt-slate-600);
   --color-border-neutral-tertiary: var(--rnt-slate-400);
   --color-border-positive: var(--rnt-green-800);
   --color-border-positive-secondary: var(--rnt-green-600);
   --color-border-positive-tertiary: var(--rnt-green-500);
+  --color-border-promo-secondary: var(--rnt-green-500);
   --color-border-rtid: var(--rnt-rtid-300);
   --color-border-rtid-secondary: var(--rnt-rtid-500);
   --color-border-rtid-tertiary: var(--rnt-rtid-700);
@@ -1634,49 +1656,55 @@ div.feedback-message.feedback-message-info .feedback-message-close {
   border-color:     var(--color-border-brand-secondary);
   color:            var(--color-text-brand);
 }
-.rnt-tint--Alert {
-  background-color: var(--color-background-warning-tertiary);
-  border-color:     var(--color-border-warning-secondary);
-  color:            var(--color-text-warning);
+/* Types Tags — capitalised to match the Type value they are bound to.
+   Note --Info (tag) and --info (semantic brand tint, above) are different
+   colours and differ only by case. */
+.rnt-tint--Info {
+  background-color: var(--color-background-info-tertiary);
+  border-color:     var(--color-border-info-secondary);
+  color:            var(--color-text-info);
 }
-
+.rnt-tint--Maintenance {
+  background-color: var(--color-background-maintenance-tertiary);
+  border-color:     var(--color-border-maintenance-secondary);
+  color:            var(--color-text-maintenance);
+}
+.rnt-tint--Alert {
+  background-color: var(--color-background-alert-tertiary);
+  border-color:     var(--color-border-alert-secondary);
+  color:            var(--color-text-alert);
+}
 .rnt-tint--Promo {
   background-color: var(--color-background-promo-tertiary);
   border-color:     var(--color-border-promo-secondary);
   color:            var(--color-text-promo);
 }
-.rnt-tint--Maintenance {
-  background-color: var(--color-background-promo-tertiary);
-  border-color:     var(--color-border-promo-secondary);
-  color:            var(--color-text-promo);
-}
 .rnt-tint--Feature {
-  background-color: var(--color-background-promo-tertiary);
-  border-color:     var(--color-border-promo-secondary);
-  color:            var(--color-text-promo);
+  background-color: var(--color-background-feature-tertiary);
+  border-color:     var(--color-border-feature-secondary);
+  color:            var(--color-text-feature);
 }
-
-
-
 
 .rnt-tint--neutral {
   background-color: var(--color-background-neutral-tertiary);
   border-color:     var(--color-border-neutral-secondary);
   color:            var(--color-text-neutral);
 }
+/* Program tags — bg ramp-100 · border ramp-500 · text ramp-900, as --funding
+   already did. cdmx/ddm/rtid had drifted to the ramp-700 border. */
 .rnt-tint--cdmx {
   background-color: var(--color-background-cdmx-secondary);
-  border-color:     var(--color-border-cdmx-tertiary);
+  border-color:     var(--color-border-cdmx-secondary);
   color:            var(--color-text-cdmx);
 }
 .rnt-tint--ddm {
   background-color: var(--color-background-ddm-secondary);
-  border-color:     var(--color-border-ddm-tertiary);
+  border-color:     var(--color-border-ddm-secondary);
   color:            var(--color-text-ddm);
 }
 .rnt-tint--rtid {
   background-color: var(--color-background-rtid-secondary);
-  border-color:     var(--color-border-rtid-tertiary);
+  border-color:     var(--color-border-rtid-secondary);
   color:            var(--color-text-rtid);
 }
 .rnt-tint--funding {
