@@ -1020,6 +1020,10 @@ footer {
   text-overflow: ellipsis;
 }
 
+.layout-side .app-menu-links .osui-submenu__items a span {
+  white-space: nowrap;
+}
+
 .menu-collapsed .app-menu-links > a {
   width: var(--rnt-menu-item-size);
   display: flex;
