@@ -467,7 +467,7 @@
   --color-text-rtid: var(--rnt-rtid-900);
   --color-text-rtid-secondary: var(--rnt-rtid-500);
   --color-text-rtid-tertiary: var(--rnt-rtid-400);
-  --color-text-secondary: var(--rnt-neutral-500);
+  --color-text-secondary: var(--rnt-neutral-500);   /* #757575 · on #f5f5f5 4.23:1  FAILS AA · on #ffffff 4.61:1 AA */
   --color-text-tertiary: var(--rnt-neutral-400);
   --color-text-utilities-text-on-measurement: var(--rnt-pink-800);
   --color-text-utilities-text-on-overlay: var(--rnt-black-1000);
@@ -1386,6 +1386,13 @@ span.validation-message {
   background-color: var(--color-background-default);
   height: 48px;
   vertical-align: middle;
+}
+
+/* Column dividers. The last column is skipped — .table's own border closes it.
+   Sticky tables suppress these on non-sticky cells; see §Sticky columns. */
+.table th:not(:last-child),
+.table td:not(:last-child) {
+  border-right: var(--border-size-s) solid var(--color-border-default);
 }
 
 .table td a {
@@ -2626,6 +2633,15 @@ label.mandatory::after {
   z-index: 2;
   background: #fff;
   border-left: var(--border-size-s) solid var(--color-border-default);   /* separation border */
+}
+
+/* Sticky tables show dividers only on the sticky columns. Drop the default
+   per-column divider from every non-sticky cell. The last cell is included
+   here — it is separated by the border-left above, not a border-right.
+   `> table` outranks `.table td:not(:last-child)` regardless of source order. */
+.sticky-col-table-wrapper > table th:not(:first-child),
+.sticky-col-table-wrapper > table td:not(:first-child) {
+  border-right: none;
 }
 
 /* Header cells of sticky columns sit above the body cells */
