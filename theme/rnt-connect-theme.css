@@ -1022,6 +1022,8 @@ footer {
 
 .layout-side .app-menu-links .osui-submenu__items a span {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .menu-collapsed .app-menu-links > a {
