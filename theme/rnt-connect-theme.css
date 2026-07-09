@@ -1146,7 +1146,13 @@ footer a + a::before {
 .form-control[data-input],
 .form-control[data-textarea] {
   background-color: var(--color-background-default);
-  border: var(--border-size-s) solid var(--color-neutral-5);   /* AA-safe resting */
+  /* Resting border per Figma Admin/Frame 439 (#d9d9d9).
+     light: #d9d9d9 on #ffffff · 1.41:1 — FAILS SC 1.4.11 (needs 3:1). FND-001
+     dark:  #444444 on #1e1e1e · 1.71:1 — FAILS SC 1.4.11. FND-001
+     Implemented as designed; raised as a design-conformance finding rather
+     than re-shaded here. Hover (#444444) and focus (brand + 2px ring) carry
+     the accessible affordance. */
+  border: var(--border-size-s) solid var(--color-border-default);
   border-radius: var(--border-radius-soft);
   color: var(--color-text-default);
   font-size: var(--font-size-base);
@@ -2725,10 +2731,12 @@ label.mandatory::after {
     text-decoration: none;
 }
 
-/* 4) Restore original lighter RNT control borders (HAF darkened them). */
+/* 4) Restore original lighter RNT control borders (HAF darkens resting to
+      --color-neutral-7 and hover to --color-neutral-8). Must track the base
+      rule in §3.1 exactly, or HAF screens drift from non-HAF screens. */
 .has-accessible-features .form-control[data-input],
 .has-accessible-features .form-control[data-textarea] {
-    border-color: var(--color-neutral-5);
+    border-color: var(--color-border-default);
 }
 .has-accessible-features .form-control[data-input]:hover,
 .has-accessible-features .form-control[data-textarea]:hover {
