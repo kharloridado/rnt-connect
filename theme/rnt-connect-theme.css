@@ -2069,6 +2069,31 @@ label.mandatory::after {
 .rnt-icon-button--filled:hover {
   background-color: color-mix(in srgb, var(--color-background-brand) 88%, #000);
 }
+
+/* Borderless clickable glyph — the .app-menu-control chevron treatment,
+   generalized. Chrome-free until hovered, then a solid brand tint. Pair with
+   --compact for menu-row metrics. */
+.rnt-icon-button--ghost {
+  border-color: transparent;
+  border-radius: var(--border-radius-soft);
+}
+.rnt-icon-button--ghost:hover:not(:disabled):not([aria-disabled='true']) {
+  border-color: transparent;
+  /* light: glyph #2a4a66 on #e6eef5 · ~8:1
+     dark:  glyph #f3f7fa on #5a7f9e · ~3.9:1 — meets SC 1.4.11 (non-text, 3:1) */
+  background-color: var(--color-background-brand-secondary);
+}
+.rnt-icon-button--ghost:active:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--color-background-brand-secondary-hover);
+}
+
+/* Menu-row sized (36px). Above the 24px SC 2.5.8 AA floor, below the 44px
+   SC 2.5.5 AAA target the unmodified block hits. */
+.rnt-icon-button--compact {
+  inline-size: var(--rnt-menu-item-size);
+  block-size: var(--rnt-menu-item-size);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rnt-icon-button { transition: none; }
 }
