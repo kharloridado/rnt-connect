@@ -1417,7 +1417,7 @@ span.validation-message {
 
 /* ---- 3.4. Button Group ---- */
 .button-group {
-  background-color: var(--color-background-secondary);
+  background-color: var(--color-background-default);
   border: var(--border-size-s) solid var(--color-border-default);
   border-radius: var(--border-radius-rounded);
   padding: var(--rnt-space-050);
@@ -1454,9 +1454,9 @@ span.validation-message {
 }
 
 .button-group .button-group-item.button-group-selected-item {
-  background-color: var(--rnt-primary-100);
-  border-color: var(--rnt-primary-600);
-  color: var(--color-text-brand);
+  background-color: var(--color-background-brand-secondary);
+  border-color: transparent;
+  color: var(--color-text-brand);            /* #2a4a66 on #e6eef5 · 7.9:1 AAA */
   font-weight: var(--font-semi-bold);
 }
 
