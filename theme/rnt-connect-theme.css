@@ -1249,6 +1249,14 @@ footer a + a::before {
 /* 8. Leading / trailing icon tone (Input Icon / Search pattern) */
 .input-with-icon .input-with-icon-content-icon,
 .input-with-icon .input-with-icon-content-icon a { color: var(--color-neutral-5); }
+
+/* 8a. Leading-icon gutter.
+   Design: 12px inset + 16px icon + 20px gap = text 48px from the input's left edge.
+   OSUI ships --space-xl (32px) here, which leaves a 4px gap. Padding is measured
+   inside the border, so the border width comes off the 48px. */
+.input-with-icon .input-with-icon-content-icon:not(:empty) + .input-with-icon-input .form-control[data-input] {
+  padding-left: calc(var(--space-2xl) - var(--border-size-s));
+}
 .input-with-icon .input-with-icon-content-icon.search-actions:hover { color: var(--color-neutral-6); }
 
 /* 9. Error-state trailing status icon -> danger token */
