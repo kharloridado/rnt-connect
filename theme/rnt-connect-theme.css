@@ -1372,10 +1372,11 @@ span.validation-message {
   color: var(--color-text-secondary);
   border-bottom: var(--border-size-s) solid var(--color-border-default);
   background-color: var(--color-background-secondary);
-  padding: var(--space-m);
   font-weight: var(--font-semi-bold);
   text-align: left;
-  vertical-align: middle;
+  vertical-align: middle;    
+  height: 40px;
+  padding: var(--space-s) var(--space-m);
 }
 
 .table td,
@@ -1383,7 +1384,7 @@ span.validation-message {
   color: var(--color-text-default);
   border-bottom: var(--border-size-s) solid var(--color-border-default);
   background-color: var(--color-background-default);
-  padding: var(--space-m);
+  height: 48px;
   vertical-align: middle;
 }
 
