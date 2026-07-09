@@ -1,0 +1,108 @@
+/*! =========================================================================== */
+/*! COMPONENT — rnt-quick-link  (Quick Link Card)                                */
+/*!   Escalation: L4 — custom Block (semantic <button> + BEM CSS + vanilla JS).  */
+/*!   Not an OS UI pattern wrapper and not a Web Component (per request).         */
+/*!                                                                              */
+/*!   States: default · :hover · :active (pressed). No persistent/selected       */
+/*!   state — the darker fill is momentary press feedback only.                  */
+/*!                                                                              */
+/*!   100% token-driven. Component-scoped tokens alias R&T semantic tokens with  */
+/*!   Figma-derived fallbacks so it renders even before the Theme loads; the     */
+/*!   Theme's :root values always win. Manrope inherited from OS UI body.        */
+/*!                                                                              */
+/*!   A11y (WCAG 2.2 AA): text/bg >=4.5:1 in all 3 states; single large target   */
+/*!   (whole card, >=253x80) so SC 2.5.8 is satisfied with room to spare; focus  */
+/*!   ring via OS UI focus token; reduced motion respected. Ratios noted inline. */
+/*! =========================================================================== */
+
+/* ---- Block ---- */
+.rnt-quick-link {
+  /* component tokens -> R&T semantic aliases (fallback = Figma value) */
+  --rnt-quick-link-bg:         var(--color-background-default-default, #ffffff);
+  --rnt-quick-link-bg-hover:   var(--color-background-brand-tertiary, #f3f7fa);
+  --rnt-quick-link-bg-pressed: var(--color-background-brand-secondary, #ccddea);
+  --rnt-quick-link-fg:         var(--color-text-default-default, #1d354c);
+  --rnt-quick-link-border:     var(--color-border-default-default, #d9d9d9);
+  /* geometry (component-local; not part of the global scale) */
+  --rnt-quick-link-min-height: 80px;
+  --rnt-quick-link-affordance: 40px;  /* arrow disc — decorative, inside the target */
+  --rnt-quick-link-icon:       16px;
+
+  /* reset native button chrome, keep it a real <button> */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m, 16px);
+  width: 100%;
+  min-height: var(--rnt-quick-link-min-height);
+  margin: 0;
+  padding: var(--space-m, 16px) var(--space-l, 24px);
+  text-align: left;
+  cursor: pointer;
+
+  /* type — Manrope comes from OS UI body via `inherit`; only deltas restated */
+  font: inherit;
+  font-size: var(--font-size-base, 1rem);     /* 16px */
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.4;
+
+  /* surface */
+  color: var(--rnt-quick-link-fg);            /* #1d354c on #ffffff -> 12.6:1 AA */
+  background-color: var(--rnt-quick-link-bg);
+  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-soft, 8px);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+
+  transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
+              box-shadow var(--animation-duration-fast, 150ms) var(--animation-function, ease);
+}
+
+/* ---- Elements ---- */
+.rnt-quick-link__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.rnt-quick-link__affordance {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rnt-quick-link-affordance);
+  height: var(--rnt-quick-link-affordance);
+  border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+  border-radius: var(--border-radius-circle, 50%);
+  color: inherit;          /* icon tracks the text color */
+}
+
+.rnt-quick-link__icon {
+  display: block;
+  width: var(--rnt-quick-link-icon);
+  height: var(--rnt-quick-link-icon);
+}
+
+/* ---- Pseudo-state interactions (order: hover, then active wins on press) ---- */
+.rnt-quick-link:hover {
+  background-color: var(--rnt-quick-link-bg-hover);     /* #1d354c on #f3f7fa -> 11.4:1 AA */
+}
+
+/* pressed — held down via pointer or keyboard (Space); momentary, no toggle */
+.rnt-quick-link:active {
+  background-color: var(--rnt-quick-link-bg-pressed);   /* #1d354c on #ccddea -> 8.8:1 AA */
+}
+
+/* SC 2.4.7 / 2.4.11 / 2.4.13 — visible, >=2px, >=3:1 focus ring */
+.rnt-quick-link:focus-visible {
+  outline: 2px solid var(--color-focus-outline, #1d354c);  /* >=3:1 on all 3 bg states */
+  outline-offset: 2px;
+}
+
+/* SC 2.3.3 — honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .rnt-quick-link {
+    transition: none;
+  }
+}

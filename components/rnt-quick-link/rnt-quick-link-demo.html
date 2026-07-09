@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>rnt-quick-link — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ---- DEMO ONLY: these tokens come from your R&T Theme in production.
+         Included here so the file renders standalone. ---- */
+  :root {
+    --color-background-default-default: #ffffff;
+    --color-background-brand-tertiary:  #f3f7fa;
+    --color-background-brand-secondary: #ccddea;
+    --color-text-default-default:       #1d354c;
+    --color-border-default-default:     #d9d9d9;
+    --color-focus-outline:              #1d354c;
+    --space-m: 16px;
+    --space-l: 24px;
+    --font-size-base: 16px;
+    --font-weight-regular: 400;
+    --border-size-s: 1px;
+    --border-radius-soft: 8px;
+    --border-radius-circle: 9999px;
+    --shadow-xs: 0 1px 2px rgba(12, 12, 13, 0.05);
+    --animation-duration-fast: 150ms;
+    --animation-function: ease;
+  }
+  body {
+    font-family: "Manrope", system-ui, sans-serif;
+    background: #eef1f4;
+    margin: 0;
+    padding: 40px;
+    color: #1d354c;
+  }
+  .demo-grid { display: flex; flex-direction: column; gap: 16px; max-width: 280px; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0 0 4px; }
+  p.note { font-size: 13px; color: #5a7f9e; margin: 0 0 24px; max-width: 280px; }
+  h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #5a7f9e; margin: 28px 0 4px; }
+
+  /* ===== rnt-quick-link.css (inlined) ===== */
+  .rnt-quick-link {
+    --rnt-quick-link-bg:         var(--color-background-default-default, #ffffff);
+    --rnt-quick-link-bg-hover:   var(--color-background-brand-tertiary, #f3f7fa);
+    --rnt-quick-link-bg-pressed: var(--color-background-brand-secondary, #ccddea);
+    --rnt-quick-link-fg:         var(--color-text-default-default, #1d354c);
+    --rnt-quick-link-border:     var(--color-border-default-default, #d9d9d9);
+    --rnt-quick-link-min-height: 80px;
+    --rnt-quick-link-affordance: 40px;
+    --rnt-quick-link-icon:       16px;
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    display: flex; align-items: center; gap: var(--space-m, 16px);
+    width: 100%; min-height: var(--rnt-quick-link-min-height);
+    margin: 0; padding: var(--space-m, 16px) var(--space-l, 24px);
+    text-align: left; cursor: pointer;
+    font: inherit; font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-regular, 400); line-height: 1.4;
+    color: var(--rnt-quick-link-fg);
+    background-color: var(--rnt-quick-link-bg);
+    border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+    border-radius: var(--border-radius-soft, 8px);
+    box-shadow: var(--shadow-xs, 0 1px 2px rgba(12, 12, 13, 0.05));
+    transition: background-color var(--animation-duration-fast, 150ms) var(--animation-function, ease),
+                box-shadow var(--animation-duration-fast, 150ms) var(--animation-function, ease);
+  }
+  .rnt-quick-link__label { flex: 1 1 auto; min-width: 0; word-break: break-word; }
+  .rnt-quick-link__affordance {
+    flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+    width: var(--rnt-quick-link-affordance); height: var(--rnt-quick-link-affordance);
+    border: var(--border-size-s, 1px) solid var(--rnt-quick-link-border);
+    border-radius: var(--border-radius-circle, 50%); color: inherit;
+  }
+  .rnt-quick-link__icon { display: block; width: var(--rnt-quick-link-icon); height: var(--rnt-quick-link-icon); }
+  .rnt-quick-link:hover { background-color: var(--rnt-quick-link-bg-hover); }
+  .rnt-quick-link:active { background-color: var(--rnt-quick-link-bg-pressed); }
+  .rnt-quick-link:focus-visible { outline: 2px solid var(--color-focus-outline, #1d354c); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .rnt-quick-link { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <h1>rnt-quick-link</h1>
+  <p class="note">Hover for the hover state, click-and-hold for the pressed state, and Tab + Enter/Space to test keyboard. The event log shows the onclick payload.</p>
+
+  <h2>States: default · hover · pressed</h2>
+  <div class="demo-grid">
+    <button type="button" class="rnt-quick-link">
+      <span class="rnt-quick-link__label">Developer Hub</span>
+      <span class="rnt-quick-link__affordance" aria-hidden="true">
+        <svg class="rnt-quick-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+          <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </span>
+    </button>
+    <button type="button" class="rnt-quick-link">
+      <span class="rnt-quick-link__label">Funding Portal</span>
+      <span class="rnt-quick-link__affordance" aria-hidden="true">
+        <svg class="rnt-quick-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+          <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </span>
+    </button>
+  </div>
+
+  <h2>Event log</h2>
+  <pre id="log" style="font-size:12px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;max-width:280px;min-height:40px;margin:0;"></pre>
+
+<script>
+/* ===== rnt-quick-link.js (inlined) ===== */
+(function (global) {
+  'use strict';
+  var BLOCK='rnt-quick-link', HANDLER='__rntQuickLinkHandler', CALLBACK='__rntQuickLinkOnClick';
+  function labelOf(el){var l=el.querySelector('.rnt-quick-link__label');return (l?l.textContent:el.textContent||'').trim();}
+  function handleClick(el){var d={label:labelOf(el)};if(typeof el[CALLBACK]==='function')el[CALLBACK](d);el.dispatchEvent(new CustomEvent('rnt-quick-link:click',{bubbles:true,detail:d}));}
+  function bind(el,onClick){if(el[HANDLER]){if(typeof onClick==='function')el[CALLBACK]=onClick;return;}if(typeof onClick==='function')el[CALLBACK]=onClick;var h=function(){handleClick(el);};el[HANDLER]=h;el.addEventListener('click',h);}
+  function unbind(el){if(el[HANDLER]){el.removeEventListener('click',el[HANDLER]);delete el[HANDLER];}delete el[CALLBACK];}
+  function eachCard(root,fn){var s=(root&&root.querySelectorAll)?root:document;if(s.classList&&s.classList.contains(BLOCK))fn(s);Array.prototype.forEach.call(s.querySelectorAll('.'+BLOCK),fn);}
+  function init(root,options){var onClick=options&&options.onClick;eachCard(root,function(el){bind(el,onClick);});}
+  function destroy(root){eachCard(root,unbind);}
+  global.RntQuickLink={init:init,destroy:destroy};
+})(window);
+
+/* demo: mimic the OutSystems OnReady call, passing an onClick "client action" */
+RntQuickLink.init(document, {
+  onClick: function (detail) {
+    document.getElementById('log').textContent = JSON.stringify(detail, null, 2);
+  }
+});
+/* OutSystems OnDestroy would call: RntQuickLink.destroy($element); */
+</script>
+</body>
+</html>

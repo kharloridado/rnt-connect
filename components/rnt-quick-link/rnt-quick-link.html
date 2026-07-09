@@ -1,0 +1,22 @@
+<!-- ===========================================================================
+     rnt-quick-link — canonical Block markup (one instance)
+
+     Use a real <button> so keyboard (Enter/Space), focus, and the :active
+     pressed state come for free. The arrow disc is decorative (aria-hidden)
+     because the visible label already names the action.
+
+     No aria-pressed: the pressed fill is a momentary :active state, not a
+     toggle. OutSystems: the label below is the Block's Label input.
+     ======================================================================== -->
+
+<button type="button" class="rnt-quick-link">
+  <span class="rnt-quick-link__label">Developer Hub</span>
+  <span class="rnt-quick-link__affordance" aria-hidden="true">
+    <svg class="rnt-quick-link__icon" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round" focusable="false" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"></line>
+      <polyline points="7 7 17 7 17 17"></polyline>
+    </svg>
+  </span>
+</button>

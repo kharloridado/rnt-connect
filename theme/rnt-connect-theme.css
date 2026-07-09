@@ -1651,35 +1651,29 @@ div.feedback-message.feedback-message-info .feedback-message-close {
   border-color:     var(--color-border-danger-secondary);
   color:            var(--color-text-danger);
 }
+/* Types Tags — bound to Entity/Type values in OutSystems. CSS class matching
+   is case-sensitive, so these names must match the emitted value exactly. */
 .rnt-tint--info {
-  background-color: var(--color-background-brand-tertiary);
-  border-color:     var(--color-border-brand-secondary);
-  color:            var(--color-text-brand);
-}
-/* Types Tags — capitalised to match the Type value they are bound to.
-   Note --Info (tag) and --info (semantic brand tint, above) are different
-   colours and differ only by case. */
-.rnt-tint--Info {
   background-color: var(--color-background-info-tertiary);
   border-color:     var(--color-border-info-secondary);
   color:            var(--color-text-info);
 }
-.rnt-tint--Maintenance {
+.rnt-tint--maintenance {
   background-color: var(--color-background-maintenance-tertiary);
   border-color:     var(--color-border-maintenance-secondary);
   color:            var(--color-text-maintenance);
 }
-.rnt-tint--Alert {
+.rnt-tint--alert {
   background-color: var(--color-background-alert-tertiary);
   border-color:     var(--color-border-alert-secondary);
   color:            var(--color-text-alert);
 }
-.rnt-tint--Promo {
+.rnt-tint--promo {
   background-color: var(--color-background-promo-tertiary);
   border-color:     var(--color-border-promo-secondary);
   color:            var(--color-text-promo);
 }
-.rnt-tint--Feature {
+.rnt-tint--feature {
   background-color: var(--color-background-feature-tertiary);
   border-color:     var(--color-border-feature-secondary);
   color:            var(--color-text-feature);
