@@ -849,6 +849,7 @@ footer {
   right: 0;
   width: 100%;
   height: var(--rnt-header-size);
+  padding-left: var(--side-menu-size);
   z-index: 1000;
 }
 
