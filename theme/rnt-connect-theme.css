@@ -2839,3 +2839,7 @@ label.mandatory::after {
 .card .card {
     border-radius: var(--border-radius-rounded);
 }
+
+.card.border-radius-rounded {
+  border-radius: var(--border-radius-rounded);
+}
