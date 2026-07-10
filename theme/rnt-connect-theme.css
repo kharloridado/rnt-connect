@@ -2690,6 +2690,46 @@ label.mandatory::after {
   background: var(--color-background-secondary);       /* match your header background */
 }
 
+/* === Pin a single column's width — PORT-1040 ============================
+   Problem: the wrapper's table keeps the browser default `table-layout: auto`,
+   where a `width` on a cell is only a *minimum* the column may grow past to fit
+   its content. So an inline `width: 219px` on a sticky cell "doesn't stick" —
+   the column still sizes to its content (verified empirically: it rendered 232px,
+   ignoring the 219px request, whether width was on the body cell or both cells).
+
+   Why NOT `table-layout: fixed`: it does make widths authoritative, but it forces
+   EVERY column to be width-managed. In a real multi-column table the columns you
+   did not give a width to then collapse to an equal share (e.g. all → 120px),
+   which squishes and overlaps their content. That regressed the ManageUsers table.
+
+   Fix: pin ONLY the target column and leave the table in `table-layout: auto`, so
+   every other column keeps normal content-based sizing. `width`+`min-width` pin the
+   column and the cell clips (ellipsis) instead of forcing the column wider; the
+   other columns are untouched. Verified empirically: the pinned column rendered
+   exactly its set width while its neighbours kept their auto widths, sticky
+   horizontal scroll intact.
+
+   Usage (Service Studio): put `rnt-col--fixed` on BOTH the target column's header and
+   body cells (add it via ExtendedClass on the column; the pin only holds if the class
+   is on the `th` AND the `td`s — verify in a real browser that it lands on both, and if
+   not, apply it to each), then set the width via the `--rnt-col-w` custom property on
+   those cells — inline style `--rnt-col-w: 219px` (or in Screen CSS:
+   `.rnt-col--fixed { --rnt-col-w: 219px; }`). Works on any column, including the sticky
+   first/last ones. Without `--rnt-col-w` the width pin is inert (the cell still renders
+   single-line). Do NOT pin a column whose content can overflow its cell — dropdown menus,
+   popovers, focus rings — because `overflow: hidden` will clip them; the sticky
+   actions/edit column is usually one of these. */
+.sticky-col-table-wrapper th.rnt-col--fixed,
+.sticky-col-table-wrapper td.rnt-col--fixed {
+  width: var(--rnt-col-w);
+  min-width: var(--rnt-col-w);
+  max-width: var(--rnt-col-w);
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* =====================================================================
    RNT Theme — invalidate OutSystemsUI has-accessible-features focus
    overrides and standardize ONE focus state for all focusable elements.
