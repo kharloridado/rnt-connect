@@ -2830,7 +2830,7 @@ label.mandatory::after {
     padding: var(--space-l) var(--space-l) var(--space-none) var(--space-l);
 }
 
-.card-content:not(.padding-none) {
+.card:not(.padding-none) {
     padding: var(--space-l);
 }
 
