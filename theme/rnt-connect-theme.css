@@ -1136,8 +1136,9 @@ footer a + a::before {
      light: #d9d9d9 on #ffffff · 1.41:1 — FAILS SC 1.4.11 (needs 3:1). FND-001
      dark:  #444444 on #1e1e1e · 1.71:1 — FAILS SC 1.4.11. FND-001
      Implemented as designed; raised as a design-conformance finding rather
-     than re-shaded here. Hover (#444444) and focus (brand + 2px ring) carry
-     the accessible affordance. */
+     than re-shaded here. Hover now matches Figma (#adb5bd → nearest RNT
+     --color-neutral-4 #b3b3b3, ~2.10:1 on #fff — also below 3:1, same FND-001), so the
+     accessible affordance is carried by focus (brand border + 2px ring). */
   border: var(--border-size-s) solid var(--color-border-default);
   border-radius: var(--border-radius-soft);
   color: var(--color-text-default);
@@ -1156,7 +1157,7 @@ footer a + a::before {
 /* 3. Hover */
 .form-control[data-input]:hover:not([disabled]):not(.not-valid),
 .form-control[data-textarea]:hover:not([disabled]):not(.not-valid) {
-  border-color: var(--color-neutral-6);
+  border-color: var(--color-neutral-4);   /* Figma #adb5bd → nearest RNT #b3b3b3 (PORT 1009) */
 }
 
 /* 4. Focus — brand border + 2px ring, no reflow (SC 2.4.7 / 2.4.11 / 2.4.13) */
@@ -1289,7 +1290,7 @@ span.validation-message {
 
 /* 2. Hover */
 .dropdown-container > select.dropdown-display:hover:not([disabled]):not(.not-valid) {
-  border-color: var(--color-neutral-6);
+  border-color: var(--color-neutral-4);   /* Figma #adb5bd → nearest RNT #b3b3b3 */
 }
 
 /* 3. Focus — brand border (the 2px ring is asserted in the focus block, §focus) */
@@ -2057,16 +2058,16 @@ label.mandatory::after {
    Figma: R-T Library node 3070-472. These new rules use the semantic --color-*
    aliases (not the raw --rnt-* used by the resting rules above): the focus
    border (--color-border-brand) and ring (--color-focus-outline) then track
-   [data-theme="dark"]; the hover (--color-neutral-6) and error (--color-error)
+   [data-theme="dark"]; the hover (--color-neutral-4) and error (--color-error)
    tokens have no dark override and render identically in both themes (same as
    the input block). The resting rules in this block still use raw palette
    tokens — flagged as a follow-up for full dark-theme parity.
    !important per the §6.4 header: required to beat the vscomp widget's own
    state styles. :not([disabled]) keeps the disabled rules above authoritative. */
 
-/* Hover — matches input hover border (#444444) */
+/* Hover — matches input hover border (Figma #adb5bd → nearest RNT #b3b3b3) */
 .osui-dropdown-tags:not([disabled]) .vscomp-toggle-button:hover {
-  border-color: var(--color-neutral-6) !important;
+  border-color: var(--color-neutral-4) !important;
 }
 
 /* Focus — brand border + 2px ring, matching the input focus treatment */
@@ -2825,7 +2826,7 @@ label.mandatory::after {
 }
 .has-accessible-features .form-control[data-input]:hover,
 .has-accessible-features .form-control[data-textarea]:hover {
-    border-color: var(--color-neutral-6);
+    border-color: var(--color-neutral-4);
 }
 .has-accessible-features .form-control[data-input]:focus,
 .has-accessible-features .form-control[data-textarea]:focus {
@@ -2839,7 +2840,7 @@ label.mandatory::after {
     border-color: var(--color-border-default);
 }
 .has-accessible-features .dropdown-container > select.dropdown-display:hover:not([disabled]):not(.not-valid) {
-    border-color: var(--color-neutral-6);
+    border-color: var(--color-neutral-4);
 }
 .has-accessible-features .dropdown-container > select.dropdown-display:focus {
     border-color: var(--color-primary);
