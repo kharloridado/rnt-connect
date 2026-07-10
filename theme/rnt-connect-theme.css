@@ -2682,6 +2682,37 @@ label.mandatory::after {
   background: var(--color-background-secondary);       /* match your header background */
 }
 
+/* === Fixed sticky-column widths (opt-in modifier) — PORT-1040 ============
+   Problem: the wrapper's table keeps the browser default `table-layout: auto`,
+   where a `width` on a cell is only a *minimum* the column may grow past to fit
+   its content. So an inline `width: 219px` on a sticky cell "doesn't stick" —
+   the column still sizes to its content. Verified empirically: with auto layout,
+   whether the width was set on the body cell alone or on both the header and
+   body cells, the column rendered 232px and ignored the 219px request.
+
+   Fix: `table-layout: fixed` makes authored column widths authoritative (shrink
+   OR grow), and `box-sizing: border-box` makes `219px` mean a 219px outer cell
+   (padding-inclusive). With both, the same column rendered exactly 219px and the
+   horizontal scrolling of the sticky columns still worked.
+
+   Gated behind a modifier so existing content-sized sticky tables are untouched.
+   Usage (Service Studio): add `sticky-col-table-wrapper--fixed` to the wrapper
+   via ExtendedClass (in addition to the base `sticky-col-table-wrapper` class),
+   then set `width` on each column's HEADER cell — not the body cell, which was
+   the original ticket's mistake (the first row
+   governs column widths under fixed layout; body cells follow). Columns left
+   without a width share the remaining space; if the pinned widths sum past the
+   container the table grows and the wrapper scrolls. To keep a pinned cell
+   single-line, add `white-space: nowrap` (optionally with `overflow: hidden;
+   text-overflow: ellipsis`) on that cell. */
+.sticky-col-table-wrapper--fixed > table {
+  table-layout: fixed;
+}
+.sticky-col-table-wrapper--fixed th,
+.sticky-col-table-wrapper--fixed td {
+  box-sizing: border-box;
+}
+
 /* =====================================================================
    RNT Theme — invalidate OutSystemsUI has-accessible-features focus
    overrides and standardize ONE focus state for all focusable elements.
