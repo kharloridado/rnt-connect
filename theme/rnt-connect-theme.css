@@ -1001,7 +1001,6 @@ footer {
   padding: var(--space-xs) var(--space-s);
   padding-left: calc(var(--space-xl) + var(--space-xs));
   height: var(--rnt-menu-item-size);
-  margin-top: var(--space-s);
   display: flex;
   align-items: center;
   overflow: hidden;
