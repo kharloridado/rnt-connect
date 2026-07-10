@@ -805,6 +805,9 @@ html, body { height: 100%; overflow: hidden; }
   left: 0;
   right: 0;
   height: auto;                    /* top + bottom define the height */
+      overflow: hidden;
+    height: 100%;
+    grid-template-rows: 100%;
 }
 
 .content {
@@ -2827,6 +2830,10 @@ label.mandatory::after {
     padding: var(--space-l) var(--space-l) var(--space-none) var(--space-l);
 }
 
-.card-content {
+.card-content:not(.padding-none) {
     padding: var(--space-l);
+}
+
+.card .card {
+    border-radius: var(--border-radius-rounded);
 }
