@@ -1267,6 +1267,63 @@ span.validation-message {
 }
 
 
+/* ---- 3.1a. Native Select Dropdown ----
+   PORT 1009: the native OutSystems Dropdown (<select class="dropdown-display">)
+   previously shipped with only a focus outline (in the accessible-features block);
+   every other state fell back to OS UI defaults and drifted from the text-input
+   treatment. Mirror §3.1 Inputs so Dropdown matches Input/TextArea across states —
+   same tokens, same border/text/focus/disabled/error semantics.
+   Figma: R-T Library node 3070-246. Placeholder tone is left to OS UI (native
+   <select> placeholder styling is not reliably controllable cross-browser). */
+
+/* 1. Base (default + filled) */
+.dropdown-container > select.dropdown-display {
+  background-color: var(--color-background-default);
+  border: var(--border-size-s) solid var(--color-border-default);
+  border-radius: var(--border-radius-soft);
+  color: var(--color-text-default);
+  font-size: var(--font-size-base);
+  transition: border-color var(--animation-duration) var(--animation-function),
+              box-shadow   var(--animation-duration) var(--animation-function);
+}
+
+/* 2. Hover */
+.dropdown-container > select.dropdown-display:hover:not([disabled]):not(.not-valid) {
+  border-color: var(--color-neutral-6);
+}
+
+/* 3. Focus — brand border (the 2px ring is asserted in the focus block, §focus) */
+.dropdown-container > select.dropdown-display:focus {
+  border-color: var(--color-border-brand);
+  box-shadow: none;
+  outline: none;
+}
+.dropdown-container > select.dropdown-display:focus-visible {
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
+}
+
+/* 4. Disabled */
+.dropdown-container > select.dropdown-display[disabled] {
+  background-color: var(--color-background-secondary);
+  border-color: var(--color-neutral-3);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* 5. Error (OutSystems .not-valid class) */
+.dropdown-container > select.dropdown-display.not-valid {
+  border-color: var(--color-error);
+}
+.dropdown-container > select.dropdown-display.not-valid:focus-visible {
+  outline-color: var(--color-error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-container > select.dropdown-display { transition: none; }
+}
+
+
 /* ---- 3.2. Button ---- */
 .btn {
   position: relative;                  /* contain the absolutely-positioned animation span */
@@ -1993,6 +2050,40 @@ label.mandatory::after {
 .vscomp-dropbox-wrapper.show-value-as-tags .vscomp-option.selected .checkbox-icon {
   background-color: var(--rnt-primary-800) !important;         /* #2a4a66 */
   border-color: var(--rnt-primary-800) !important;
+}
+
+/* Interactive states (PORT 1009) — hover / focus / error were missing; the
+   control now matches the Input/TextArea + native Select state treatment.
+   Figma: R-T Library node 3070-472. These new rules use the semantic --color-*
+   aliases (not the raw --rnt-* used by the resting rules above): the focus
+   border (--color-border-brand) and ring (--color-focus-outline) then track
+   [data-theme="dark"]; the hover (--color-neutral-6) and error (--color-error)
+   tokens have no dark override and render identically in both themes (same as
+   the input block). The resting rules in this block still use raw palette
+   tokens — flagged as a follow-up for full dark-theme parity.
+   !important per the §6.4 header: required to beat the vscomp widget's own
+   state styles. :not([disabled]) keeps the disabled rules above authoritative. */
+
+/* Hover — matches input hover border (#444444) */
+.osui-dropdown-tags:not([disabled]) .vscomp-toggle-button:hover {
+  border-color: var(--color-neutral-6) !important;
+}
+
+/* Focus — brand border + 2px ring, matching the input focus treatment */
+.osui-dropdown-tags:not([disabled]):focus-within .vscomp-toggle-button {
+  border-color: var(--color-border-brand) !important;         /* #2a4a66 */
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: var(--border-size-m);
+}
+
+/* Error — OutSystems .not-valid on the widget wrapper (mirrors input .not-valid).
+   NOTE: confirm the platform applies .not-valid to .osui-dropdown-tags in ODC;
+   if it lands on a different node, hook the intended element via ExtendedClass. */
+.osui-dropdown-tags.not-valid .vscomp-toggle-button {
+  border-color: var(--color-error) !important;                /* #c00f0c */
+}
+.osui-dropdown-tags.not-valid:focus-within .vscomp-toggle-button {
+  outline-color: var(--color-error);
 }
 
 
@@ -2738,6 +2829,19 @@ label.mandatory::after {
 }
 .has-accessible-features .form-control[data-input]:focus,
 .has-accessible-features .form-control[data-textarea]:focus {
+    border-color: var(--color-primary);
+}
+
+/* 4a) Native Select — same HAF border restore as inputs (PORT 1009), so the
+       new §3.1a Select block doesn't drift darker on has-accessible-features
+       screens. Tracks the §3.1a base/hover/focus borders exactly. */
+.has-accessible-features .dropdown-container > select.dropdown-display {
+    border-color: var(--color-border-default);
+}
+.has-accessible-features .dropdown-container > select.dropdown-display:hover:not([disabled]):not(.not-valid) {
+    border-color: var(--color-neutral-6);
+}
+.has-accessible-features .dropdown-container > select.dropdown-display:focus {
     border-color: var(--color-primary);
 }
 
