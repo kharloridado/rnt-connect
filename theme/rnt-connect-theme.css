@@ -941,7 +941,7 @@ footer {
 /* layout-side tightens the outer gutter (higher specificity wins over base) */
 .layout-side .app-menu-links {
   padding: var(--rnt-space-300);   /* 12px */
-  gap: var(--rnt-space-300);       /* 12px */
+  gap: var(--rnt-space-600);       /* 16px */
 }
 
 .app-menu-links a {
@@ -991,7 +991,10 @@ footer {
 }
 
 .layout-side .app-menu-links .osui-submenu__items {
+  background-color: transparent;
   padding: var(--space-none);
+  gap: var(--space-xs);
+  margin-top: var(--space-s);
 }
 
 .layout-side .app-menu-links .osui-submenu__items a {
