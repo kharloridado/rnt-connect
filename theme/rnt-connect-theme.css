@@ -1378,7 +1378,13 @@ span.validation-message {
 
 .table th,
 .table .table-header th {
-  color: var(--color-text-secondary);
+  /* Header text darkened to the default text token per Figma (near-black header)
+     and to fix contrast: the former --color-text-secondary (#757575) on the
+     --color-background-secondary header fill (#f5f5f5) was 4.23:1 — FAILS AA
+     (see the token note at --color-text-secondary). --color-text-default is
+     #1e1e1e on #f5f5f5 · 15.3:1 · AA. The header stays distinct from body rows
+     via font-weight + the secondary background. Auto-adapts in dark theme. */
+  color: var(--color-text-default);
   border-bottom: var(--border-size-s) solid var(--color-border-default);
   background-color: var(--color-background-secondary);
   font-weight: var(--font-semi-bold);
