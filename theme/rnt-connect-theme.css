@@ -836,6 +836,7 @@ nav {
 .layout .main-content {
   height: 100%;
   overflow-y: auto;
+  padding: var(--space-xl) var(--space-none);
 }
 
 /* Footer band spans the full width */
