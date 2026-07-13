@@ -860,6 +860,14 @@ footer {
   display: flex;
 }
 
+
+.main-content > .content-breadcrumbs,
+.main-content > .content-top,
+.main-content > .content-middle,
+.main-content > .content-bottom {
+  padding-left: var(--space-xxl);
+  padding-right: var(--space-xxl);
+}
 /* Dark blue header matching the R&T brand */
 .header {
   background-color: var(--rnt-primary-900);
