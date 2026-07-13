@@ -10,6 +10,7 @@
 /*!    3. WIDGETS                   3.1 inputs · 3.2 button · 3.3 table         */
 /*!                                 3.4 button group · 3.5 feedback message     */
 /*!    4. PATTERNS                  4.1 alert · 4.2 card · 4.3 submenu          */
+/*!                                 4.4 tabs · 4.5 pagination · 4.6 popup       */
 /*!    5. UTILITIES & HELPERS      5.1 spacing scale (--rnt-space-*)            */
 /*!    6. CUSTOM R&T COMPONENTS     6.1 rnt-tint · 6.2 menu icon-label          */
 /*!                                 6.3 form labels · 6.4 dropdown tags         */
@@ -416,7 +417,8 @@
   --color-background-tertiary-hover: var(--rnt-neutral-400);
   --color-background-utilities-blanket: var(--rnt-black-500);
   --color-background-utilities-measurement: var(--rnt-pink-200);
-  --color-background-utilities-overlay: #00000080;
+  --color-background-utilities-overlay: #00000080;          /* black · 50% */
+  --color-background-utilities-overlay-strong: #000000b3;   /* black · 70% — popup backdrop (§4.6) */
   --color-background-utilities-scrim: var(--rnt-white-600);
   --color-background-warning: var(--rnt-yellow-400);
   --color-background-warning-hover: var(--rnt-yellow-500);
@@ -1536,11 +1538,6 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 }
 
 
-.popup-dialog.HighWidth {
-   max-width:846px;
-}
-
-
 
 /*! --------------------------------------------------------------------------- */
 /*! 4. PATTERNS                                                                 */
@@ -1625,6 +1622,24 @@ div.feedback-message.feedback-message-info .feedback-message-close {
 .pagination-container .pagination-button.is--active {
   background-color: var(--rnt-primary-200);    /* active fill */
   color: var(--rnt-neutral-900);               /* active text */
+}
+
+/* ---- 4.6. Popup ---- */
+/* Flat carded dialog: hairline border replaces the stock drop shadow. */
+.popup-dialog {
+  border-radius: var(--border-radius-rounded);
+  border: var(--border-size-s) solid var(--color-border-default);
+  box-shadow: none;
+  padding: var(--space-xl);
+}
+
+.popup-dialog.HighWidth {
+  max-width: 846px;
+}
+
+/* --overlay-background is the OS UI slot the backdrop consumes. */
+.popup-backdrop {
+  --overlay-background: var(--color-background-utilities-overlay-strong);
 }
 
 
