@@ -1095,6 +1095,7 @@ footer.content-bottom {
   color: var(--rnt-primary-900);
   font-weight: var(--font-semi-bold);
   padding: var(--space-base) var(--space-none);
+  padding-bottom: var(--space-1600);
   display: flex;
   align-items: center;
   justify-content: space-between;
