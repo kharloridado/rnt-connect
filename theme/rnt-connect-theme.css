@@ -1598,7 +1598,8 @@ div.feedback-message.feedback-message-info .feedback-message-close {
   padding-top: var(--space-none);
 }
 .osui-tabs--is-horizontal > .osui-tabs__header .osui-tabs__header-item {
-  padding: var(--space-base);
+    padding: var(--rnt-space-300) var(--space-base);
+    gap: 10px;
 }
 .osui-tabs--is-horizontal .osui-tabs__content {
   border-top: var(--border-size-s) solid var(--color-border-default);
