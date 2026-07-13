@@ -17,7 +17,7 @@
 /*!                                 6.5 rnt-icon-button · 6.6 rnt-announcement   */
 /*!                                 6.7 rnt-quick-link · 6.8 rnt-card-section    */
 /*!                                 6.9 rnt-step-item · 6.10 rnt-badge           */
-/*!                                 6.11 rnt-tags-collapse                       */
+/*!                                 6.11 rnt-dropdown-tags                       */
 /*! =========================================================================== */
 
 /*! --------------------------------------------------------------------------- */
@@ -323,6 +323,13 @@
   --border-size-s: 1px;
   --border-size-m: 2px;
   --border-size-l: 4px;
+
+  /* ========================================================= */
+  /* ICON ASSETS (inline SVG, used as CSS masks)               */
+  /* Masked, not painted — the glyph inherits currentColor,    */
+  /* so no fill color is baked into the data URI.              */
+  /* ========================================================= */
+  --rnt-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 5a3 3 0 0 1 6 0v3H9V7z'/%3E%3C/svg%3E");
 
   /* ========================================================= */
   /* ELEVATION (synthesized from depth scale)                  */
@@ -2963,41 +2970,51 @@ label.mandatory::after {
   border-radius: var(--border-radius-circle);
 }
 
-/* ---- 6.11. rnt-tags-collapse (Dropdown Tags — collapsed overflow "+N more") ----
-   Escalation: L4 — ExtendedClass + JS on the OS UI Dropdown Tags pattern.
-   Pairs with rnt-tags-collapse.js (RNTTagsCollapse.init / .destroy).
+/* ---- 6.11. rnt-dropdown-tags (Dropdown Tags — enhanced) ----
+   Collapse overflow rows into a "+N more" chip, plus an optional locked value.
+   Escalation: L4 — provider DOM coupling.
+   Pairs with rnt-dropdown-tags.js (RNTDropdownTags.init / .destroy). The
+   .rnt-dropdown-tags class is added by init() — no ExtendedClass needed.
 
    Upgrade note: the .vscomp-* selectors target the virtual-select provider DOM
    that Dropdown Tags renders. Re-verify after any OutSystems UI or provider
-   upgrade — these are not our class names.
+   upgrade — these are not our class names. Composes with §6.4, which already
+   styles the pill (--rnt-primary-300 fill) and the clear ✕.
 
    A11y (WCAG 2.2 AA): chip text on chip fill — 8.6:1 light (#2a4a66 on #f3f7fa),
-   11.4:1 dark (#f3f7fa on #143656). Chip is a real <button> with an aria-label
-   stating the hidden count; focus ring via --color-focus-outline.
+   11.4:1 dark (#f3f7fa on #143656). Locked tag — 4.9:1 light (#5a5a5a on
+   #d9d9d9), 6.1:1 dark (#cdcdcd on #444444). Chip is a real <button> with an
+   aria-label stating the hidden count; focus ring via --color-focus-outline.
    -------------------------------------------------------------------------- */
-.rnt-tags-collapse {
-  --rnt-tags-collapse-chip-bg:       var(--color-background-brand-tertiary);
-  --rnt-tags-collapse-chip-bg-hover: var(--color-background-brand-tertiary-hover);
-  --rnt-tags-collapse-chip-fg:       var(--color-text-brand-on-brand-tertiary);
-  --rnt-tags-collapse-row-gap:       var(--space-xs);
+.rnt-dropdown-tags {
+  position: relative;
+
+  /* component tokens -> R&T semantic aliases */
+  --rnt-dropdown-tags-chip-bg:       var(--color-background-brand-tertiary);
+  --rnt-dropdown-tags-chip-bg-hover: var(--color-background-brand-tertiary-hover);
+  --rnt-dropdown-tags-chip-fg:       var(--color-text-brand-on-brand-tertiary);
+  --rnt-dropdown-tags-locked-bg:     var(--color-background-tertiary);
+  --rnt-dropdown-tags-locked-fg:     var(--color-text-neutral-secondary);
 }
+
+/* ---- Collapse (active when maxRows is set) ---- */
 
 /* Overflow tags leave the flow entirely, not just hidden, so the remaining
    tags reflow into the allowed rows. */
-.rnt-tags-collapse__tag--is-hidden {
+.rnt-dropdown-tags__tag--is-hidden {
   display: none !important; /* must beat the provider's inline styles */
 }
 
 /* "+N more" chip, injected by the JS as the last child of .vscomp-value */
-.rnt-tags-collapse__more {
+.rnt-dropdown-tags__more {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-s);
   border: 0;
   border-radius: var(--border-radius-pill);
-  background: var(--rnt-tags-collapse-chip-bg);
-  color: var(--rnt-tags-collapse-chip-fg);
+  background: var(--rnt-dropdown-tags-chip-bg);
+  color: var(--rnt-dropdown-tags-chip-fg);
   font-size: var(--font-size-xs);
   font-weight: var(--font-semi-bold);
   line-height: 1;
@@ -3005,23 +3022,90 @@ label.mandatory::after {
   white-space: nowrap;
 }
 
-.rnt-tags-collapse__more:hover {
-  background: var(--rnt-tags-collapse-chip-bg-hover);
+.rnt-dropdown-tags__more:hover {
+  background: var(--rnt-dropdown-tags-chip-bg-hover);
 }
 
-.rnt-tags-collapse__more:focus-visible {
+.rnt-dropdown-tags__more:focus-visible {
   outline: var(--border-size-m) solid var(--color-focus-outline);
   outline-offset: 2px;
 }
 
 /* Set on the block while the JS measures — prevents a one-frame tall flash. */
-.rnt-tags-collapse--is-measuring .vscomp-value {
+.rnt-dropdown-tags--is-measuring .vscomp-value {
   overflow: hidden;
 }
 
 /* Optional expanded mode — all tags shown again. */
-.rnt-tags-collapse--is-expanded .rnt-tags-collapse__tag--is-hidden {
+.rnt-dropdown-tags--is-expanded .rnt-dropdown-tags__tag--is-hidden {
   display: inline-flex !important; /* must beat the --is-hidden rule above */
+}
+
+/* ---- Locked value (active when lockedValue is set; JS adds --has-lock) ---- */
+
+/* Reads as disabled, stays interactive. */
+.rnt-dropdown-tags--has-lock .vscomp-toggle-button {
+  background: var(--color-background-secondary);
+  cursor: pointer;
+}
+
+.rnt-dropdown-tags--has-lock .vscomp-toggle-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-border-default);
+  opacity: 0.25;
+  border-radius: inherit;
+  pointer-events: none;   /* toggle stays fully clickable underneath */
+}
+
+/* Modifier: only the chevron opens the dropdown. */
+.rnt-dropdown-tags--arrow-only .vscomp-toggle-button {
+  pointer-events: none;
+}
+.rnt-dropdown-tags--arrow-only .vscomp-arrow {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Locked tag — !important beats both the provider and §6.4's pill fill. */
+.rnt-dropdown-tags__tag--is-locked {
+  background: var(--rnt-dropdown-tags-locked-bg) !important;
+  color: var(--rnt-dropdown-tags-locked-fg) !important;
+  opacity: 0.9;
+  padding-right: var(--space-s);   /* balance where the ✕ was */
+}
+
+/* Kill the removal ✕ — no hover target, no click. */
+.rnt-dropdown-tags__tag--is-locked .vscomp-value-tag-clear-button {
+  display: none !important;
+}
+
+/* Locked option in the list. The dropbox panel is appended to <body>, so it is
+   NOT scoped under the block — the JS puts .rnt-dropdown-tags-dropbox on it,
+   which survives virtual-scroll re-renders with zero injection. */
+.rnt-dropdown-tags-dropbox .vscomp-option.disabled {
+  opacity: 1;   /* provider dims the whole row; grey selectively instead */
+  color: var(--color-text-neutral-secondary);
+  cursor: not-allowed;
+}
+
+.rnt-dropdown-tags-dropbox .vscomp-option.disabled .checkbox-icon {
+  opacity: 0.55;
+  filter: grayscale(1);
+}
+
+/* Lock glyph after the option label (SVG mask -> follows text color). */
+.rnt-dropdown-tags-dropbox .vscomp-option.disabled .vscomp-option-text::after {
+  content: '';
+  display: inline-block;
+  width: 14px;    /* icon geometry; no global token */
+  height: 14px;
+  margin-left: var(--space-xs);
+  vertical-align: -2px;
+  background-color: currentColor;
+  -webkit-mask: var(--rnt-icon-lock) no-repeat center / contain;
+  mask: var(--rnt-icon-lock) no-repeat center / contain;
 }
 
 /* ============================================================================
