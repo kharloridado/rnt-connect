@@ -16,6 +16,7 @@
 /*!                                 6.5 rnt-icon-button · 6.6 rnt-announcement   */
 /*!                                 6.7 rnt-quick-link · 6.8 rnt-card-section    */
 /*!                                 6.9 rnt-step-item · 6.10 rnt-badge           */
+/*!                                 6.11 rnt-tags-collapse                       */
 /*! =========================================================================== */
 
 /*! --------------------------------------------------------------------------- */
@@ -2944,6 +2945,67 @@ label.mandatory::after {
 .rnt-badge .badge {
   font-size: var(--font-size-base);
   border-radius: var(--border-radius-circle);
+}
+
+/* ---- 6.11. rnt-tags-collapse (Dropdown Tags — collapsed overflow "+N more") ----
+   Escalation: L4 — ExtendedClass + JS on the OS UI Dropdown Tags pattern.
+   Pairs with rnt-tags-collapse.js (RNTTagsCollapse.init / .destroy).
+
+   Upgrade note: the .vscomp-* selectors target the virtual-select provider DOM
+   that Dropdown Tags renders. Re-verify after any OutSystems UI or provider
+   upgrade — these are not our class names.
+
+   A11y (WCAG 2.2 AA): chip text on chip fill — 8.6:1 light (#2a4a66 on #f3f7fa),
+   11.4:1 dark (#f3f7fa on #143656). Chip is a real <button> with an aria-label
+   stating the hidden count; focus ring via --color-focus-outline.
+   -------------------------------------------------------------------------- */
+.rnt-tags-collapse {
+  --rnt-tags-collapse-chip-bg:       var(--color-background-brand-tertiary);
+  --rnt-tags-collapse-chip-bg-hover: var(--color-background-brand-tertiary-hover);
+  --rnt-tags-collapse-chip-fg:       var(--color-text-brand-on-brand-tertiary);
+  --rnt-tags-collapse-row-gap:       var(--space-xs);
+}
+
+/* Overflow tags leave the flow entirely, not just hidden, so the remaining
+   tags reflow into the allowed rows. */
+.rnt-tags-collapse__tag--is-hidden {
+  display: none !important; /* must beat the provider's inline styles */
+}
+
+/* "+N more" chip, injected by the JS as the last child of .vscomp-value */
+.rnt-tags-collapse__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-s);
+  border: 0;
+  border-radius: var(--border-radius-pill);
+  background: var(--rnt-tags-collapse-chip-bg);
+  color: var(--rnt-tags-collapse-chip-fg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-semi-bold);
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rnt-tags-collapse__more:hover {
+  background: var(--rnt-tags-collapse-chip-bg-hover);
+}
+
+.rnt-tags-collapse__more:focus-visible {
+  outline: var(--border-size-m) solid var(--color-focus-outline);
+  outline-offset: 2px;
+}
+
+/* Set on the block while the JS measures — prevents a one-frame tall flash. */
+.rnt-tags-collapse--is-measuring .vscomp-value {
+  overflow: hidden;
+}
+
+/* Optional expanded mode — all tags shown again. */
+.rnt-tags-collapse--is-expanded .rnt-tags-collapse__tag--is-hidden {
+  display: inline-flex !important; /* must beat the --is-hidden rule above */
 }
 
 /* ============================================================================
