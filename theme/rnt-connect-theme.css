@@ -3277,6 +3277,14 @@ label.mandatory::after {
 .has-accessible-features .form-control[data-textarea]:focus {
     border-color: var(--color-primary);
 }
+.has-accessible-features .dropdown-container > div.dropdown-display,
+.has-accessible-features .dropdown-container > select.dropdown-display {
+    border-color: var(--rnt-neutral-300);
+}
+.has-accessible-features .vscomp-toggle-button {
+    border-color: var(--rnt-neutral-300);
+    color: var(--color-text-default);
+}
 
 /* 5) Radio & checkbox: restore RNT circular shape and lighter borders. */
 .has-accessible-features .radio-button,
@@ -3286,7 +3294,7 @@ label.mandatory::after {
 }
 .has-accessible-features .radio-button::before,
 .has-accessible-features [data-checkbox]::before {
-    border-color: var(--color-neutral-5);
+    border-color: var(--rnt-neutral-300);
 }
 .has-accessible-features .radio-button:hover::before,
 .has-accessible-features [data-checkbox]:hover::before {
